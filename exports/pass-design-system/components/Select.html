@@ -1,0 +1,50 @@
+<!-- Select — native <select>, styled.
+     For combobox / multiselect, use PrimeVue Select (unstyled) with these class strings. -->
+
+<label class="block">
+  <span class="block mb-1.5 text-sm font-medium text-fg-2">Subject</span>
+  <div class="relative">
+    <select class="block w-full h-[42px] pl-4 pr-10 rounded-lg text-sm text-fg-1 bg-bg-surface
+                   border border-border-default appearance-none cursor-pointer
+                   hover:border-border-strong
+                   focus-visible:outline-none focus-visible:border-primary-600 focus-visible:ring-[3px] focus-visible:ring-primary-600/25
+                   disabled:opacity-50 disabled:cursor-not-allowed">
+      <option>Maths — Functional Skills L2</option>
+      <option>Maths — GCSE resit</option>
+      <option>English — Functional Skills L2</option>
+      <option>English — GCSE resit</option>
+    </select>
+    <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-fg-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path d="m6 9 6 6 6-6"/>
+    </svg>
+  </div>
+</label>
+
+<!-- Sizes -->
+<select class="block w-full h-9  pl-3 pr-9 rounded-lg text-sm  appearance-none bg-bg-surface border border-border-default focus-visible:border-primary-600 focus-visible:ring-[3px] focus-visible:ring-primary-600/25"><option>Small</option></select>
+<select class="block w-full h-12 pl-4 pr-10 rounded-lg text-base appearance-none bg-bg-surface border border-border-default focus-visible:border-primary-600 focus-visible:ring-[3px] focus-visible:ring-primary-600/25"><option>Large</option></select>
+
+<!-- Error -->
+<select aria-invalid="true" class="block w-full h-[42px] pl-4 pr-10 rounded-lg text-sm appearance-none bg-bg-surface border border-danger-600 focus-visible:border-danger-600 focus-visible:ring-[3px] focus-visible:ring-danger-600/25">
+  <option>Pick a subject…</option>
+</select>
+
+<!-- Disabled -->
+<select disabled class="block w-full h-[42px] pl-4 pr-10 rounded-lg text-sm appearance-none bg-bg-raised text-fg-4 border border-border-default cursor-not-allowed">
+  <option>Unavailable</option>
+</select>
+
+<!-- ─── Custom combobox skeleton (use PrimeVue Select unstyled) ─── -->
+<!--
+  Wrap PrimeVue's <Select :pt="{...}"> with these slots:
+
+    root:       relative
+    input:      h-[42px] pl-4 pr-10 rounded-lg border border-border-default bg-bg-surface text-sm
+                hover:border-border-strong focus-visible:border-primary-600 focus-visible:ring-[3px] focus-visible:ring-primary-600/25
+    dropdown:   absolute right-3 top-1/2 -translate-y-1/2 text-fg-4
+    panel:      mt-1 rounded-lg border border-border-default bg-bg-surface shadow-lg overflow-hidden z-[1500]
+    list:       max-h-64 overflow-auto py-1
+    item:       px-3 py-2 text-sm text-fg-1 cursor-pointer
+                hover:bg-bg-raised aria-selected:bg-primary-50 aria-selected:text-primary-700
+                data-[focus=true]:bg-bg-raised
+-->

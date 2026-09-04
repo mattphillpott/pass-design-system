@@ -1,0 +1,44 @@
+<!-- Badge / Tag / Chip / Pill — small status indicator. -->
+
+<!-- ─── Neutral / brand / success / warning / danger / info ─── -->
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-bg-raised text-fg-2">Default</span>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-50 text-primary-700">Brand</span>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-50 text-success-700">Pass</span>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-warning-50 text-warning-700">Pending</span>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-danger-50 text-danger-700">Fail</span>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-info-50 text-info-700">New</span>
+
+<!-- ─── With dot ─── -->
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-50 text-success-700">
+  <span class="w-1.5 h-1.5 rounded-full bg-success-600"></span>
+  Active
+</span>
+
+<!-- ─── With icon ─── -->
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-50 text-primary-700">
+  <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8 5.8 21.3l2.4-7.4L2 9.4h7.6z"/></svg>
+  Featured
+</span>
+
+<!-- ─── Removable (chip) ─── -->
+<span class="inline-flex items-center gap-1 pl-2.5 pr-1 py-0.5 rounded-full text-xs font-medium bg-bg-raised text-fg-2">
+  GCSE resit
+  <button aria-label="Remove" class="inline-flex w-4 h-4 items-center justify-center rounded-full hover:bg-gray-300 text-fg-4">
+    <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg>
+  </button>
+</span>
+
+<!-- ─── Square / rounded variants ─── -->
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-bg-raised text-fg-2">Square</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-bg-raised text-fg-2">Rounded</span>
+
+<!-- ─── Sizes ─── -->
+<span class="inline-flex items-center px-2   py-0   rounded-full text-[10px] font-semibold bg-primary-600 text-white">XS</span>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs    font-medium  bg-primary-50 text-primary-700">SM</span>
+<span class="inline-flex items-center px-3   py-1   rounded-full text-sm    font-medium  bg-primary-50 text-primary-700">MD</span>
+
+<!-- ─── Notification dot ─── -->
+<button class="relative inline-flex w-9 h-9 items-center justify-center rounded-lg hover:bg-bg-raised">
+  <svg class="w-5 h-5 text-fg-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0v5l1.5 3h-15L6 13V8zM10 19a2 2 0 0 0 4 0"/></svg>
+  <span class="absolute -top-0.5 -right-0.5 inline-flex w-4 h-4 items-center justify-center rounded-full bg-danger-600 text-[10px] font-bold text-white ring-2 ring-bg-surface">3</span>
+</button>

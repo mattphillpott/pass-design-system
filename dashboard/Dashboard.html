@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" class="pass-revise" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Pass Revise — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <div id="app" class="app"></div>
+
+  <!-- prototype state cockpit (not part of the product UI) -->
+  <div id="cockpit" class="cockpit" aria-label="Prototype controls">
+    <div class="ck-group">
+      <span class="ck-lbl">State</span>
+      <div class="seg" data-seg="view">
+        <button data-view="populated" class="on">Populated</button>
+        <button data-view="empty">Empty</button>
+        <button data-view="firstrun">First&nbsp;run</button>
+      </div>
+    </div>
+    <div class="ck-div"></div>
+    <div class="ck-group">
+      <span class="ck-lbl">Member</span>
+      <div class="seg" data-seg="visitor">
+        <button data-v="free" class="on">Free</button>
+        <button data-v="subscriber">Subscriber</button>
+      </div>
+    </div>
+    <div class="ck-div"></div>
+    <div class="ck-group">
+      <span class="ck-lbl">Device</span>
+      <div class="seg" data-seg="device">
+        <button data-d="desktop" class="on">Desktop</button>
+        <button data-d="mobile">Mobile</button>
+      </div>
+    </div>
+    <div class="ck-div"></div>
+    <div class="ck-group">
+      <div class="seg" data-seg="theme">
+        <button data-t="light" class="on" title="Light">☀</button>
+        <button data-t="dark" title="Dark">☾</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="dashboard-data.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

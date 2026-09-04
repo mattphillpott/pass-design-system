@@ -1,0 +1,46 @@
+<!-- Pagination — buttons; logic supplied by your store. -->
+
+<!-- ─── Numbered (with first / prev / next / last) ─── -->
+<nav role="navigation" aria-label="Pagination" class="inline-flex items-center gap-1">
+  <button aria-label="First page" class="inline-flex w-9 h-9 items-center justify-center rounded-md text-fg-2 hover:bg-bg-raised disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M11 17l-5-5 5-5M19 17l-5-5 5-5"/></svg>
+  </button>
+  <button aria-label="Previous" class="inline-flex w-9 h-9 items-center justify-center rounded-md text-fg-2 hover:bg-bg-raised" disabled>
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button aria-current="page" class="inline-flex w-9 h-9 items-center justify-center rounded-md text-sm font-semibold bg-primary-600 text-white">1</button>
+  <button class="inline-flex w-9 h-9 items-center justify-center rounded-md text-sm font-medium text-fg-2 hover:bg-bg-raised">2</button>
+  <button class="inline-flex w-9 h-9 items-center justify-center rounded-md text-sm font-medium text-fg-2 hover:bg-bg-raised">3</button>
+  <span class="inline-flex w-9 h-9 items-center justify-center text-fg-4">…</span>
+  <button class="inline-flex w-9 h-9 items-center justify-center rounded-md text-sm font-medium text-fg-2 hover:bg-bg-raised">12</button>
+  <button aria-label="Next" class="inline-flex w-9 h-9 items-center justify-center rounded-md text-fg-2 hover:bg-bg-raised">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+  </button>
+  <button aria-label="Last page" class="inline-flex w-9 h-9 items-center justify-center rounded-md text-fg-2 hover:bg-bg-raised">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 17l5-5-5-5M5 17l5-5-5-5"/></svg>
+  </button>
+</nav>
+
+<!-- ─── Compact (text-only) ─── -->
+<nav class="flex items-center justify-between text-sm text-fg-3">
+  <span>Page <strong class="text-fg-1">3</strong> of 12</span>
+  <div class="inline-flex gap-2">
+    <button class="h-9 px-3 rounded-md text-sm font-medium border border-border-default bg-bg-surface hover:bg-bg-raised">Previous</button>
+    <button class="h-9 px-3 rounded-md text-sm font-medium border border-border-default bg-bg-surface hover:bg-bg-raised">Next</button>
+  </div>
+</nav>
+
+<!-- ─── With page size ─── -->
+<div class="flex items-center justify-between text-sm text-fg-3">
+  <label class="inline-flex items-center gap-2">
+    Rows per page
+    <select class="h-9 pl-3 pr-8 rounded-md bg-bg-surface border border-border-default text-fg-1 appearance-none focus-visible:border-primary-600 focus-visible:ring-[3px] focus-visible:ring-primary-600/25">
+      <option>10</option><option>25</option><option>50</option>
+    </select>
+  </label>
+  <nav class="inline-flex gap-1">
+    <button class="inline-flex w-9 h-9 items-center justify-center rounded-md hover:bg-bg-raised">‹</button>
+    <button class="inline-flex w-9 h-9 items-center justify-center rounded-md bg-primary-600 text-white font-semibold">3</button>
+    <button class="inline-flex w-9 h-9 items-center justify-center rounded-md hover:bg-bg-raised">›</button>
+  </nav>
+</div>

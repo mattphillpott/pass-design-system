@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>All Initial Assessments — Pass learning portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="pass.css">
+<link rel="stylesheet" href="mc.css">
+<style>
+  body{margin:0;background:var(--bg-soft);font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased;}
+  a{color:var(--green-dark);}
+
+  /* ---------- top nav ---------- */
+  .nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:30px;height:64px;padding:0 26px;
+    background:#0F1C2E;box-shadow:0 1px 0 rgba(255,255,255,.04);}
+  .nav .logo{display:flex;align-items:center;gap:11px;font:800 20px var(--font);color:#fff;letter-spacing:.01em;}
+  .nav .logo .mk{width:32px;height:32px;border-radius:9px;background:var(--green);display:flex;align-items:center;justify-content:center;color:#fff;}
+  .nav .logo .mk svg{width:19px;height:19px;}
+  .nav .links{display:flex;align-items:center;gap:4px;}
+  .nav .links a{position:relative;font:600 15px var(--font);color:#A9B3C0;text-decoration:none;padding:9px 15px;border-radius:9px;transition:color .12s,background .12s;}
+  .nav .links a:hover{color:#fff;background:rgba(255,255,255,.06);}
+  .nav .links a.active{color:#fff;}
+  .nav .links a.active::after{content:"";position:absolute;left:15px;right:15px;bottom:-13px;height:3px;border-radius:3px 3px 0 0;background:var(--green);}
+  .nav .spacer{flex:1;}
+  .nav .tools{display:flex;align-items:center;gap:8px;}
+  .nav .ibtn{width:40px;height:40px;border-radius:10px;border:0;background:transparent;color:#C3CBD6;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;transition:background .12s,color .12s;}
+  .nav .ibtn:hover{background:rgba(255,255,255,.09);color:#fff;}
+  .nav .ibtn .dot{position:absolute;top:9px;right:10px;width:8px;height:8px;border-radius:50%;background:var(--green);border:2px solid #0F1C2E;}
+  .nav .avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#1FBE1F,#0BA00B);color:#fff;
+    display:flex;align-items:center;justify-content:center;font:700 14px var(--font);cursor:pointer;margin-left:2px;}
+
+  /* ---------- page ---------- */
+  .wrap{max-width:1340px;margin:0 auto;padding:38px 28px 72px;}
+  .phead{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:22px;flex-wrap:wrap;}
+  .phead h1{font:800 30px var(--font);color:var(--ink);margin:0;letter-spacing:-.01em;}
+  .phead p{font:500 15.5px var(--font);color:var(--gray);margin:9px 0 0;line-height:1.5;max-width:62ch;}
+  .phead .count{display:inline-flex;align-items:center;gap:8px;font:600 14px var(--font);color:var(--gray);
+    background:#fff;border:1px solid var(--border);border-radius:999px;padding:8px 15px;white-space:nowrap;}
+  .phead .count b{color:var(--ink);font-weight:800;}
+
+  /* preview hint (only shown while a hide mode is active) */
+  .hint{display:flex;align-items:flex-start;gap:12px;background:var(--blue-bg);border:1px solid var(--blue-stroke);
+    border-radius:12px;padding:14px 17px;margin-bottom:24px;}
+  .hint svg{width:18px;height:18px;color:var(--blue);flex:0 0 auto;margin-top:1px;}
+  .hint div{font:500 14px var(--font);color:var(--blue-ink);line-height:1.5;}
+  .hint b{color:var(--blue);font-weight:800;}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(370px,1fr));gap:22px;}
+
+  /* ---------- assessment card ---------- */
+  .acard{background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow-card);
+    padding:22px;min-height:344px;display:flex;flex-direction:column;transition:border-color .14s,box-shadow .14s,transform .14s;}
+  .acard:hover{border-color:var(--green-stroke);box-shadow:0 10px 26px -12px rgba(15,188,15,.35);transform:translateY(-2px);}
+  .ac-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:16px;}
+  .ac-ico{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+  .ac-ico svg{width:26px;height:26px;}
+  .ac-ico.maths{background:var(--green-soft);color:var(--green-dark);}
+  .ac-ico.english{background:var(--blue-bg);color:var(--blue);}
+  .subj{display:inline-flex;align-items:center;gap:6px;font:700 12px var(--font);letter-spacing:.02em;
+    padding:5px 11px;border-radius:999px;white-space:nowrap;}
+  .subj svg{width:13px;height:13px;}
+  .subj.maths{background:var(--green-soft);color:var(--green-dark);}
+  .subj.english{background:var(--blue-bg);color:var(--blue);}
+
+  .ac-title{font:700 18px var(--font);color:var(--ink);line-height:1.34;margin:0 0 14px;min-height:48px;text-wrap:pretty;}
+  .ac-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .ac-tag{display:inline-flex;align-items:center;gap:8px;font:500 14px var(--font);color:var(--gray);}
+  .ac-tag svg{width:16px;height:16px;color:var(--mute);}
+  .ac-req{display:inline-flex;align-items:center;gap:6px;font:700 12px var(--font);color:var(--green-dark);
+    background:var(--green-soft);border:1px solid var(--green-stroke);border-radius:999px;padding:5px 11px;}
+  .ac-req svg{width:13px;height:13px;color:var(--green);}
+  .ac-prog{display:inline-flex;align-items:center;gap:7px;font:700 12px var(--font);color:var(--amber);
+    background:var(--amber-bg);border:1px solid var(--amber-stroke);border-radius:999px;padding:5px 11px;}
+  .ac-prog .pdot{width:7px;height:7px;border-radius:50%;background:var(--amber-ico);}
+
+  .ac-actions{margin-top:auto;padding-top:22px;display:flex;flex-direction:column;gap:10px;}
+  .btn--resume{background:var(--green-tint);color:var(--green-dark);border-color:transparent;}
+  .btn--resume:hover{background:var(--green-soft);}
+  .acard .btn{padding:13px 18px;font-size:15px;}
+
+  /* ---------- locked / greyed variant ---------- */
+  .acard.locked{background:var(--bg-soft);border-style:dashed;box-shadow:none;}
+  .acard.locked:hover{transform:none;border-color:var(--border);box-shadow:none;}
+  .acard.locked .ac-ico{background:#EEF0F3;color:var(--mute);}
+  .acard.locked .ac-title{color:var(--gray);}
+  .acard.locked .subj{background:#EEF0F3;color:var(--mute);}
+  .acard.locked .ac-tag{color:var(--mute);}
+  .ac-lock{display:inline-flex;align-items:center;justify-content:center;gap:9px;font:700 14px var(--font);color:var(--gray);
+    background:#fff;border:1px solid var(--border);border-radius:10px;padding:13px 16px;}
+  .ac-lock svg{width:16px;height:16px;color:var(--mute);}
+
+  /* ---------- forced (required by provider) — grid ---------- */
+  .acard.forced{border-color:var(--amber-stroke);box-shadow:0 10px 26px -14px rgba(217,119,6,.45);}
+  .acard.forced:hover{border-color:var(--amber-ico);box-shadow:0 12px 28px -12px rgba(217,119,6,.5);}
+  .ac-forcedtag{display:inline-flex;align-items:center;gap:7px;align-self:flex-start;font:800 12px var(--font);color:#fff;background:var(--amber-ico);border-radius:999px;padding:6px 12px;margin-bottom:12px;}
+  .ac-forcedtag svg{width:14px;height:14px;}
+  .ac-clears{display:inline-flex;align-items:center;gap:7px;font:700 13px var(--font);color:var(--amber-deep);}
+  .ac-clears svg{width:15px;height:15px;color:var(--amber-ico);}
+
+  /* ---------- forced requirement banner (both layouts) ---------- */
+  .fbanner{display:flex;align-items:center;gap:15px;background:var(--amber-bg);border:1px solid var(--amber-stroke);border-radius:14px;padding:16px 20px;margin-bottom:24px;}
+  .fbanner .fb-ic{width:46px;height:46px;border-radius:12px;background:#fff;border:1px solid var(--amber-stroke);color:var(--amber-ico);display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+  .fbanner .fb-ic svg{width:23px;height:23px;}
+  .fbanner .fb-t{flex:1;min-width:0;}
+  .fbanner .fb-t .t{font:800 16px var(--font);color:var(--amber-deep);letter-spacing:-.01em;}
+  .fbanner .fb-t .s{font:500 13.5px var(--font);color:var(--amber-deep);opacity:.88;margin-top:3px;line-height:1.5;}
+  .fbanner .fb-count{flex:0 0 auto;font:800 13.5px var(--font);color:var(--amber-deep);background:#fff;border:1px solid var(--amber-stroke);border-radius:999px;padding:8px 14px;white-space:nowrap;}
+
+  /* ---------- list layout ---------- */
+  .list{display:flex;flex-direction:column;gap:14px;}
+  .lrow{position:relative;display:flex;align-items:center;gap:18px;background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 22px 18px 26px;box-shadow:var(--shadow-card);overflow:hidden;transition:border-color .14s,box-shadow .14s;}
+  .lrow:not(.locked):hover{border-color:var(--green-stroke);box-shadow:0 8px 22px -12px rgba(15,188,15,.3);}
+  .lrow::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--green);}
+  .lrow.forced::before{background:var(--amber-ico);}
+  .lrow.locked{background:var(--bg-soft);border-style:dashed;box-shadow:none;}
+  .lrow.locked::before{background:#D1D5DB;}
+  .lr-ico{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+  .lr-ico svg{width:24px;height:24px;}
+  .lr-ico.maths{background:var(--green-soft);color:var(--green-dark);}
+  .lr-ico.english{background:var(--blue-bg);color:var(--blue);}
+  .lrow.forced .lr-ico{background:var(--amber-bg);color:var(--amber-ico);}
+  .lrow.locked .lr-ico{background:#EEF0F3;color:var(--mute);}
+  .lr-main{flex:1;min-width:0;}
+  .lr-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px;}
+  .lr-title{font:700 17px var(--font);color:var(--ink);line-height:1.3;}
+  .lrow.locked .lr-title{color:var(--gray);}
+  .lr-meta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:7px;}
+  .lr-actions{flex:0 0 auto;display:flex;align-items:center;gap:10px;}
+  .lrow .btn{padding:12px 18px;font-size:14.5px;}
+  .lr-forced{display:inline-flex;align-items:center;gap:6px;font:800 12px var(--font);color:#fff;background:var(--amber-ico);border-radius:999px;padding:5px 11px;}
+  .lr-forced svg{width:13px;height:13px;}
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#0FBC0F">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0FBC0F"/>
+    <g transform="translate(372,250)" fill="none" stroke="#fff" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="0" y="0" width="200" height="300" rx="24" fill="rgba(255,255,255,.16)" stroke="none"/>
+      <rect x="256" y="0" width="200" height="300" rx="24" fill="rgba(255,255,255,.16)" stroke="none"/>
+      <path d="M40 90h120M40 140h80M40 250h120" opacity=".9"/>
+      <path d="M296 90h120M296 140h80M296 250h120" opacity=".9"/>
+    </g>
+  </svg>
+</template>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="pass-icons.js"></script>
+<script src="ia-icons.js"></script>
+<script type="text/babel" src="pass-components.jsx"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="mc-page.jsx"></script>
+<script type="text/babel">
+const { Ico, useTweaks, TweaksPanel, TweakSection, TweakRadio, TweakToggle, Banner } = window;
+
+// The learning portal's five initial assessments. `hidden` marks the ones a
+// provider has chosen to hide (example: a Functional-Skills-only provider hides
+// the GCSE diagnostics + ESOL). `hidden` only takes effect when a hide mode is on.
+const ITEMS = [
+  { id: 'fs-ma', title: 'Functional Skills Maths Initial Assessment 1', subject: 'Maths', hidden: false },
+  { id: 'gcse-ma', title: 'GCSE Maths Foundation Diagnostic', subject: 'Maths', hidden: true },
+  { id: 'fs-en', title: 'Functional Skills English Initial Assessment 1', subject: 'English', hidden: false, inProgress: true },
+  { id: 'gcse-en', title: 'GCSE English Language Diagnostic', subject: 'English', hidden: true },
+  { id: 'esol', title: 'ESOL Skills for Life Initial Assessment 1', subject: 'English', hidden: true },
+];
+
+function Card({ it, locked, forced }) {
+  const sc = it.subject === 'Maths' ? 'maths' : 'english';
+  if (locked) {
+    return (
+      <article className="acard locked">
+        <div className="ac-top">
+          <div className={'ac-ico ' + sc}><Ico name="Lock" size={24} /></div>
+          <span className={'subj ' + sc}><Ico name="Book" size={13} />{it.subject}</span>
+        </div>
+        <h3 className="ac-title">{it.title}</h3>
+        <div className="ac-meta"><span className="ac-tag"><Ico name="EyeSlash" size={16} />Not part of your learning plan</span></div>
+        <div className="ac-actions"><div className="ac-lock"><Ico name="Lock" size={16} />Not available</div></div>
+      </article>
+    );
+  }
+  return (
+    <article className={'acard' + (forced ? ' forced' : '')}>
+      <div className="ac-top">
+        <div className={'ac-ico ' + sc}><Ico name="FileLines" size={26} /></div>
+        <span className={'subj ' + sc}><Ico name="Book" size={13} />{it.subject}</span>
+      </div>
+      {forced && <div className="ac-forcedtag"><Ico name="Lock" size={14} />Forced by your Learning Provider</div>}
+      <h3 className="ac-title">{it.title}</h3>
+      <div className="ac-meta">
+        <span className="ac-tag"><Ico name="Infinity" size={16} />No time limit</span>
+        {forced && <span className="ac-clears"><Ico name="ArrowRightLong" size={15} />Unlocks course enrolment</span>}
+        {it.inProgress && <span className="ac-prog"><span className="pdot" />Attempt in progress</span>}
+      </div>
+      <div className="ac-actions">
+        <button className="btn btn--primary btn--block"><Ico name="ArrowPath" size={16} />Start Initial Assessment</button>
+        {it.inProgress && <button className="btn btn--resume btn--block">Resume Attempt in Progress<Ico name="ForwardStep" size={16} /></button>}
+      </div>
+    </article>
+  );
+}
+
+function Row({ it, locked, forced }) {
+  const sc = it.subject === 'Maths' ? 'maths' : 'english';
+  return (
+    <div className={'lrow' + (forced && !locked ? ' forced' : '') + (locked ? ' locked' : '')}>
+      <div className={'lr-ico ' + sc}><Ico name={locked || forced ? 'Lock' : 'FileLines'} size={24} /></div>
+      <div className="lr-main">
+        <div className="lr-top">
+          <span className={'subj ' + sc}><Ico name="Book" size={13} />{it.subject}</span>
+          {forced && !locked && <span className="lr-forced"><Ico name="Lock" size={13} />Forced by your Learning Provider</span>}
+          {it.inProgress && !locked && <span className="ac-prog"><span className="pdot" />Attempt in progress</span>}
+        </div>
+        <div className="lr-title">{it.title}</div>
+        <div className="lr-meta">
+          {locked
+            ? <span className="ac-tag"><Ico name="EyeSlash" size={16} />Not part of your learning plan</span>
+            : <>
+                <span className="ac-tag"><Ico name="Infinity" size={16} />No time limit</span>
+                {forced && <span className="ac-clears"><Ico name="ArrowRightLong" size={15} />Unlocks course enrolment</span>}
+              </>}
+        </div>
+      </div>
+      <div className="lr-actions">
+        {locked
+          ? <span className="ac-lock"><Ico name="Lock" size={16} />Not available</span>
+          : <>
+              {it.inProgress && <button className="btn btn--resume">Resume<Ico name="ForwardStep" size={16} /></button>}
+              <button className="btn btn--primary"><Ico name="ArrowPath" size={16} />Start Initial Assessment</button>
+            </>}
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  const [t, setTweak] = useTweaks({ layout: 'grid', hide: 'off', forced: 'Few (3)', bannerStyle: 'Compact' });
+  const mode = t.hide; // 'off' | 'absent' | 'locked'
+  const isList = t.layout === 'list';
+  const FC = { 'None (0)': 0, 'One (1)': 1, 'Few (3)': 3, 'Many (6)': 6 };
+  const forcedCount = FC[t.forced] ?? 1;
+  const forcedCatalog = window.IA_CATALOG.slice(0, forcedCount);
+  const forcedIds = new Set(forcedCatalog.map(f => f.id));
+  const bannerDir = { 'Compact': 'A', 'Chips': 'B', 'Collapsible': 'C' }[t.bannerStyle] || 'A';
+
+  const base = mode === 'absent' ? ITEMS.filter(i => !i.hidden) : ITEMS;
+  // forced/required assessments sort to the top in both layouts (stable within groups)
+  const shown = [...base].sort((a, b) => (forcedIds.has(a.id) ? 0 : 1) - (forcedIds.has(b.id) ? 0 : 1));
+  const availCount = ITEMS.filter(i => mode === 'off' || !i.hidden).length;
+  const hiddenCount = ITEMS.length - availCount;
+
+  return (
+    <>
+      <nav className="nav">
+        <div className="logo"><span className="mk"><Ico name="Check" size={19} /></span>PASS</div>
+        <div className="links">
+          <a href="#">My Courses</a>
+          <a href="#" className="active">Initial Assessments</a>
+          <a href="#">Useful Links</a>
+        </div>
+        <div className="spacer" />
+        <div className="tools">
+          <button className="ibtn" aria-label="Notifications"><Ico name="BellActiveAlt" size={21} /><span className="dot" /></button>
+          <div className="avatar">JL</div>
+        </div>
+      </nav>
+
+      <main className="wrap">
+        <div className="phead">
+          <div>
+            <h1>All Initial Assessments</h1>
+            <p>Complete these short check-ins so we can pitch your course at the right level. Give each one your best go — there’s nothing to revise for.</p>
+          </div>
+          <span className="count">
+            <b>{availCount}</b> {availCount === 1 ? 'assessment' : 'assessments'} available
+            {mode === 'locked' && hiddenCount > 0 && <span style={{ color: 'var(--mute)' }}>· {hiddenCount} hidden</span>}
+          </span>
+        </div>
+
+        {<Banner direction={bannerDir} forced={forcedCatalog} />}
+
+        {mode !== 'off' && (
+          <div className="hint">
+            <Ico name="InfoCircle" size={18} />
+            {mode === 'absent'
+              ? <div><b>Preview · hidden = absent.</b> The {hiddenCount} assessments the provider hasn’t shown are removed entirely — the student sees only what’s available to them and never knows the others existed.</div>
+              : <div><b>Preview · hidden = locked.</b> The {hiddenCount} hidden assessments still appear but are greyed out and can’t be started, with a “not available” note.</div>}
+          </div>
+        )}
+
+        {isList
+          ? <div className="list">
+              {shown.map(it => (
+                <Row key={it.id} it={it} locked={mode === 'locked' && it.hidden} forced={forcedIds.has(it.id)} />
+              ))}
+            </div>
+          : <div className="grid">
+              {shown.map(it => (
+                <Card key={it.id} it={it} locked={mode === 'locked' && it.hidden} forced={forcedIds.has(it.id)} />
+              ))}
+            </div>}
+      </main>
+
+      <TweaksPanel>
+        <TweakSection label="Forced initial assessments" />
+        <TweakRadio label="Banner style" value={t.bannerStyle} options={['Compact', 'Chips', 'Collapsible']} onChange={(v) => setTweak('bannerStyle', v)} />
+        <TweakRadio label="How many" value={t.forced} options={['None (0)', 'One (1)', 'Few (3)', 'Many (6)']} onChange={(v) => setTweak('forced', v)} />
+        <TweakSection label="Layout" />
+        <TweakRadio label="Style" value={t.layout} options={['grid', 'list']} onChange={(v) => setTweak('layout', v)} />
+        <TweakSection label="Provider visibility" />
+        <TweakRadio label="Behaviour" value={t.hide} options={['off', 'absent', 'locked']} onChange={(v) => setTweak('hide', v)} />
+      </TweaksPanel>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

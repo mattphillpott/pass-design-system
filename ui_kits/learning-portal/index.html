@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!-- @dsCard group="UI Kit — Learning Portal" name="Learning Portal UI Kit" subtitle="Tutor dashboard → course → AI-marked mock result" viewport="1440x900" -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pass Learning Portal — UI Kit</title>
+<link rel="stylesheet" href="../../colors_and_type.css?v=1777049570539">
+<style>
+  html, body { height: 100%; margin: 0; background: #F9FAFB; }
+  #app { display: flex; height: 100vh; min-height: 760px; overflow: hidden; }
+  .main { flex: 1; min-width: 0; display: flex; flex-direction: column; overflow: hidden; }
+  .scroll { flex: 1; overflow-y: auto; }
+  /* make focus rings consistent */
+  button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid #0F8610; outline-offset: 2px; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="Icon.jsx"></script>
+<script type="text/babel" src="Sidebar.jsx"></script>
+<script type="text/babel" src="Topbar.jsx"></script>
+<script type="text/babel" src="Dashboard.jsx"></script>
+<script type="text/babel" src="Course.jsx"></script>
+<script type="text/babel" src="MockResult.jsx"></script>
+
+<script type="text/babel">
+function App() {
+  const [nav, setNav]   = React.useState('dashboard');
+  const [view, setView] = React.useState({ kind: 'dashboard' });
+
+  // top-level nav mapping
+  const go = (id) => {
+    setNav(id);
+    if (id === 'dashboard')   setView({ kind: 'dashboard' });
+    if (id === 'courses')     setView({ kind: 'course', id: 'm-l2' });
+    if (id === 'mocks')       setView({ kind: 'mock' });
+    if (id === 'diagnostics') setView({ kind: 'dashboard' }); // placeholder
+    if (id === 'learners')    setView({ kind: 'dashboard' });
+    if (id === 'reporting')   setView({ kind: 'dashboard' });
+    if (id === 'schemes')     setView({ kind: 'dashboard' });
+    if (id === 'settings')    setView({ kind: 'dashboard' });
+  };
+
+  let title = 'Dashboard';
+  let crumbs = ['Pass', 'Dashboard'];
+  let body;
+  if (view.kind === 'dashboard') {
+    title = 'Dashboard';
+    crumbs = ['Pass', 'Dashboard'];
+    body = <PassDashboard onOpenCourse={id => setView({ kind: 'course', id })} />;
+  } else if (view.kind === 'course') {
+    title = 'Functional Skills · Maths L2';
+    crumbs = ['Pass', 'My courses', 'Maths L2'];
+    body = <PassCourse courseId={view.id} onOpenMock={() => setView({ kind: 'mock' })}/>;
+  } else if (view.kind === 'mock') {
+    title = 'Mock result';
+    crumbs = ['Pass', 'Mock exams', 'Aisha Khan · Maths L2'];
+    body = <PassMockResult onBack={() => setView({ kind: 'course', id: 'm-l2' })}/>;
+  }
+
+  return (
+    <>
+      <PassSidebar active={nav === 'dashboard' ? 'dashboard' : nav === 'courses' ? 'courses' : nav === 'mocks' ? 'mocks' : nav} onNav={go}/>
+      <div className="main">
+        <PassTopbar title={title} breadcrumbs={crumbs}/>
+        <div className="scroll">{body}</div>
+      </div>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('app')).render(<App/>);
+</script>
+</body>
+</html>

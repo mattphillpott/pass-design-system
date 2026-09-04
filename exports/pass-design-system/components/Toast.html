@@ -1,0 +1,56 @@
+<!-- Toast — usually portalled to bottom-right.
+     Use vue-sonner or PrimeVue Toast (unstyled) and pass these class strings.
+     Live region for accessibility: role="status" aria-live="polite". -->
+
+<!-- ─── Container ─── -->
+<div class="pointer-events-none fixed bottom-4 right-4 z-[1600] flex flex-col-reverse gap-2 w-[min(380px,90vw)]">
+
+  <!-- Success -->
+  <div role="status" aria-live="polite"
+    class="pointer-events-auto flex items-start gap-3 rounded-lg border border-border-default bg-bg-surface shadow-lg p-3.5
+           animate-[toast-in_200ms_cubic-bezier(0,0,0.2,1)]">
+    <span class="flex-none mt-0.5 inline-flex w-8 h-8 items-center justify-center rounded-full bg-success-50">
+      <svg class="w-4 h-4 text-success-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>
+    </span>
+    <div class="flex-1 min-w-0">
+      <div class="text-sm font-semibold text-fg-1">Cohort saved</div>
+      <div class="text-xs text-fg-3 mt-0.5">24 learners synced to the portal.</div>
+    </div>
+    <button aria-label="Dismiss" class="flex-none inline-flex w-6 h-6 items-center justify-center rounded text-fg-4 hover:bg-bg-raised hover:text-fg-1">
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg>
+    </button>
+  </div>
+
+  <!-- Info -->
+  <div role="status" class="pointer-events-auto flex items-start gap-3 rounded-lg border border-border-default bg-bg-surface shadow-lg p-3.5">
+    <span class="flex-none mt-0.5 inline-flex w-8 h-8 items-center justify-center rounded-full bg-info-50">
+      <svg class="w-4 h-4 text-info-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+    </span>
+    <div class="flex-1"><div class="text-sm font-semibold">New mock available</div><div class="text-xs text-fg-3 mt-0.5">Maths L2 — Paper B is ready.</div></div>
+  </div>
+
+  <!-- Warning -->
+  <div role="status" class="pointer-events-auto flex items-start gap-3 rounded-lg border border-warning-600/20 bg-warning-50 shadow-lg p-3.5">
+    <span class="flex-none mt-0.5 inline-flex w-8 h-8 items-center justify-center rounded-full bg-white">
+      <svg class="w-4 h-4 text-warning-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M5 19h14a2 2 0 0 0 1.84-2.75L13.74 4a2 2 0 0 0-3.48 0L3.16 16.25A2 2 0 0 0 5 19z"/></svg>
+    </span>
+    <div class="flex-1"><div class="text-sm font-semibold text-warning-700">Export pending</div><div class="text-xs text-warning-700/80 mt-0.5">Your e-portfolio export is being prepared.</div></div>
+  </div>
+
+  <!-- Error -->
+  <div role="alert" class="pointer-events-auto flex items-start gap-3 rounded-lg border border-danger-600/20 bg-danger-50 shadow-lg p-3.5">
+    <span class="flex-none mt-0.5 inline-flex w-8 h-8 items-center justify-center rounded-full bg-white">
+      <svg class="w-4 h-4 text-danger-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg>
+    </span>
+    <div class="flex-1"><div class="text-sm font-semibold text-danger-700">Sync failed</div><div class="text-xs text-danger-700/80 mt-0.5">Couldn't reach the e-portfolio server.</div></div>
+    <button class="flex-none h-7 px-2.5 rounded text-xs font-medium text-danger-700 hover:bg-white/60">Retry</button>
+  </div>
+
+</div>
+
+<!--
+  @keyframes toast-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+-->

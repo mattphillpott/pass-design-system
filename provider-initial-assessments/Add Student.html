@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="design_doc_mode" content="canvas">
+<title>Add Student — redesign (3 directions)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="pass.css">
+<link rel="stylesheet" href="ia.css">
+<link rel="stylesheet" href="as.css">
+<style>
+  body{margin:0;background:#ECEEF1;font-family:'Inter',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;}
+  a,a:hover{color:var(--green-dark);}
+  .doc-title{font:800 32px 'Inter',sans-serif;color:#101828;letter-spacing:-.01em;}
+  .doc-sub{font:500 15.5px 'Inter',sans-serif;color:#5b6472;margin-top:8px;max-width:1000px;line-height:1.55;}
+  .doc-sub b{color:#1b2330;font-weight:700;}
+  .flabel{font:600 13px 'Inter',sans-serif;color:#5b6472;margin-bottom:10px;letter-spacing:.01em;}
+  .flabel b{color:#0BA00B;font-weight:800;}
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#0FBC0F">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0FBC0F"/>
+    <g transform="translate(430,250)" fill="none" stroke="#fff" stroke-width="26" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="170" cy="90" r="70" fill="rgba(255,255,255,.18)" stroke="none"/>
+      <path d="M60 300a110 110 0 0 1 220 0" fill="rgba(255,255,255,.18)" stroke="none"/>
+      <path d="M300 110h80M340 70v80"/>
+    </g>
+  </svg>
+</template>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="pass-icons.js"></script>
+<script src="ia-icons.js"></script>
+<script type="text/babel" src="pass-components.jsx"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="ia-parts.jsx"></script>
+<script type="text/babel" src="as-sections.jsx"></script>
+<script type="text/babel" src="as-page.jsx"></script>
+<script type="text/babel">
+const { useTweaks, TweaksPanel, TweakSection, TweakRadio, TweakToggle } = window;
+const { Frame, Ico, AddStudentPage } = window;
+
+const DEFAULTS = {
+  account: 'email',
+  form: 'filled',
+  hidePattern: 'Rows',
+  placement: 'Before force',
+  showErrors: false,
+  tableStyle: 'Full',
+  studentPreview: true,
+  orgDefault: 'Hides some',
+  iaStart: 'Inherit',
+  provenance: 'Banner',
+};
+
+function TitleBand() {
+  return (
+    <div data-drags-parent="1" style={{ position: 'absolute', left: 0, top: 24, width: 1180 }}>
+      <div className="doc-title">Add Student — redesign</div>
+      <div className="doc-sub">The whole “Add New Student” page rebuilt in the Pass Design System, with the new <b>Show Initial Assessments</b> control (providers choose what students see) slotted in beside Force. It <b>inherits your organisation default</b> until you turn on “Customise for this student” — an all-or-none override. Three layout directions to compare, all live, sharing the same <b>Tweaks</b> (org default, start state, provenance, show pattern A/B/C, placement, account, filled/empty, validation, preview).</div>
+    </div>
+  );
+}
+
+function LayoutHead({ x, w, badge, title, sub }) {
+  return (
+    <div data-drags-parent="1" style={{ position: 'absolute', left: x, top: 200, width: w }}>
+      <div className="flabel"><b>{badge}</b> &nbsp;·&nbsp; {title}<br /><span style={{ color: '#8b95a3', fontWeight: 500 }}>{sub}</span></div>
+    </div>
+  );
+}
+
+function Canvas() {
+  const [t, setTweak] = useTweaks(DEFAULTS);
+  const cfg = {
+    account: t.account,
+    form: t.form,
+    hidePattern: (t.hidePattern || 'Rows').toLowerCase(),
+    placement: { 'Before force': 'before', 'After force': 'after', 'Merged': 'merged' }[t.placement] || 'before',
+    showErrors: !!t.showErrors,
+    tableStyle: (t.tableStyle || 'Full').toLowerCase(),
+    studentPreview: !!t.studentPreview,
+    orgDefault: t.orgDefault === 'Shows all' ? 'shows-all' : 'hides-some',
+    iaStart: t.iaStart === 'Customise' ? 'custom' : 'inherit',
+    provenance: (t.provenance || 'Banner').toLowerCase(),
+  };
+  // Reseed page state only when structural tweaks change; other tweaks are live.
+  const seedKey = [cfg.account, cfg.form, cfg.orgDefault, cfg.iaStart].join('-');
+
+  const cols = [
+    { layout: 'l1', x: 0, w: 1160, badge: 'Direction 1', title: 'Faithful single column', sub: 'Modernised 1:1 with today — one stacked column, sticky action bar.' },
+    { layout: 'l2', x: 1220, w: 1320, badge: 'Direction 2', title: 'Section-nav sidebar', sub: 'Sticky left rail tracks progress through the long form.' },
+    { layout: 'l3', x: 2600, w: 1400, badge: 'Direction 3', title: 'Form + live summary', sub: 'Right rail previews the student being created as you fill it in.' },
+  ];
+
+  return (
+    <>
+      <TitleBand />
+      {cols.map(c => (
+        <React.Fragment key={c.layout}>
+          <LayoutHead x={c.x} w={c.w} badge={c.badge} title={c.title} sub={c.sub} />
+          <div data-drags-parent="1" style={{ position: 'absolute', left: c.x, top: 262, width: c.w }}>
+            <div style={{ background: '#fff', borderRadius: 16, boxShadow: '0 1px 0 rgba(16,24,40,.04), 0 18px 50px -18px rgba(16,24,40,.22)', overflow: 'hidden', border: '1px solid #e4e7ec' }}>
+              <AddStudentPage key={c.layout + '-' + seedKey} layout={c.layout} cfg={cfg} />
+            </div>
+          </div>
+        </React.Fragment>
+      ))}
+
+      <TweaksPanel>
+        <TweakSection label="Content" />
+        <TweakRadio label="Account type" value={t.account} options={['email', 'username']} onChange={(v) => setTweak('account', v)} />
+        <TweakRadio label="Form state" value={t.form} options={['filled', 'empty']} onChange={(v) => setTweak('form', v)} />
+        <TweakToggle label="Show validation errors" value={t.showErrors} onChange={(v) => setTweak('showErrors', v)} />
+        <TweakSection label="Initial assessments" />
+        <TweakRadio label="Organisation default" value={t.orgDefault} options={['Hides some', 'Shows all']} onChange={(v) => setTweak('orgDefault', v)} />
+        <TweakRadio label="Start state" value={t.iaStart} options={['Inherit', 'Customise']} onChange={(v) => setTweak('iaStart', v)} />
+        <TweakRadio label="Provenance" value={t.provenance} options={['Banner', 'Minimal']} onChange={(v) => setTweak('provenance', v)} />
+        <TweakRadio label="Show pattern" value={t.hidePattern} options={['Rows', 'Toggle', 'Matrix']} onChange={(v) => setTweak('hidePattern', v)} />
+        <TweakRadio label="Placement" value={t.placement} options={['Before force', 'After force', 'Merged']} onChange={(v) => setTweak('placement', v)} />
+        <TweakToggle label="Student-side preview" value={t.studentPreview} onChange={(v) => setTweak('studentPreview', v)} />
+        <TweakSection label="Group / teacher tables" />
+        <TweakRadio label="Table style" value={t.tableStyle} options={['Full', 'Simple', 'Chips']} onChange={(v) => setTweak('tableStyle', v)} />
+      </TweaksPanel>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Canvas />);
+</script>
+</body>
+</html>

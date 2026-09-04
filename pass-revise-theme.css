@@ -1,0 +1,138 @@
+/* ============================================================================
+ * Pass Revise — brand theme layer
+ * ----------------------------------------------------------------------------
+ * Sits ON TOP of the base Pass design system (colors_and_type.css) WITHOUT
+ * changing the global green default — everything here is scoped to `.pass-revise`,
+ * so the existing (green) Pass Functional Skills product is untouched.
+ *
+ * Opt in by putting class="pass-revise" on a wrapper (or <html>/<body>).
+ * Dark mode: add data-theme="dark" on that element or any ancestor.
+ *
+ * ⚠️  OPEN DECISION (pending CEO sign-off):
+ *     Pass Revise primary = Volt violet, OR revert to heritage Pass green.
+ *     ► THE SWITCH IS THE SINGLE BLOCK MARKED "PRIMARY SOURCE" BELOW.
+ *       Repoint those --color-primary* lines from --volt-* to --pass-green-*
+ *       (values already exist in colors_and_type.css) and the whole product
+ *       flips. Never hard-code violet hex in components — always use --color-primary*.
+ * ==========================================================================*/
+
+:root {
+  /* Volt violet scale — additive, harmless to the base system */
+  --volt-50:  #F4F0FE;
+  --volt-100: #E9E0FE;
+  --volt-200: #D5C6FC;
+  --volt-300: #B49BF9;
+  --volt-400: #8F66F6;
+  --volt-500: #6C3BF4;   /* Volt primary */
+  --volt-600: #5A27E3;   /* hover */
+  --volt-700: #4A1DC0;   /* press */
+  --volt-800: #3D1B9B;
+  --volt-900: #34197D;
+  --volt-950: #1F0E52;
+
+  /* Premium / unlock accent (signal amber) — distinct from primary + success */
+  --pr-premium:      #F5B301;
+  --pr-premium-bg:   #FFF8E6;
+  --pr-premium-fg:   #7A5600;
+}
+
+/* ───────────────────────── Pass Revise · LIGHT ───────────────────────── */
+.pass-revise {
+  /* ┌─────────────────── PRIMARY SOURCE (the one switch point) ──────────────┐
+     │ To revert to heritage green, change --volt-* → --pass-green-* here.     │ */
+  --color-primary:        var(--volt-500);
+  --color-primary-hover:  var(--volt-600);
+  --color-primary-press:  var(--volt-700);
+  --color-primary-bg:     var(--volt-50);
+  --color-link:           var(--volt-600);
+  /* └────────────────────────────────────────────────────────────────────────┘ */
+
+  /* convenience aliases used by Pass Revise screens */
+  --primary:        var(--color-primary);
+  --primary-hover:  var(--color-primary-hover);
+  --primary-press:  var(--color-primary-press);
+  --primary-bg:     var(--color-primary-bg);
+  --on-primary:     #FFFFFF;
+
+  --fg-brand:  var(--color-primary);
+  --fg-link:   var(--color-link);
+  --bg-brand:  var(--color-primary);
+  --bg-brand-soft: var(--color-primary-bg);
+  --border-brand:  var(--color-primary);
+
+  --focus-ring:   rgba(108, 59, 244, .32);
+  --shadow-focus: 0 0 0 3px var(--focus-ring);
+
+  /* premium / unlock */
+  --accent:     var(--pr-premium);
+  --accent-bg:  var(--pr-premium-bg);
+  --accent-fg:  var(--pr-premium-fg);
+
+  /* heritage green stays the "pass / correct / unlocked" success signal */
+  --success:     var(--pass-green-600);
+  --success-fg:  var(--pass-green-700);
+  --success-bg:  var(--pass-green-50);
+}
+
+/* ───────────────────────── Pass Revise · DARK ────────────────────────── */
+.pass-revise[data-theme="dark"],
+[data-theme="dark"] .pass-revise {
+  /* neutrals */
+  --color-gray-25:  #0A0D14;
+  --color-gray-50:  #0E121B;
+  --color-gray-100: #151A24;
+  --color-gray-200: #1E2430;
+  --color-gray-300: #2A3242;
+  --color-gray-400: #3C465A;
+  --color-gray-500: #6F7889;
+  --color-gray-600: #8B94A5;
+  --color-gray-700: #AAB2C0;
+  --color-gray-800: #CFD5DF;
+  --color-gray-900: #F2F4F8;
+
+  --fg-1: #F3F5F9;
+  --fg-2: #C6CCD8;
+  --fg-3: #9AA3B2;
+  --fg-4: #727C8D;
+  --fg-5: #565F70;
+  --fg-inverse: #0B0F19;
+
+  --bg-page:      #0A0D14;
+  --bg-page-alt:  #0A0D14;
+  --bg-surface:   #121725;
+  --bg-raised:    #1A2030;
+  --bg-sunken:    #0E121B;
+
+  --border-default: #252C3A;
+  --border-strong:  #333C4D;
+  --border:         #252C3A;
+
+  /* lift primary for contrast on dark */
+  --color-primary:        var(--volt-400);
+  --color-primary-hover:  var(--volt-300);
+  --color-primary-press:  var(--volt-200);
+  --color-primary-bg:     #1B1440;
+  --color-link:           var(--volt-300);
+  --on-primary:           #12071F;
+
+  --focus-ring:   rgba(143, 102, 246, .42);
+
+  --accent:     #FFC93C;
+  --accent-bg:  #2A2205;
+  --accent-fg:  #FFD666;
+
+  --success:     #3BE13B;
+  --success-fg:  #5CE65C;
+  --success-bg:  #0F2410;
+
+  --color-success:   #3BE13B;
+  --color-success-700:#5CE65C;
+  --color-success-bg: #0F2410;
+  --color-warning:   #F59E0B;
+  --color-warning-bg:#2A1F0A;
+  --color-danger:    #FB5C7D;
+  --color-danger-700:#FF8FA6;
+  --color-danger-bg: #2A0F16;
+  --color-info:      #5B8DEF;
+  --color-info-bg:   #0F1A2E;
+}

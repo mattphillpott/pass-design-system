@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="design_doc_mode" content="canvas">
+<title>Provider student-exam admin — states</title>
+<link rel="stylesheet" href="pass.css">
+<style>
+  body{margin:0;background:#eceef1;font-family:'Inter',sans-serif;}
+  .bandlabel{font:800 22px 'Inter',sans-serif;color:#1b2330;}
+  .bandlabel .sub{display:block;font:500 14px 'Inter',sans-serif;color:#6b7280;margin-top:4px;max-width:680px;}
+  .pill{display:inline-block;font:700 11px 'Inter',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#0BA00B;background:#EAFFE9;padding:4px 10px;border-radius:999px;margin-bottom:10px;}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="pass-icons.js"></script>
+<script type="text/babel" src="pass-components.jsx"></script>
+<script type="text/babel" src="canvas-ac.jsx"></script>
+<script type="text/babel" src="canvas-dg.jsx"></script>
+<script type="text/babel">
+const { Frame } = window;
+
+function BandLabel({ x, y, pill, title, sub, w = 700 }) {
+  return (
+    <div data-drags-parent="1" style={{ position: 'absolute', left: x, top: y, width: w }}>
+      {pill && <span className="pill">{pill}</span>}
+      <div className="bandlabel">{title}{sub && <span className="sub">{sub}</span>}</div>
+    </div>
+  );
+}
+
+function Canvas() {
+  return (
+    <>
+      <div data-drags-parent="1" style={{ position: 'absolute', left: 0, top: 24, width: 1000 }}>
+        <div style={{ font: '800 30px Inter, sans-serif', color: '#101828' }}>Provider administration of student exams</div>
+        <div style={{ font: '500 15px Inter, sans-serif', color: '#5b6472', marginTop: 6 }}>New screens & states for Learner Dashboard v2 — in the existing Pass style. Genuinely new treatments show two options to compare.</div>
+      </div>
+
+      {/* A */}
+      <BandLabel x={0} y={150} pill="A · Onboarding" title="First-login prompt — 3 formats" sub="Sets the booking default. Existing customers never see it. Compare modal vs full-screen vs inline banner." />
+      <Frame x={0} y={260} w={1200} label="A1 · Modal over dashboard"><OnboardA /></Frame>
+      <Frame x={1340} y={260} w={1200} label="A2 · Full-screen welcome"><OnboardB /></Frame>
+      <Frame x={2680} y={260} w={1200} label="A3 · Inline banner (lowest weight)"><OnboardC /></Frame>
+
+      {/* C */}
+      <BandLabel x={0} y={1180} pill="C · Exam list" title="Student label, needs-setup state & student filter" sub="Every administered exam is clearly labelled with the student it's for. Unassigned exams can't be booked until a student's name is added." />
+      <Frame x={0} y={1290} w={1240} label="C1 · My Exams — mixed own + administered, with filter"><ExamListFull /></Frame>
+      <Frame x={1380} y={1290} w={780} label="C2 · Needs-setup — Option A (amber attention)"><NeedsSetupA /></Frame>
+      <Frame x={1380} y={1640} w={780} label="C3 · Needs-setup — Option B (subtle to-do)"><NeedsSetupB /></Frame>
+      <Frame x={1380} y={1990} w={780} label="C4 · Filter / search by student">
+        <div className="pass" style={{ padding: 24, background: 'var(--bg-soft)' }}><div className="card card-pad"><FilterBar /></div></div>
+      </Frame>
+
+      {/* D */}
+      <BandLabel x={0} y={2480} pill="D · Assignment step" title="The new post-purchase setup — wizard vs single screen" sub="Runs as the exam's first step. The student never logs in, so setup is just: name the student → confirm. Shown both ways (a tweak in the prototype)." />
+      <Frame x={0} y={2600} w={620} label="D1 · Wizard — student name"><div className="pass" style={{ padding: 20, background: 'var(--bg-soft)' }}><WizName /></div></Frame>
+      <Frame x={700} y={2600} w={620} label="D2 · Wizard — confirm the name"><div className="pass" style={{ padding: 20, background: 'var(--bg-soft)' }}><WizConfirm /></div></Frame>
+      <Frame x={0} y={3320} w={1180} label="D3 · Single screen — name + confirm (in the step flow)"><AssignSingle /></Frame>
+
+      {/* E */}
+      <BandLabel x={0} y={4640} pill="E · Provider detail" title="Administer view — on-behalf banner & provider-viewable results" sub="Extends the existing card stack. A prominent banner names the student on every action; results appear for the provider only (no student login, no automated emails)." />
+      <Frame x={0} y={4760} w={1240} label="E1 · Awaiting result"><ProviderDetail released={false} /></Frame>
+      <Frame x={1380} y={4760} w={1240} label="E2 · Result ready (provider view)"><ProviderDetail released={true} /></Frame>
+
+      {/* F */}
+      <BandLabel x={0} y={6120} pill="F · Student view — DEPRECATED" title="Kept for reference — students no longer log in" sub="In the current model the provider does everything and the student isn't notified, so there's no student-facing screen. These frames show the old view only." />
+      <Frame x={0} y={6240} w={1240} label="F1 · (deprecated) Focused 'Your exam' summary"><StudentView summary={true} /></Frame>
+      <Frame x={1380} y={6240} w={1240} label="F2 · (deprecated) Rendered-down detail"><StudentView summary={false} /></Frame>
+
+      {/* G */}
+      <BandLabel x={0} y={7320} pill="G · Results — DEPRECATED" title="Kept for reference — student-facing results" sub="These were the student's pending/released results screens. With no student login they no longer apply; results now live on the provider's dashboard (see E)." />
+      <Frame x={0} y={7440} w={1240} label="G1 · (deprecated) Result pending / withheld"><ResultsState released={false} /></Frame>
+      <Frame x={1380} y={7440} w={1240} label="G2 · (deprecated) Result released"><ResultsState released={true} /></Frame>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Canvas />);
+</script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="design_doc_mode" content="canvas">
+<title>Hide Initial Assessments — provider + student</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="pass.css">
+<link rel="stylesheet" href="ia.css">
+<style>
+  body{margin:0;background:#ECEEF1;font-family:'Inter',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;}
+  a,a:hover{color:var(--green-dark);}
+  .doc-title{font:800 32px 'Inter',sans-serif;color:#101828;letter-spacing:-.01em;}
+  .doc-sub{font:500 15.5px 'Inter',sans-serif;color:#5b6472;margin-top:8px;max-width:900px;line-height:1.55;}
+  .bandlabel{font:800 23px 'Inter',sans-serif;color:#1b2330;letter-spacing:-.01em;}
+  .bandlabel .sub{display:block;font:500 14.5px 'Inter',sans-serif;color:#6b7280;margin-top:5px;max-width:760px;line-height:1.5;}
+  .pill{display:inline-block;font:700 11px 'Inter',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#0BA00B;background:#EAFFE9;padding:4px 10px;border-radius:999px;margin-bottom:11px;}
+  .pill.dark{color:#fff;background:#1E2939;}
+  .notecard{background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow-card);padding:26px 28px;}
+  .notecard h4{font:800 16px 'Inter',sans-serif;color:var(--ink);margin:0 0 12px;display:flex;align-items:center;gap:9px;}
+  .notecard h4 svg{width:18px;height:18px;color:var(--green);}
+  .notecard ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;}
+  .notecard li{font:500 14.5px 'Inter',sans-serif;color:var(--gray);line-height:1.5;display:flex;gap:11px;align-items:flex-start;}
+  .notecard li .n{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:var(--green-soft);color:var(--green-dark);font:800 12px 'Inter',sans-serif;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+  .notecard li b{color:var(--ink);font-weight:700;}
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#0FBC0F">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0FBC0F"/>
+    <g transform="translate(410,300)" fill="none" stroke="#fff" stroke-width="26" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 100s70-90 180-90c40 0 74 12 100 30M360 100s-24 40-70 68"/>
+      <path d="M150 70a56 56 0 0 0 78 78"/>
+      <path d="M10 -6 370 206"/>
+    </g>
+  </svg>
+</template>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="pass-icons.js"></script>
+<script src="ia-icons.js"></script>
+<script type="text/babel" src="pass-components.jsx"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="ia-parts.jsx"></script>
+<script type="text/babel" src="ia-student.jsx"></script>
+<script type="text/babel">
+const { useTweaks, TweaksPanel, TweakSection, TweakRadio, TweakToggle } = window;
+const { Frame, Ico } = window;
+
+const TWEAK_DEFAULTS = { data: 'filled', forced: false, student: 'both' };
+
+function BandLabel({ x, y, pill, pillDark, title, sub, w = 760 }) {
+  return (
+    <div data-drags-parent="1" style={{ position: 'absolute', left: x, top: y, width: w }}>
+      {pill && <span className={'pill' + (pillDark ? ' dark' : '')}>{pill}</span>}
+      <div className="bandlabel">{title}{sub && <span className="sub">{sub}</span>}</div>
+    </div>
+  );
+}
+
+function Canvas() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const filled = t.data === 'filled';
+  const forcedOn = !!t.forced;
+  const rules = filled ? window.IA.makeRules() : [];
+  const status = window.IA.computeShownStatus(rules, forcedOn);
+  const seedShown = status.filter(s => !s.hidden).map(s => s.id);
+  const sig = t.data + '-' + forcedOn;
+
+  const showAbsent = t.student !== 'locked';
+  const showLocked = t.student !== 'absent';
+  const stX2 = showAbsent ? 1300 : 0;
+
+  const recBadge = <span className="ia-rec"><Ico name="Check" size={13} />Recommended</span>;
+
+  return (
+    <>
+      <div data-drags-parent="1" style={{ position: 'absolute', left: 0, top: 24, width: 1100 }}>
+        <div className="doc-title">Show Initial Assessments</div>
+        <div className="doc-sub">Providers choose which initial assessments students see on their learning portal — by subject, or narrowed to a level group. Anything not chosen is hidden. Three ways for the provider to pick what to show, each shown live, with the two ways a hidden assessment can read on the student side. Toggle the example data and the forced-assessment interplay in <b>Tweaks</b>.</div>
+      </div>
+
+      {/* ── Provider side ── */}
+      <BandLabel x={0} y={148} pill="Provider side · B2B" w={900}
+        title="Three ways to choose what to show"
+        sub="Same outcome, different control. A mirrors the sibling ‘Force’ card exactly; B lists everything to switch on/off; C is a compact subject × level grid. Every direction is interactive — add rows, flip switches, tick cells." />
+
+      <Frame x={0} y={300} w={1180} label="A · Repeatable rows — matches the ‘Force Initial Assessments’ card">
+        <div className="pass" style={{ background: 'var(--bg-soft)', padding: 24 }}>
+          <ShowRows key={'a-' + sig} seedRules={rules.map(r => ({ ...r }))} forcedOn={forcedOn} badge={recBadge} />
+        </div>
+      </Frame>
+
+      <Frame x={1300} y={300} w={1180} label="B · Visibility toggle list — see the whole catalogue, switch on what to show">
+        <div className="pass" style={{ background: 'var(--bg-soft)', padding: 24 }}>
+          <ToggleList key={'b-' + sig} seedShown={seedShown} forcedOn={forcedOn} />
+        </div>
+      </Frame>
+
+      <Frame x={2600} y={300} w={1180} label="C · Coverage matrix — subject × level group at a glance">
+        <div className="pass" style={{ background: 'var(--bg-soft)', padding: 24 }}>
+          <Matrix key={'c-' + sig} seedShown={seedShown} forcedOn={forcedOn} />
+        </div>
+      </Frame>
+
+      {/* empty state + recommendation */}
+      <Frame x={0} y={1120} w={760} label="A · empty state — showing all by default (short explainer + Add)">
+        <div className="pass" style={{ background: 'var(--bg-soft)', padding: 24 }}>
+          <ShowRows key="empty" seedRules={[]} forcedOn={false} />
+        </div>
+      </Frame>
+
+      <div data-drags-parent="1" style={{ position: 'absolute', left: 900, top: 1120, width: 900 }}>
+        <div className="notecard">
+          <h4><Ico name="Star" size={18} />Recommendation</h4>
+          <ul>
+            <li><span className="n">A</span><div><b>Ship direction A (rows).</b> It’s the exact twin of the Force card right below it, so providers reuse one mental model — subject required, level group optional, blank = all levels. Empty list = show everything; add rows to limit. Lowest build + lowest learning cost.</div></li>
+            <li><span className="n">B</span><div><b>Keep B in your back pocket.</b> The toggle list is more discoverable and reads current state at a glance — worth it later if the assessment catalogue grows.</div></li>
+            <li><span className="n">C</span><div><b>Matrix is elegant but niche.</b> Great for a compliance overview; overkill for two subjects and three level groups today.</div></li>
+            <li><span className="n">!</span><div><b>Forced always shows.</b> A forced assessment is always shown to students regardless of this setting — every direction locks it, so the two features can’t silently contradict.</div></li>
+          </ul>
+        </div>
+      </div>
+
+      {/* ── Student side ── */}
+      <BandLabel x={0} y={1620} pill="Student side · learning portal" pillDark w={900}
+        title="How a hidden assessment reads to the student"
+        sub="Two treatments to compare. ‘Absent’ removes it completely; ‘locked’ leaves a greyed, un-startable placeholder. Both reflect the same example config as the provider cards above." />
+
+      {showAbsent && (
+        <Frame x={0} y={1772} w={1180} label="Student — hidden = ABSENT (recommended: cleanest, no confusion)">
+          <StudentPortal mode="absent" rules={rules} forcedOn={forcedOn} />
+        </Frame>
+      )}
+      {showLocked && (
+        <Frame x={stX2} y={1772} w={1180} label="Student — hidden = LOCKED & greyed (they can see it exists)">
+          <StudentPortal mode="locked" rules={rules} forcedOn={forcedOn} />
+        </Frame>
+      )}
+
+      <TweaksPanel>
+        <TweakSection label="Example data" />
+        <TweakRadio label="Shown rules" value={t.data} options={['filled', 'empty']} onChange={(v) => setTweak('data', v)} />
+        <TweakSection label="Interplay with Force" />
+        <TweakToggle label="Forced assessment present" value={t.forced} onChange={(v) => setTweak('forced', v)} />
+        <TweakSection label="Student view" />
+        <TweakRadio label="Show" value={t.student} options={['both', 'absent', 'locked']} onChange={(v) => setTweak('student', v)} />
+      </TweaksPanel>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Canvas />);
+</script>
+</body>
+</html>

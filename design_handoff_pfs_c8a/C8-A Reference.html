@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>C8-A Reference — PFS product page</title>
+<style>
+body{margin:0;background:#F3F4F6;font-family:Inter,system-ui,sans-serif}
+a{color:#0F8610}a:hover{color:#116A12}
+.wrap{padding:28px;display:flex;flex-direction:column;gap:28px;align-items:flex-start}
+.lbl{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#6A7282;margin:0 0 10px}
+.frame{background:#fff;border:1px solid #E5E7EB;border-radius:14px;overflow:hidden;width:1470px}
+.phone{background:#fff;border:1px solid #E5E7EB;border-radius:20px;overflow:hidden;box-shadow:0 10px 15px -3px rgba(0,0,0,.1);width:390px;height:844px}
+.note{max-width:1470px;background:#fff;border:1px solid #E5E7EB;border-left:3px solid #0FBC0F;border-radius:0 10px 10px 0;padding:16px 18px}
+.note p{margin:0 0 6px;font-size:13.5px;line-height:1.6;color:#344054}
+.note p:last-child{margin:0}
+.note b{color:#101828}
+.row{display:flex;gap:28px;align-items:flex-start}
+</style>
+</head>
+<body>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="pfs-data.js"></script>
+<script type="text/babel" src="pfs-parts.jsx"></script>
+<script type="text/babel" src="pfs-enforcers.jsx"></script>
+<script type="text/babel" src="pfs-buybox.jsx"></script>
+<script type="text/babel" src="pfs-buybox2.jsx"></script>
+<script type="text/babel" src="pfs-buybox3.jsx"></script>
+<script type="text/babel" src="pfs-buybox4.jsx"></script>
+<script type="text/babel" src="pfs-mobile-c8a.jsx"></script>
+<div id="root"></div>
+<script type="text/babel">
+function App() {
+  return <div className="wrap">
+    <div className="note">
+      <p><b>C8-A — the design target for this handoff.</b> Everything here is live: change the invigilation style and the awarding body, turnaround and rail all move; pick Exam Only and step 4 locks; toggle “Choose date now” and the calendar appears with the CTA disabled until you pick a sitting.</p>
+      <p>This is a <b>design reference, not production code</b>. The target is the live WordPress/WooCommerce Composite Products page — read <b>README.md</b> before implementing, particularly §2 on the re-render trap.</p>
+    </div>
+
+    <div>
+      <p className="lbl">Desktop · 1470px container</p>
+      <div className="frame"><PageShell gallery="wide"><BuyBox8A/></PageShell></div>
+    </div>
+
+    <div>
+      <p className="lbl">Mobile · 390×844 · steps inline, sticky bar carries the live total</p>
+      <div className="row">
+        <div className="phone"><MobileC8A/></div>
+        <div className="note" style={{maxWidth:520}}>
+          <p><b>Why no bottom sheet here.</b> Concepts C1–C4 open a full-screen configurator sheet. C8-A deliberately does not: moving a composite form into a modal is a large JS job, and C8-A’s whole premise is a variation that ships without platform work. The steps stay inline in document order.</p>
+          <p><b>Imagery is a 36px utility row.</b> The gallery was taking about a third of the first screen. One small thumbnail plus the setup video reclaims 168px and brings steps 1 and 2 above the fold — and the video answers the top objection, which a stock photo of a laptop does not.</p>
+          <p><b>The sticky CTA proxies the real button</b> rather than duplicating a submit control, so validation has one source of truth and there is no second POST path.</p>
+        </div>
+      </div>
+    </div>
+  </div>;
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

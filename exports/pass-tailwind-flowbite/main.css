@@ -1,0 +1,26 @@
+/* Pass Design System — single-entry import.
+ *
+ * In your bundler / framework: import this one file.
+ *   import '@/styles/main.css';
+ *
+ * In vanilla HTML (CDN dev): just <link rel="stylesheet" href="./main.css">
+ * — but you'll also need <script src=".../@tailwindcss/browser@4"></script>
+ *   in the page head for the Tailwind runtime. See setup.md.
+ */
+
+@import "tailwindcss";
+
+/* Flowbite v3 — registers components, dark-mode plugin, dropdown/modal markers.
+ * `@plugin` is the Tailwind v4 way to load CSS plugins from npm. */
+@plugin "flowbite/plugin";
+
+/* Tell Tailwind to scan Flowbite's compiled CSS / data attributes so its
+ * utilities are kept in the production build. */
+@source "../../node_modules/flowbite";
+
+/* Pass tokens (must come after tailwindcss + flowbite so they win the
+ * `--color-primary-*` cascade). */
+@import "./tokens.css";
+
+/* Pass resets, utilities, focus styles. */
+@import "./base.css";

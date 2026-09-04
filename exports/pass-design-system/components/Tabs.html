@@ -1,0 +1,55 @@
+<!-- Tabs — ARIA pattern. JS handles roving tabindex & arrow keys.
+     Use PrimeVue Tabs (unstyled) or hand-roll; class strings only here. -->
+
+<!-- ─── Underline tabs (default) ─── -->
+<div>
+  <div role="tablist" class="flex items-center gap-6 border-b border-border-default" aria-label="Course">
+    <button role="tab" aria-selected="true" id="tab-overview" aria-controls="panel-overview"
+      class="relative -mb-px h-10 inline-flex items-center text-sm font-medium text-primary-700
+             border-b-2 border-primary-600
+             focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-primary-600/25 rounded-t">
+      Overview
+    </button>
+    <button role="tab" aria-selected="false" id="tab-mocks" aria-controls="panel-mocks" tabindex="-1"
+      class="relative -mb-px h-10 inline-flex items-center text-sm font-medium text-fg-3 border-b-2 border-transparent
+             hover:text-fg-1 hover:border-border-strong">
+      Mocks <span class="ml-1.5 inline-flex items-center px-1.5 h-4 rounded-full text-[10px] font-semibold bg-bg-raised text-fg-3">4</span>
+    </button>
+    <button role="tab" aria-selected="false" id="tab-reports" aria-controls="panel-reports" tabindex="-1"
+      class="relative -mb-px h-10 inline-flex items-center text-sm font-medium text-fg-3 border-b-2 border-transparent hover:text-fg-1 hover:border-border-strong">
+      Reports
+    </button>
+    <button role="tab" aria-disabled="true" tabindex="-1"
+      class="relative -mb-px h-10 inline-flex items-center text-sm font-medium text-fg-5 border-b-2 border-transparent cursor-not-allowed">
+      Settings
+    </button>
+  </div>
+
+  <div role="tabpanel" id="panel-overview" aria-labelledby="tab-overview" class="pt-6">Overview content…</div>
+</div>
+
+<!-- ─── Pill tabs (compact, on raised surface) ─── -->
+<div role="tablist" class="inline-flex items-center gap-1 p-1 rounded-lg bg-bg-raised">
+  <button role="tab" aria-selected="true" class="h-8 px-3 rounded-md text-sm font-medium bg-bg-surface text-fg-1 shadow-sm">All</button>
+  <button role="tab" aria-selected="false" class="h-8 px-3 rounded-md text-sm font-medium text-fg-3 hover:text-fg-1">Active</button>
+  <button role="tab" aria-selected="false" class="h-8 px-3 rounded-md text-sm font-medium text-fg-3 hover:text-fg-1">Archived</button>
+</div>
+
+<!-- ─── Card tabs (top of card; selected merges with body) ─── -->
+<div class="rounded-lg border border-border-default bg-bg-surface">
+  <div role="tablist" class="flex items-center px-3 border-b border-border-default">
+    <button role="tab" aria-selected="true" class="h-11 px-4 text-sm font-medium text-fg-1 border-b-2 border-primary-600 -mb-px">Maths</button>
+    <button role="tab" aria-selected="false" class="h-11 px-4 text-sm font-medium text-fg-3 hover:text-fg-1">English</button>
+  </div>
+  <div class="p-6 text-sm">Tab panel content…</div>
+</div>
+
+<!-- ─── Vertical tabs ─── -->
+<div class="grid grid-cols-[200px_1fr] gap-6">
+  <div role="tablist" aria-orientation="vertical" class="flex flex-col gap-1">
+    <button role="tab" aria-selected="true"  class="text-left h-10 px-3 rounded-md text-sm font-medium bg-primary-50 text-primary-700">Profile</button>
+    <button role="tab" aria-selected="false" class="text-left h-10 px-3 rounded-md text-sm font-medium text-fg-2 hover:bg-bg-raised">Notifications</button>
+    <button role="tab" aria-selected="false" class="text-left h-10 px-3 rounded-md text-sm font-medium text-fg-2 hover:bg-bg-raised">Billing</button>
+  </div>
+  <div role="tabpanel">Panel</div>
+</div>

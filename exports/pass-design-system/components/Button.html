@@ -1,0 +1,115 @@
+<!-- Button — class strings only, no JS, no Flowbite -->
+<!--
+  Recipe (Vue SFC stub):
+
+  <button
+    :class="[
+      base,
+      sizes[size],
+      intents[intent],
+      { 'opacity-50 cursor-not-allowed pointer-events-none': disabled, 'gap-2': $slots.icon }
+    ]"
+    :disabled="disabled || loading"
+    type="button"
+  >
+    <span v-if="loading" aria-hidden="true" class="i-spinner" />
+    <slot />
+  </button>
+-->
+
+<!-- ─── Primary ─── -->
+<button type="button" class="inline-flex items-center justify-center gap-2 h-10 px-5 rounded-lg text-sm font-medium leading-none
+       bg-primary-600 text-white border border-transparent
+       hover:bg-primary-700 active:bg-primary-800 active:shadow-inner
+       focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-primary-600/25 focus-visible:border-primary-600
+       disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none
+       transition-colors duration-150 ease-[cubic-bezier(.4,0,.2,1)]">
+  Book a demo
+</button>
+
+<!-- ─── Secondary (outline on surface) ─── -->
+<button type="button" class="inline-flex items-center justify-center gap-2 h-10 px-5 rounded-lg text-sm font-medium leading-none
+       bg-bg-surface text-fg-1 border border-border-default
+       hover:bg-bg-raised hover:border-border-strong
+       active:bg-gray-200 active:shadow-inner
+       focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-primary-600/25 focus-visible:border-primary-600
+       disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none
+       transition-colors duration-150 ease-[cubic-bezier(.4,0,.2,1)]">
+  Learn more
+</button>
+
+<!-- ─── Ghost (chromeless) ─── -->
+<button type="button" class="inline-flex items-center justify-center gap-2 h-10 px-4 rounded-lg text-sm font-medium leading-none
+       bg-transparent text-fg-2 border border-transparent
+       hover:bg-bg-raised hover:text-fg-1
+       active:bg-gray-200
+       focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-primary-600/25
+       disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none
+       transition-colors duration-150 ease-[cubic-bezier(.4,0,.2,1)]">
+  Cancel
+</button>
+
+<!-- ─── Danger ─── -->
+<button type="button" class="inline-flex items-center justify-center gap-2 h-10 px-5 rounded-lg text-sm font-medium leading-none
+       bg-danger-600 text-white border border-transparent
+       hover:bg-danger-700 active:bg-danger-700 active:shadow-inner
+       focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-danger-600/30
+       disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none
+       transition-colors duration-150">
+  Delete account
+</button>
+
+<!-- ─── Link button ─── -->
+<button type="button" class="inline-flex items-center gap-1 text-sm font-medium text-primary-700 hover:text-primary-800 hover:underline underline-offset-4
+       focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-primary-600/25 rounded">
+  View case study <span aria-hidden="true">→</span>
+</button>
+
+<!-- ─── Sizes — sm / md (default) / lg / xl ─── -->
+<button type="button" class="inline-flex items-center justify-center gap-1.5 h-8  px-3 rounded-md text-xs font-medium bg-primary-600 text-white hover:bg-primary-700">Small</button>
+<button type="button" class="inline-flex items-center justify-center gap-2   h-10 px-5 rounded-lg text-sm font-medium bg-primary-600 text-white hover:bg-primary-700">Medium</button>
+<button type="button" class="inline-flex items-center justify-center gap-2   h-12 px-6 rounded-lg text-base font-medium bg-primary-600 text-white hover:bg-primary-700">Large</button>
+<button type="button" class="inline-flex items-center justify-center gap-2.5 h-14 px-7 rounded-lg text-lg font-medium bg-primary-600 text-white hover:bg-primary-700">XL</button>
+
+<!-- ─── Icon-only (square) ─── -->
+<button type="button" aria-label="Settings" class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-bg-surface text-fg-2 border border-border-default
+       hover:bg-bg-raised hover:text-fg-1 focus-visible:ring-[3px] focus-visible:ring-primary-600/25 focus-visible:border-primary-600">
+  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9 1.65 1.65 0 0 0 4.27 7.18l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09A1.65 1.65 0 0 0 15 4.6a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+</button>
+
+<!-- ─── With leading icon + trailing icon ─── -->
+<button type="button" class="inline-flex items-center gap-2 h-10 px-5 rounded-lg text-sm font-medium bg-primary-600 text-white hover:bg-primary-700 focus-visible:ring-[3px] focus-visible:ring-primary-600/25">
+  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+  Add learner
+</button>
+
+<button type="button" class="inline-flex items-center gap-2 h-10 px-5 rounded-lg text-sm font-medium bg-bg-surface text-fg-1 border border-border-default hover:bg-bg-raised">
+  Filter
+  <svg class="w-4 h-4 text-fg-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+</button>
+
+<!-- ─── Loading state (spinner + busy attr) ─── -->
+<button type="button" aria-busy="true" class="inline-flex items-center gap-2 h-10 px-5 rounded-lg text-sm font-medium bg-primary-600 text-white opacity-90 cursor-progress">
+  <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-opacity="0.25" stroke-width="3"/>
+    <path d="M22 12a10 10 0 0 1-10 10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+  </svg>
+  Saving…
+</button>
+
+<!-- ─── Disabled ─── -->
+<button type="button" disabled class="inline-flex items-center gap-2 h-10 px-5 rounded-lg text-sm font-medium bg-primary-600 text-white opacity-50 cursor-not-allowed">
+  Continue
+</button>
+
+<!-- ─── Full-width block ─── -->
+<button type="button" class="w-full inline-flex items-center justify-center h-12 rounded-lg text-base font-medium bg-primary-600 text-white hover:bg-primary-700 focus-visible:ring-[3px] focus-visible:ring-primary-600/25">
+  Get started
+</button>
+
+<!-- ─── Button group (segmented) ─── -->
+<div role="group" class="inline-flex rounded-lg shadow-sm" aria-label="View">
+  <button type="button" class="inline-flex items-center h-9 px-3 text-sm font-medium bg-bg-surface text-fg-1 border border-border-default rounded-l-lg hover:bg-bg-raised focus-visible:z-10 focus-visible:ring-[3px] focus-visible:ring-primary-600/25">Day</button>
+  <button type="button" aria-pressed="true" class="inline-flex items-center h-9 px-3 text-sm font-medium bg-primary-600 text-white border border-primary-600 -ml-px focus-visible:z-10 focus-visible:ring-[3px] focus-visible:ring-primary-600/25">Week</button>
+  <button type="button" class="inline-flex items-center h-9 px-3 text-sm font-medium bg-bg-surface text-fg-1 border border-border-default rounded-r-lg -ml-px hover:bg-bg-raised focus-visible:z-10 focus-visible:ring-[3px] focus-visible:ring-primary-600/25">Month</button>
+</div>

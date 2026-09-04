@@ -1,0 +1,161 @@
+/* Pass Design System — global base styles.
+ * Imported AFTER tokens.css. Compatible with Tailwind v4 + Flowbite v3.
+ */
+
+@layer base {
+  /* ── Reset ── */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    font-feature-settings: "cv02", "cv11", "ss01";
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    color: var(--color-fg-1);
+    background-color: var(--color-bg-page);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-fg-1);
+    line-height: var(--leading-tight);
+    text-wrap: balance;
+  }
+  p { margin: 0; text-wrap: pretty; }
+  small { font-size: var(--text-xs); color: var(--color-fg-4); }
+
+  a {
+    color: var(--color-fg-link);
+    text-decoration-color: transparent;
+    text-underline-offset: 0.2em;
+    transition: text-decoration-color var(--duration-hover) var(--ease-in-out),
+                color var(--duration-hover) var(--ease-in-out);
+  }
+  a:hover { text-decoration: underline; text-decoration-color: currentColor; }
+
+  hr {
+    border: 0;
+    border-top: 1px solid var(--color-border-default);
+    margin: 24px 0;
+  }
+
+  img, svg, video, canvas { display: block; max-width: 100%; }
+  svg { fill: currentColor; }
+
+  input, button, textarea, select { font: inherit; color: inherit; }
+
+  input[type="number"] { -moz-appearance: textfield; }
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+  /* ── Focus-visible ring — single source of truth ── */
+  :focus { outline: none; }
+  :focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-focus);
+    border-color: var(--color-primary-600);
+  }
+
+  ::selection {
+    background: oklch(0.690 0.230 142 / 0.25);
+    color: var(--color-fg-1);
+  }
+
+  /* ── Scrollbar ── */
+  * { scrollbar-width: thin; scrollbar-color: var(--color-gray-300) transparent; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-gray-300);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-gray-400); background-clip: padding-box; }
+  .dark ::-webkit-scrollbar-thumb { background: var(--color-gray-700); background-clip: padding-box; }
+  .dark ::-webkit-scrollbar-thumb:hover { background: var(--color-gray-600); background-clip: padding-box; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ─────────────────────────────────────────────
+ * Utility classes (Tailwind v4 @utility)
+ * ───────────────────────────────────────────── */
+@utility container-page {
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (min-width: 768px) { padding-inline: 1.5rem; }
+}
+
+@utility container-portal {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (min-width: 768px) { padding-inline: 1.5rem; }
+}
+
+@utility focus-ring {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+  border-color: var(--color-primary-600);
+}
+
+@utility skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-gray-100) 0%,
+    var(--color-gray-200) 50%,
+    var(--color-gray-100) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+  border-radius: var(--radius-md);
+}
+@keyframes skeleton-shimmer {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+
+@utility eyebrow {
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-primary-600);
+}
+
+/* ─────────────────────────────────────────────
+ * Flowbite component nudges
+ * Most of Flowbite's defaults are fine. These three small overrides
+ * keep Flowbite components on-brand with Pass's preference for 12 px
+ * radii and slightly tighter focus rings.
+ * ───────────────────────────────────────────── */
+@layer components {
+  /* Buttons: 12 px radius instead of Flowbite's default 8 px */
+  .btn, [data-flowbite="button"], button.flowbite-btn {
+    border-radius: var(--radius-lg);
+  }
+  /* Inputs: 12 px radius, 42 px height to match Pass card system */
+  input.flowbite-input, .form-input {
+    border-radius: var(--radius-lg);
+  }
+}

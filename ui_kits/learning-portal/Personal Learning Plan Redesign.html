@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!-- @dsCard group="UI Kit — Learning Portal" name="Personal Learning Plan Redesign" subtitle="Safe + Bold variations — with locked-state toggle" viewport="1440x1100" -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pass — Personal Learning Plan Redesign</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<style>
+  html, body { margin: 0; height: 100%; background: #F3F4F6; font-family: 'Inter', system-ui, sans-serif; }
+  .frame { width: 1440px; height: 1100px; background: #fff; overflow: hidden; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="CourseSidebar.jsx"></script>
+<script type="text/babel" src="PLPData.jsx"></script>
+<script type="text/babel" src="PLPLock.jsx"></script>
+<script type="text/babel" src="PLPViewA.jsx"></script>
+<script type="text/babel" src="PLPViewB.jsx"></script>
+
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "locked": false
+}/*EDITMODE-END*/;
+
+function App() {
+  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  return (
+    <>
+      <DesignCanvas
+        title="Personal Learning Plan — Redesign Explorations"
+        subtitle="Two directions, each with an unlocked + premium-locked state. Toggle the lock in Tweaks to flip both at once.">
+
+        <DCSection id="safe" title="A · Safe refresh">
+          <DCArtboard id="A" label={`Unlocked — grouped cards + table toggle${tweaks.locked ? ' · LOCKED' : ''}`} width={1440} height={1100}>
+            <div className="frame"><PLPViewA locked={tweaks.locked}/></div>
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="bold" title="B · Bold redesign">
+          <DCArtboard id="B" label={`Bold — Do-this-next + AI insight${tweaks.locked ? ' · LOCKED' : ''}`} width={1440} height={1100}>
+            <div className="frame"><PLPViewB locked={tweaks.locked}/></div>
+          </DCArtboard>
+        </DCSection>
+      </DesignCanvas>
+
+      <TweaksPanel title="Tweaks">
+        <TweakSection title="State">
+          <TweakToggle label="Show premium-locked state" value={tweaks.locked} onChange={v => setTweak('locked', v)}/>
+          <div style={{fontSize: 11, color: '#6A7282', marginTop: 6, lineHeight: 1.4}}>Toggle to flip both designs into the locked / upsell state at once.</div>
+        </TweakSection>
+      </TweaksPanel>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

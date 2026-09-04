@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8"/>
+<title>B — Running total</title>
+<link rel="stylesheet" href="../styles.css"/>
+<style>
+body{margin:0;background:var(--color-gray-100);padding:32px;display:flex;justify-content:center}
+.col{width:700px}
+.stars{color:#F5A623;font-size:15px;letter-spacing:1px}
+.rev{font-size:13px;color:var(--fg-4)}
+h1{font-size:32px;font-weight:800;letter-spacing:-.025em;line-height:1.15;margin:8px 0 8px}
+.sub{font-size:15px;color:var(--fg-3);line-height:1.6;margin:0 0 22px}
+.rail{position:sticky;top:0;background:#fff;border:1px solid var(--border-default);border-radius:12px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;box-shadow:var(--shadow-sm)}
+.rl{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--fg-4);margin:0 0 2px}
+.rp{font-size:30px;font-weight:800;letter-spacing:-.025em;line-height:1}
+.rw{font-size:13px;color:var(--fg-5);text-decoration:line-through;margin-left:8px}
+.rprog{text-align:right}
+.pbar{width:130px;height:6px;background:var(--bg-raised);border-radius:999px;overflow:hidden;margin-top:6px}
+.pfill{height:100%;width:75%;background:var(--color-primary);border-radius:999px}
+.pct{font-size:12.5px;color:var(--fg-4);font-weight:500}
+.q{background:#fff;border:1px solid var(--border-default);border-radius:12px;margin-bottom:10px;overflow:hidden}
+.qh{display:grid;grid-template-columns:26px 1fr auto;gap:12px;align-items:center;padding:16px 20px}
+.num{width:24px;height:24px;border-radius:999px;background:var(--bg-raised);color:var(--fg-3);font-size:12.5px;font-weight:700;display:grid;place-items:center}
+.done .num{background:var(--color-primary);color:#fff}
+.qt{font-size:15.5px;font-weight:600;color:var(--fg-1);margin:0}
+.qa{font-size:13.5px;color:var(--fg-4);margin:2px 0 0}
+.delta{font-size:14px;font-weight:600;color:var(--fg-3);white-space:nowrap}
+.chg{font-size:13px;color:var(--color-link);font-weight:600;text-decoration:underline;white-space:nowrap}
+.qb{padding:0 20px 20px 58px;border-top:1px solid var(--border-default);padding-top:16px}
+.opts{display:grid;gap:8px}
+.o{display:grid;grid-template-columns:20px 1fr auto;gap:12px;align-items:center;border:1px solid var(--border-default);border-radius:10px;padding:13px 15px;cursor:pointer}
+.o:hover{border-color:var(--border-strong)}
+.o.on{border-color:var(--color-primary);border-width:2px;padding:12px 14px;background:var(--color-primary-bg)}
+.dot{width:18px;height:18px;border-radius:999px;border:1.5px solid var(--border-strong)}
+.o.on .dot{border-color:var(--color-primary);border-width:5px;background:#fff}
+.ot{font-size:14.5px;font-weight:600;color:var(--fg-1);margin:0}
+.od{font-size:12.5px;color:var(--fg-4);margin:2px 0 0;line-height:1.45}
+.op{font-size:15px;font-weight:700;color:var(--fg-1);white-space:nowrap}
+.op small{display:block;font-size:11.5px;font-weight:500;color:var(--fg-4);text-align:right}
+.hint{font-size:12.5px;color:var(--fg-4);margin:12px 0 0;line-height:1.5}
+.cta{width:100%;height:56px;border:none;border-radius:12px;background:var(--color-primary);color:#fff;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer;margin-top:6px}
+.cta:hover{background:var(--color-primary-hover)}
+.mth{text-align:center;font-size:13px;color:var(--fg-4);margin:10px 0 0}
+.urg{display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;color:var(--color-warning);font-weight:600;margin-top:10px}
+.proof{border-top:1px solid var(--border-default);margin-top:24px;padding-top:18px;display:flex;flex-wrap:wrap;gap:10px 20px}
+.pi{display:flex;gap:7px;align-items:center;font-size:13px;color:var(--fg-3);font-weight:500}
+</style>
+</head>
+<body>
+<div class="col">
+<div><span class="stars">★★★★★</span> <span class="rev">4.7 from 258 Trustpilot reviews</span></div>
+<h1>Functional Skills Maths Level 2</h1>
+<p class="sub">Ofqual-regulated, GCSE-equivalent. Four quick choices — the price updates as you go, and what you see is what you pay.</p>
+
+<div class="rail">
+  <div><p class="rl">Your price so far</p><div><span class="rp">£441.60</span><span class="rw">£552.00</span></div></div>
+  <div class="rprog"><span class="pct">3 of 4 chosen</span><div class="pbar"><div class="pfill"></div></div></div>
+</div>
+
+<div class="q done"><div class="qh"><div class="num">✓</div><div><p class="qt">What you need</p><p class="qa">Exam + course + free resit</p></div><span class="chg">Change</span></div></div>
+
+<div class="q done"><div class="qh"><div class="num">✓</div><div><p class="qt">How it's invigilated</p><p class="qa">Remote — sit it any time, results in 2 working days</p></div><span class="chg">Change</span></div></div>
+
+<div class="q done"><div class="qh"><div class="num">✓</div><div><p class="qt">Course length</p><p class="qa">12 months' access</p></div><span class="chg">Change</span></div></div>
+
+<div class="q"><div class="qh"><div class="num">4</div><div><p class="qt">When do you want to sit it?</p></div><span class="delta">Last step</span></div>
+<div class="qb">
+  <div class="opts">
+    <div class="o on"><div class="dot"></div><div><p class="ot">Decide later</p><p class="od">Book today, choose your date any time in the next 12 months.</p></div><div class="op">£0<small>included</small></div></div>
+    <div class="o"><div class="dot"></div><div><p class="ot">Sat 29 August</p><p class="od">Remote invigilation · results by 2 September</p></div><div class="op">+£82<small>£240 slot</small></div></div>
+    <div class="o"><div class="dot"></div><div><p class="ot">Tue 25 August</p><p class="od">Soonest available · results by 27 August</p></div><div class="op">+£114<small>£272 slot</small></div></div>
+  </div>
+  <p class="hint">Dated slots are priced by demand — the further out you book, the cheaper it gets. <a href="#" style="color:var(--color-link);font-weight:600">See all dates</a></p>
+</div></div>
+
+<button class="cta">Add to basket · £441.60</button>
+<p class="mth">or from £36.80/month with Klarna, Clearpay or Payl8r</p>
+<div class="urg"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 8 places left at this price · offer ends Friday 28 August</div>
+
+<div class="proof">
+  <div class="pi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0FBC0F" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> 93% pass rate over 5,399 sittings</div>
+  <div class="pi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0FBC0F" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> Ofqual regulated</div>
+  <div class="pi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0FBC0F" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> Sat at home, no exam centre</div>
+  <div class="pi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0FBC0F" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> Price-match guarantee</div>
+  <div class="pi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0FBC0F" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg> Accepted by 140+ UK universities</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,260 @@
+/* Pass Design System — Tailwind v4 tokens for Flowbite v3
+ *
+ * Drop into your Tailwind v4 entry CSS:
+ *
+ *   @import "tailwindcss";
+ *   @plugin "flowbite/plugin";
+ *   @source "../../node_modules/flowbite";
+ *   @import "./tokens.css";
+ *   @import "./base.css";
+ *
+ * Tailwind v4 reads CSS custom properties declared inside @theme to generate
+ * utilities (bg-primary-600, text-gray-700, rounded-lg, shadow-md, etc.).
+ *
+ * Flowbite v3 reads the SAME `primary-*` and `gray-*` scales — so dropping
+ * any Flowbite component (Button, Datepicker, Modal, Stepper) inherits the
+ * Pass green palette automatically. No config file needed.
+ *
+ * Brand: Pass Green. Primary = green-600 (#0FBC0F).
+ * Type:  Inter via Google Fonts (loaded below).
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ─────────────────────────────────────────────
+ * 1) THEME — Tailwind v4 token surface
+ *    Everything Flowbite needs lives here.
+ * ───────────────────────────────────────────── */
+@theme {
+  /* ── Color: brand (Pass Green) ──
+   * Flowbite v3 buttons & components read `--color-primary-*` directly. */
+  --color-primary-50:  oklch(0.985 0.025 142);   /* #F0FEEF */
+  --color-primary-100: oklch(0.965 0.055 142);   /* #DBFEDA */
+  --color-primary-200: oklch(0.925 0.115 142);   /* #B8FBB7 */
+  --color-primary-300: oklch(0.860 0.190 142);   /* #81F580 */
+  --color-primary-400: oklch(0.790 0.235 142);   /* #42E741 */
+  --color-primary-500: oklch(0.730 0.245 142);   /* #18CF18 */
+  --color-primary-600: oklch(0.690 0.230 142);   /* #0FBC0F — PRIMARY */
+  --color-primary-700: oklch(0.555 0.190 142);   /* #0F8610 — hover */
+  --color-primary-800: oklch(0.470 0.160 142);   /* #116A12 — press */
+  --color-primary-900: oklch(0.405 0.140 142);   /* #105712 */
+  --color-primary-950: oklch(0.275 0.095 142);   /* #033005 */
+
+  /* ── Color: gray ramp ──
+   * Slate-leaning neutrals. Flowbite components inherit these as gray-*. */
+  --color-gray-25:  oklch(0.992 0.002 250);
+  --color-gray-50:  oklch(0.985 0.003 250);
+  --color-gray-100: oklch(0.967 0.004 250);
+  --color-gray-200: oklch(0.918 0.006 250);
+  --color-gray-300: oklch(0.855 0.009 250);
+  --color-gray-400: oklch(0.700 0.015 250);
+  --color-gray-500: oklch(0.555 0.020 250);
+  --color-gray-600: oklch(0.445 0.025 250);
+  --color-gray-700: oklch(0.365 0.030 250);
+  --color-gray-800: oklch(0.265 0.035 250);
+  --color-gray-900: oklch(0.180 0.040 250);
+  --color-gray-950: oklch(0.115 0.035 250);
+
+  /* ── Color: semantic ── */
+  --color-green-50:   oklch(0.975 0.025 160);
+  --color-green-500:  oklch(0.665 0.155 160);
+  --color-green-600:  oklch(0.605 0.150 160);   /* #0E9F6E success */
+  --color-green-700:  oklch(0.515 0.145 160);
+
+  --color-yellow-50:  oklch(0.975 0.030  65);
+  --color-yellow-500: oklch(0.720 0.180  55);
+  --color-yellow-600: oklch(0.665 0.180  55);   /* #D97706 warning */
+  --color-yellow-700: oklch(0.560 0.165  55);
+
+  --color-red-50:   oklch(0.975 0.020  20);
+  --color-red-500:  oklch(0.580 0.220  18);
+  --color-red-600:  oklch(0.530 0.230  18);     /* #C70036 danger */
+  --color-red-700:  oklch(0.450 0.210  20);
+
+  --color-blue-50:   oklch(0.975 0.020 250);
+  --color-blue-500:  oklch(0.620 0.190 255);
+  --color-blue-600:  oklch(0.560 0.195 258);    /* #1C64F2 info */
+  --color-blue-700:  oklch(0.475 0.185 258);
+
+  --color-orange-300: oklch(0.825 0.105  55);   /* #FDBA8C — celebratory accent */
+  --color-orange-500: oklch(0.700 0.180  45);   /* #F97316 */
+
+  /* ── Semantic surface aliases (resolved per scheme below) ── */
+  --color-bg-page:      var(--color-gray-50);
+  --color-bg-page-alt:  #FFFFFF;
+  --color-bg-surface:   #FFFFFF;
+  --color-bg-raised:    var(--color-gray-100);
+  --color-bg-sunken:    var(--color-gray-50);
+  --color-bg-brand:     var(--color-primary-600);
+  --color-bg-brand-soft:var(--color-primary-50);
+
+  --color-fg-1:        var(--color-gray-900);  /* primary text */
+  --color-fg-2:        var(--color-gray-700);
+  --color-fg-3:        var(--color-gray-600);
+  --color-fg-4:        var(--color-gray-500);
+  --color-fg-5:        var(--color-gray-400);
+  --color-fg-inverse:  #FFFFFF;
+  --color-fg-link:     var(--color-primary-700);
+  --color-fg-brand:    var(--color-primary-600);
+
+  --color-border-default: var(--color-gray-200);
+  --color-border-strong:  var(--color-gray-300);
+  --color-border-brand:   var(--color-primary-600);
+
+  /* ── Typography ── */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-display: var(--font-sans);
+
+  --font-weight-regular:    400;
+  --font-weight-medium:     500;
+  --font-weight-semibold:   600;
+  --font-weight-bold:       700;
+  --font-weight-extrabold:  800;
+
+  /* Tailwind v4 generates text-xs … text-6xl from these */
+  --text-xs:   12px;
+  --text-xs--line-height: 1rem;
+  --text-sm:   14px;
+  --text-sm--line-height: 1.25rem;
+  --text-base: 16px;
+  --text-base--line-height: 1.5rem;
+  --text-lg:   18px;
+  --text-lg--line-height: 1.75rem;
+  --text-xl:   20px;
+  --text-xl--line-height: 1.75rem;
+  --text-2xl:  24px;
+  --text-2xl--line-height: 2rem;
+  --text-3xl:  30px;
+  --text-3xl--line-height: 2.25rem;
+  --text-4xl:  36px;
+  --text-4xl--line-height: 2.5rem;
+  --text-5xl:  48px;
+  --text-5xl--line-height: 1;
+  --text-6xl:  60px;
+  --text-6xl--line-height: 1;
+
+  --leading-tight:   1.2;
+  --leading-snug:    1.35;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.625;
+
+  --tracking-tighter: -0.04em;
+  --tracking-tight:   -0.025em;
+  --tracking-normal:  0;
+  --tracking-wide:    0.025em;
+
+  /* ── Spacing — 4 px base ── */
+  --spacing: 0.25rem;
+
+  /* ── Radius ── */
+  --radius-xs:   4px;
+  --radius-sm:   6px;
+  --radius-md:   8px;
+  --radius-lg:   12px;           /* DEFAULT — cards, buttons, inputs */
+  --radius-xl:   16px;
+  --radius-2xl:  24px;
+  --radius-full: 9999px;
+
+  /* ── Shadows ── */
+  --shadow-sm:    0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow:       0 1px 3px 0 rgb(0 0 0 / 0.10), 0 1px 2px -1px rgb(0 0 0 / 0.10);
+  --shadow-md:    0 4px 6px -1px rgb(0 0 0 / 0.10), 0 2px 4px -2px rgb(0 0 0 / 0.10);
+  --shadow-lg:    0 10px 15px -3px rgb(0 0 0 / 0.10), 0 4px 6px -4px rgb(0 0 0 / 0.10);
+  --shadow-xl:    0 20px 25px -5px rgb(0 0 0 / 0.10), 0 8px 10px -6px rgb(0 0 0 / 0.10);
+  --shadow-2xl:   0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+  --shadow-focus: 0 0 0 3px oklch(0.690 0.230 142 / 0.25);
+
+  /* ── Z index ── */
+  --z-base:      0;
+  --z-raised:    10;
+  --z-dropdown:  1000;
+  --z-sticky:    1100;
+  --z-fixed:     1200;
+  --z-overlay:   1300;
+  --z-modal:     1400;
+  --z-popover:   1500;
+  --z-toast:     1600;
+  --z-tooltip:   1700;
+
+  /* ── Motion ── */
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:    cubic-bezier(0, 0, 0.2, 1);
+  --ease-in:     cubic-bezier(0.4, 0, 1, 1);
+  --ease-spring: cubic-bezier(0.5, 1.5, 0.5, 1);
+
+  --duration-instant: 75ms;
+  --duration-hover:   150ms;
+  --duration-small:   200ms;
+  --duration-panel:   300ms;
+  --duration-modal:   400ms;
+
+  /* ── Breakpoints (Tailwind defaults — repeated for documentation) ── */
+  --breakpoint-sm:  640px;
+  --breakpoint-md:  768px;
+  --breakpoint-lg:  1024px;
+  --breakpoint-xl:  1280px;
+  --breakpoint-2xl: 1536px;
+}
+
+/* ─────────────────────────────────────────────
+ * 2) DARK SCHEME — overrides the semantic aliases.
+ *    Both the .dark class AND prefers-color-scheme are honoured.
+ *    Flowbite's `dark:*` variants read the same .dark class.
+ * ───────────────────────────────────────────── */
+@layer base {
+  :root { color-scheme: light; }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light) {
+      color-scheme: dark;
+      --color-bg-page:      var(--color-gray-950);
+      --color-bg-page-alt:  var(--color-gray-900);
+      --color-bg-surface:   var(--color-gray-900);
+      --color-bg-raised:    var(--color-gray-800);
+      --color-bg-sunken:    var(--color-gray-950);
+      --color-bg-brand-soft:oklch(0.275 0.095 142);
+
+      --color-fg-1: var(--color-gray-50);
+      --color-fg-2: var(--color-gray-200);
+      --color-fg-3: var(--color-gray-300);
+      --color-fg-4: var(--color-gray-400);
+      --color-fg-5: var(--color-gray-500);
+      --color-fg-link: var(--color-primary-400);
+      --color-fg-brand: var(--color-primary-400);
+
+      --color-border-default: var(--color-gray-800);
+      --color-border-strong:  var(--color-gray-700);
+    }
+  }
+
+  .dark {
+    color-scheme: dark;
+    --color-bg-page:      var(--color-gray-950);
+    --color-bg-page-alt:  var(--color-gray-900);
+    --color-bg-surface:   var(--color-gray-900);
+    --color-bg-raised:    var(--color-gray-800);
+    --color-bg-sunken:    var(--color-gray-950);
+    --color-bg-brand-soft:oklch(0.275 0.095 142);
+
+    --color-fg-1: var(--color-gray-50);
+    --color-fg-2: var(--color-gray-200);
+    --color-fg-3: var(--color-gray-300);
+    --color-fg-4: var(--color-gray-400);
+    --color-fg-5: var(--color-gray-500);
+    --color-fg-link: var(--color-primary-400);
+    --color-fg-brand: var(--color-primary-400);
+
+    --color-border-default: var(--color-gray-800);
+    --color-border-strong:  var(--color-gray-700);
+  }
+
+  .light { color-scheme: light; }
+}
+
+/* ─────────────────────────────────────────────
+ * 3) CUSTOM VARIANT — Tailwind v4 @variant
+ *    `dark:bg-gray-800` now works against the .dark class.
+ * ───────────────────────────────────────────── */
+@variant dark (&:where(.dark, .dark *));

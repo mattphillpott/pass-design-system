@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="pass-revise">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search — Pass Revise</title>
+<meta name="description" content="Search revision notes, exam questions, topics, past papers and glossary terms across every GCSE and A-Level subject on Pass Revise.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="site.css">
+<style>
+  .search-hero{padding:44px 0 20px}
+  .search-hero h1{font-size:clamp(28px,3.6vw,40px);font-weight:800;text-align:center}
+  .search-wrap{max-width:720px;margin:22px auto 0;position:relative}
+  .search-box{display:flex;align-items:center;gap:12px;height:60px;padding:0 18px;background:var(--bg-surface);border:1px solid var(--border-strong);border-radius:var(--radius-xl);box-shadow:var(--shadow-md)}
+  .search-box.focus{border-color:var(--primary);box-shadow:var(--shadow-focus)}
+  .search-box svg.mag{width:22px;height:22px;color:var(--fg-4);flex:none}
+  .search-box input{flex:1;border:none;background:transparent;color:var(--fg-1);font-size:18px;font-family:inherit;outline:none}
+  .search-box .clear{border:none;background:var(--bg-raised);color:var(--fg-3);width:30px;height:30px;border-radius:50%;cursor:pointer;display:none;place-items:center}
+  .search-box .clear.show{display:grid}
+  .search-box .clear svg{width:15px;height:15px}
+
+  /* autocomplete */
+  .ac{position:absolute;top:68px;left:0;right:0;z-index:60;background:var(--bg-surface);border:1px solid var(--border-default);border-radius:var(--radius-xl);box-shadow:var(--shadow-xl);padding:8px;display:none;overflow:hidden}
+  .ac.show{display:block}
+  .ac-item{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:var(--radius-md);cursor:pointer}
+  .ac-item:hover,.ac-item.hi{background:var(--bg-raised)}
+  .ac-ic{width:34px;height:34px;border-radius:var(--radius-md);display:grid;place-items:center;flex:none}
+  .ac-ic svg{width:18px;height:18px}
+  .ac-tx{flex:1;min-width:0}
+  .ac-tx b{display:block;font-size:14.5px;font-weight:600;color:var(--fg-1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ac-tx b mark{background:color-mix(in srgb,var(--accent) 40%,transparent);color:inherit;border-radius:3px}
+  .ac-tx span{font-size:12.5px;color:var(--fg-4)}
+  .ac-type{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--fg-4)}
+  .ac-foot{padding:10px 12px;border-top:1px solid var(--border-default);margin-top:6px;font-size:13px;color:var(--fg-4);display:flex;justify-content:space-between}
+
+  /* filters */
+  .filters{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:22px 0 6px}
+  .chip{height:36px;padding:0 15px;border-radius:var(--radius-full);border:1px solid var(--border-default);background:var(--bg-surface);color:var(--fg-2);font-weight:600;font-size:13.5px;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+  .chip.on{background:var(--fg-1);color:var(--bg-page);border-color:var(--fg-1)}
+  .chip .n{font-size:12px;opacity:.7}
+
+  /* results */
+  .results{max-width:820px;margin:12px auto 0;padding-bottom:20px}
+  .rcount{color:var(--fg-4);font-size:14px;text-align:center;margin-bottom:22px}
+  .group{margin-bottom:30px}
+  .group-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .group-hd .gi{width:30px;height:30px;border-radius:var(--radius-md);display:grid;place-items:center;flex:none}
+  .group-hd .gi svg{width:17px;height:17px}
+  .group-hd h3{font-size:16px;font-weight:700}
+  .group-hd .seeall{margin-left:auto;font-size:13.5px;font-weight:600}
+  .rlist{display:flex;flex-direction:column;gap:8px}
+  .rrow{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--bg-surface);border:1px solid var(--border-default);border-radius:var(--radius-lg);color:var(--fg-1)}
+  .rrow:hover{border-color:var(--primary)}
+  .rrow .rt{flex:1;min-width:0}
+  .rrow .rt b{font-size:15px;font-weight:600}
+  .rrow .rt b mark{background:color-mix(in srgb,var(--accent) 40%,transparent);color:inherit;border-radius:3px}
+  .rrow .rt span{display:block;font-size:13px;color:var(--fg-4);margin-top:2px}
+  .rrow .meta{display:flex;gap:6px;flex:none}
+  .pill{font-size:11px;font-weight:600;padding:3px 9px;border-radius:var(--radius-full);background:var(--bg-raised);color:var(--fg-3)}
+  .rrow .lock{color:var(--accent-fg)}
+  .rrow .lock svg{width:16px;height:16px}
+  .rrow .go{color:var(--fg-4);flex:none}
+  .rrow .go svg{width:18px;height:18px}
+
+  /* empty / noresults */
+  .state{max-width:640px;margin:20px auto 0;text-align:center;padding:20px}
+  .state .sic{width:64px;height:64px;border-radius:50%;background:var(--bg-raised);display:grid;place-items:center;margin:0 auto 18px;color:var(--fg-4)}
+  .state .sic svg{width:30px;height:30px}
+  .state h2{font-size:22px;font-weight:700}
+  .state p{margin-top:10px;color:var(--fg-3);font-size:15.5px}
+  .pops{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+  .pop-chip{height:38px;padding:0 16px;border-radius:var(--radius-full);border:1px solid var(--border-default);background:var(--bg-surface);color:var(--fg-1);font-weight:600;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+  .pop-chip:hover{border-color:var(--primary);color:var(--primary)}
+  .pop-chip svg{width:15px;height:15px;color:var(--fg-4)}
+
+  /* type colors */
+  .t-note{background:var(--primary-bg);color:var(--primary)}
+  .t-question{background:var(--accent-bg);color:var(--accent-fg)}
+  .t-topic{background:color-mix(in srgb,#2A6FDB 16%,transparent);color:#2A6FDB}
+  .t-paper{background:var(--success-bg);color:var(--success-fg)}
+  .t-glossary{background:color-mix(in srgb,#E5388A 16%,transparent);color:#E5388A}
+  [data-theme=dark] .t-topic{color:#7Fb0ff}
+  [data-theme=dark] .t-glossary{color:#FF7FB2}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<script>window.SITE = { active:'search', authed:false };</script>
+
+<main id="main">
+  <section class="search-hero">
+    <div class="wrap">
+      <h1>Search Pass Revise</h1>
+      <div class="search-wrap">
+        <div class="search-box" id="sbox">
+          <svg class="mag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input id="q" type="search" placeholder="Try “electrolysis”, “osmosis”, “AQA Physics”…" autocomplete="off" aria-label="Search" aria-expanded="false" aria-controls="ac" role="combobox">
+          <button class="clear" id="clear" aria-label="Clear search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+        </div>
+        <div class="ac" id="ac" role="listbox" aria-label="Suggestions"></div>
+      </div>
+      <div class="filters" id="filters"></div>
+    </div>
+  </section>
+
+  <div class="results" id="results"></div>
+</main>
+
+<script src="site.js"></script>
+<script>
+(function(){
+  var TYPES = [
+    { key:'note',     label:'Revision Notes', plural:'Revision Notes', ic:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>' },
+    { key:'question', label:'Exam Questions', plural:'Exam Questions', ic:'<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>' },
+    { key:'topic',    label:'Topics',         plural:'Topics',         ic:'<path d="m12 2 9 5-9 5-9-5 9-5z"/><path d="m3 12 9 5 9-5M3 17l9 5 9-5"/>' },
+    { key:'paper',    label:'Past Papers',    plural:'Past Papers',    ic:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8"/>' },
+    { key:'glossary', label:'Glossary',       plural:'Glossary terms', ic:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M12 7v6M9 10h6"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>' }
+  ];
+  var DATA = [
+    {t:'note',ti:'Electrolysis of molten compounds',su:'Chemistry · Chemical changes',q:'GCSE',b:'AQA',lock:true},
+    {t:'note',ti:'Electrolysis of aqueous solutions',su:'Chemistry · Chemical changes',q:'GCSE',b:'AQA',lock:true},
+    {t:'note',ti:'What is electrolysis?',su:'Chemistry · Chemical changes',q:'GCSE',b:'AQA',lock:false},
+    {t:'note',ti:'Osmosis in animal & plant cells',su:'Biology · Cell transport',q:'GCSE',b:'AQA',lock:false},
+    {t:'note',ti:'Required practical: osmosis in potato',su:'Biology · Cell transport',q:'GCSE',b:'Edexcel',lock:true},
+    {t:'note',ti:'Electric circuits & Ohm’s law',su:'Physics · Electricity',q:'GCSE',b:'OCR',lock:false},
+    {t:'question',ti:'Predict products of electrolysing brine',su:'Chemistry · 6 marks · Higher',q:'GCSE',b:'AQA',lock:false},
+    {t:'question',ti:'Explain electrolysis of lead(II) bromide',su:'Chemistry · 4 marks',q:'GCSE',b:'AQA',lock:false},
+    {t:'question',ti:'Calculate the rate of osmosis',su:'Biology · 5 marks',q:'GCSE',b:'Edexcel',lock:true},
+    {t:'question',ti:'Osmosis and water potential (6 marks)',su:'Biology · A-Level · Membranes',q:'A-Level',b:'AQA',lock:true},
+    {t:'topic',ti:'Electrolysis',su:'Chemistry · 5 concepts · 82 questions',q:'GCSE',b:'AQA',lock:false},
+    {t:'topic',ti:'Cell transport',su:'Biology · 3 concepts · 41 questions',q:'GCSE',b:'AQA',lock:false},
+    {t:'topic',ti:'Electricity',su:'Physics · 6 concepts · 96 questions',q:'GCSE',b:'OCR',lock:false},
+    {t:'paper',ti:'Paper 1 (Higher) — June 2023',su:'Chemistry · Question paper + mark scheme',q:'GCSE',b:'AQA',lock:true},
+    {t:'paper',ti:'Paper 2 (Foundation) — June 2023',su:'Chemistry · Question paper + mark scheme',q:'GCSE',b:'AQA',lock:true},
+    {t:'paper',ti:'Paper 1 — Specimen',su:'Biology · Question paper + mark scheme',q:'GCSE',b:'Edexcel',lock:false},
+    {t:'glossary',ti:'Electrolyte',su:'A molten or dissolved ionic compound that conducts electricity',q:'GCSE',b:'',lock:false},
+    {t:'glossary',ti:'Cathode',su:'The negative electrode, which attracts positive ions (cations)',q:'GCSE',b:'',lock:false},
+    {t:'glossary',ti:'Osmosis',su:'Net movement of water across a partially permeable membrane',q:'GCSE',b:'',lock:false}
+  ];
+  var HREF = { note:'exam-question/Exam Question.html', question:'exam-question/Exam Question.html', topic:'hub/Course Hub.html', paper:'exam-question/Exam Question.html', glossary:'exam-question/Exam Question.html' };
+  var TOP_N = 3;
+
+  function esc(s){ return (s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function hi(s,q){ if(!q) return esc(s); var i=s.toLowerCase().indexOf(q.toLowerCase()); if(i<0) return esc(s); return esc(s.slice(0,i))+'<mark>'+esc(s.slice(i,i+q.length))+'</mark>'+esc(s.slice(i+q.length)); }
+  function typeMeta(k){ return TYPES.filter(function(t){return t.key===k;})[0]; }
+  function match(it,q){ q=q.toLowerCase(); return it.ti.toLowerCase().indexOf(q)>=0 || it.su.toLowerCase().indexOf(q)>=0 || (it.b&&it.b.toLowerCase().indexOf(q)>=0) || it.q.toLowerCase().indexOf(q)>=0; }
+
+  var q='', filter='all', hiIndex=-1, acItems=[];
+  var input=document.getElementById('q'), sbox=document.getElementById('sbox'), ac=document.getElementById('ac');
+  var clearBtn=document.getElementById('clear'), results=document.getElementById('results'), filtersEl=document.getElementById('filters');
+
+  function renderFilters(){
+    var counts={all:0}; TYPES.forEach(function(t){counts[t.key]=0;});
+    DATA.forEach(function(it){ if(!q||match(it,q)){ counts.all++; counts[it.t]++; } });
+    var chips=[{k:'all',l:'All'}].concat(TYPES.map(function(t){return {k:t.key,l:t.label};}));
+    filtersEl.innerHTML = chips.map(function(c){
+      return '<button class="chip'+(filter===c.k?' on':'')+'" data-f="'+c.k+'">'+c.l+' <span class="n">'+counts[c.k]+'</span></button>';
+    }).join('');
+  }
+
+  function rowHTML(it){
+    var lock = it.lock ? '<span class="lock" title="Premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>' : '';
+    var pills = (it.q?'<span class="pill">'+it.q+'</span>':'')+(it.b?'<span class="pill">'+it.b+'</span>':'');
+    return '<a class="rrow" href="'+HREF[it.t]+'"><div class="rt"><b>'+hi(it.ti,q)+'</b><span>'+esc(it.su)+'</span></div>'
+      + '<div class="meta">'+pills+lock+'</div>'
+      + '<span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></a>';
+  }
+
+  function renderResults(){
+    renderFilters();
+    if(!q){
+      results.innerHTML = '<div class="state"><div class="sic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>'
+        + '<h2>Search across every subject</h2><p>Notes, exam questions, topics, past papers and glossary terms — all in one place.</p>'
+        + '<div class="pops">'+['electrolysis','osmosis','Ohm’s law','AQA Chemistry','past papers'].map(function(p){return '<button class="pop-chip" data-pop="'+esc(p)+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>'+esc(p)+'</button>';}).join('')+'</div></div>';
+      return;
+    }
+    var matched = DATA.filter(function(it){ return match(it,q) && (filter==='all'||it.t===filter); });
+    if(!matched.length){
+      results.innerHTML = '<div class="state"><div class="sic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>'
+        + '<h2>No results for “'+esc(q)+'”</h2><p>Check your spelling or try a broader term. You can also browse by subject.</p>'
+        + '<div class="pops"><a class="pop-chip" href="hub/Course Hub.html">Browse all subjects</a><button class="pop-chip" data-pop="electrolysis">Try “electrolysis”</button></div></div>';
+      return;
+    }
+    var total = matched.length;
+    var html = '<p class="rcount">'+total+' result'+(total>1?'s':'')+' for “'+esc(q)+'”</p>';
+    var order = filter==='all' ? TYPES : TYPES.filter(function(t){return t.key===filter;});
+    order.forEach(function(tp){
+      var items = matched.filter(function(it){return it.t===tp.key;});
+      if(!items.length) return;
+      var shown = filter==='all' ? items.slice(0,TOP_N) : items;
+      var see = (filter==='all' && items.length>TOP_N) ? '<a class="seeall" href="#" data-see="'+tp.key+'">See all '+items.length+' →</a>' : '';
+      html += '<div class="group"><div class="group-hd"><span class="gi t-'+tp.key+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+tp.ic+'</svg></span>'
+        + '<h3>'+tp.plural+'</h3><span style="color:var(--fg-4);font-size:13px">'+items.length+'</span>'+see+'</div>'
+        + '<div class="rlist">'+shown.map(rowHTML).join('')+'</div></div>';
+    });
+    results.innerHTML = html;
+  }
+
+  /* autocomplete */
+  function renderAC(){
+    if(!q){ ac.classList.remove('show'); input.setAttribute('aria-expanded','false'); return; }
+    acItems = DATA.filter(function(it){return match(it,q);}).slice(0,6);
+    if(!acItems.length){ ac.classList.remove('show'); input.setAttribute('aria-expanded','false'); return; }
+    ac.innerHTML = acItems.map(function(it,i){
+      var tm=typeMeta(it.t);
+      return '<div class="ac-item'+(i===hiIndex?' hi':'')+'" role="option" data-i="'+i+'"><span class="ac-ic t-'+it.t+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+tm.ic+'</svg></span>'
+        + '<span class="ac-tx"><b>'+hi(it.ti,q)+'</b><span>'+esc(it.su)+'</span></span><span class="ac-type">'+tm.label+'</span></div>';
+    }).join('') + '<div class="ac-foot"><span>Press Enter to see all results</span><span>'+acItems.length+' quick matches</span></div>';
+    ac.classList.add('show'); input.setAttribute('aria-expanded','true');
+  }
+
+  function setQuery(v){ q=v; input.value=v; hiIndex=-1; clearBtn.classList.toggle('show',!!v); renderAC(); renderResults(); }
+
+  input.addEventListener('input', function(){ q=this.value; hiIndex=-1; clearBtn.classList.toggle('show',!!q); renderAC(); renderResults(); });
+  input.addEventListener('focus', function(){ sbox.classList.add('focus'); renderAC(); });
+  input.addEventListener('blur', function(){ sbox.classList.remove('focus'); setTimeout(function(){ ac.classList.remove('show'); },150); });
+  input.addEventListener('keydown', function(e){
+    if(!ac.classList.contains('show')){ if(e.key==='Enter'){ ac.classList.remove('show'); } return; }
+    if(e.key==='ArrowDown'){ e.preventDefault(); hiIndex=Math.min(hiIndex+1,acItems.length-1); renderAC(); }
+    else if(e.key==='ArrowUp'){ e.preventDefault(); hiIndex=Math.max(hiIndex-1,-1); renderAC(); }
+    else if(e.key==='Enter'){ if(hiIndex>=0){ setQuery(acItems[hiIndex].ti); } ac.classList.remove('show'); }
+    else if(e.key==='Escape'){ ac.classList.remove('show'); }
+  });
+  ac.addEventListener('mousedown', function(e){ var it=e.target.closest('[data-i]'); if(it){ e.preventDefault(); setQuery(acItems[+it.getAttribute('data-i')].ti); } });
+  clearBtn.addEventListener('click', function(){ setQuery(''); input.focus(); });
+
+  filtersEl.addEventListener('click', function(e){ var b=e.target.closest('[data-f]'); if(b){ filter=b.getAttribute('data-f'); renderResults(); } });
+  results.addEventListener('click', function(e){
+    var pop=e.target.closest('[data-pop]'); if(pop){ setQuery(pop.getAttribute('data-pop')); input.focus(); return; }
+    var see=e.target.closest('[data-see]'); if(see){ e.preventDefault(); filter=see.getAttribute('data-see'); renderResults(); window.scrollTo({top:0,behavior:'smooth'}); }
+  });
+
+  renderResults();
+  input.focus();
+})();
+</script>
+</body>
+</html>

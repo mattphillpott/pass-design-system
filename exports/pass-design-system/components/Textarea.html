@@ -1,0 +1,28 @@
+<!-- Textarea — autoresize is JS; use rows + min-h here -->
+
+<label class="block">
+  <span class="block mb-1.5 text-sm font-medium text-fg-2">Feedback to learner</span>
+  <textarea rows="4" placeholder="Write a short note…"
+    class="block w-full px-4 py-3 rounded-lg text-sm text-fg-1 bg-bg-surface
+           border border-border-default placeholder:text-fg-5 resize-y min-h-[6rem]
+           hover:border-border-strong
+           focus-visible:outline-none focus-visible:border-primary-600 focus-visible:ring-[3px] focus-visible:ring-primary-600/25
+           disabled:opacity-50 disabled:cursor-not-allowed
+           transition-[border-color,box-shadow] duration-150"></textarea>
+  <span class="block mt-1.5 text-xs text-fg-4">Markdown supported.</span>
+</label>
+
+<!-- Counter pattern (Vue: v-model + computed) -->
+<div class="relative">
+  <textarea rows="4" maxlength="280"
+    class="block w-full px-4 py-3 pr-16 rounded-lg text-sm bg-bg-surface border border-border-default
+           focus-visible:outline-none focus-visible:border-primary-600 focus-visible:ring-[3px] focus-visible:ring-primary-600/25"></textarea>
+  <span class="absolute bottom-2 right-3 text-xs text-fg-4 tabular-nums">0 / 280</span>
+</div>
+
+<!-- Error -->
+<textarea aria-invalid="true" class="block w-full px-4 py-3 rounded-lg text-sm bg-bg-surface border border-danger-600
+       focus-visible:border-danger-600 focus-visible:ring-[3px] focus-visible:ring-danger-600/25 min-h-[6rem]"></textarea>
+
+<!-- Disabled -->
+<textarea disabled class="block w-full px-4 py-3 rounded-lg text-sm bg-bg-raised text-fg-4 border border-border-default cursor-not-allowed min-h-[6rem]"></textarea>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="design_doc_mode" content="canvas">
+<title>Hidden Initial Assessments — student view state (3 directions)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="pass.css">
+<link rel="stylesheet" href="ia.css">
+<link rel="stylesheet" href="as.css">
+<link rel="stylesheet" href="vs.css">
+<style>
+  body{margin:0;background:#ECEEF1;font-family:'Inter',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;}
+  a,a:hover{color:var(--green-dark);}
+  .doc-title{font:800 32px 'Inter',sans-serif;color:#101828;letter-spacing:-.01em;}
+  .doc-sub{font:500 15.5px 'Inter',sans-serif;color:#5b6472;margin-top:8px;max-width:1000px;line-height:1.55;}
+  .doc-sub b{color:#1b2330;font-weight:700;}
+  .flabel{font:600 13px 'Inter',sans-serif;color:#5b6472;margin-bottom:10px;}
+  .flabel b{color:#0BA00B;font-weight:800;}
+  .flabel .sub{display:block;color:#8b95a3;font-weight:500;margin-top:3px;}
+  .reccard{background:#fff;border:1px solid #e4e7ec;border-radius:16px;box-shadow:0 1px 0 rgba(16,24,40,.04);padding:22px 24px;}
+  .reccard h4{font:800 15px 'Inter',sans-serif;color:#101828;margin:0 0 12px;display:flex;align-items:center;gap:9px;}
+  .reccard h4 svg{width:17px;height:17px;color:#0FBC0F;}
+  .reccard ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px;}
+  .reccard li{font:500 14px 'Inter',sans-serif;color:#4A5565;line-height:1.5;display:flex;gap:10px;align-items:flex-start;}
+  .reccard li .k{flex:0 0 auto;width:22px;height:22px;border-radius:6px;background:#EAFFE9;color:#0BA00B;font:800 11px 'Inter',sans-serif;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+  .reccard li b{color:#101828;font-weight:700;}
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#0FBC0F">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0FBC0F"/>
+    <g transform="translate(410,270)" fill="none" stroke="#fff" stroke-width="26" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 130s70-100 190-100 170 100 170 100-70 100-170 100c-40 0-74-16-100-38"/>
+      <circle cx="210" cy="130" r="46" fill="#fff" stroke="none"/>
+      <path d="M0 0 380 260"/>
+    </g>
+  </svg>
+</template>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="pass-icons.js"></script>
+<script src="ia-icons.js"></script>
+<script type="text/babel" src="pass-components.jsx"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="vs-parts.jsx"></script>
+<script type="text/babel">
+const { useTweaks, TweaksPanel, TweakSection, TweakRadio, TweakToggle } = window;
+const { Ico, VSDirection } = window;
+
+const DEFAULTS = { scenario: 'Mixed', showGlobal: true, preview: true };
+const SCEN = { 'Mixed': 'mixed', 'Organisation only': 'global', 'Student overrides': 'student', 'None (empty)': 'none' };
+
+function TitleBand() {
+  return (
+    <div data-drags-parent="1" style={{ position: 'absolute', left: 0, top: 24, width: 1160 }}>
+      <div className="doc-title">Hidden Initial Assessments — the student view</div>
+      <div className="doc-sub">A read-only view of what’s hidden for one student, on the <b>View Student</b> page. The setting is editable at <b>student</b> and <b>organisation</b> level; a student rule overrides the org default for that item, and both the value and <b>where it was set</b> are always shown. Three ways to surface the source — compare, then pick. Change the scenario and options in <b>Tweaks</b>.</div>
+    </div>
+  );
+}
+
+function Head({ x, w, badge, title, sub }) {
+  return (
+    <div data-drags-parent="1" style={{ position: 'absolute', left: x, top: 150, width: w }}>
+      <div className="flabel"><b>{badge}</b> · {title}<span className="sub">{sub}</span></div>
+    </div>
+  );
+}
+
+function Canvas() {
+  const [t, setTweak] = useTweaks(DEFAULTS);
+  const cfg = { scenario: SCEN[t.scenario] || 'mixed', showGlobal: !!t.showGlobal, preview: !!t.preview };
+  const key = cfg.scenario + '-' + cfg.preview;
+
+  const cols = [
+    { v: 'A', x: 0, w: 1160, badge: 'Direction A', title: 'Source badges', sub: 'One resolved list; each row carries a “where set” badge.' },
+    { v: 'B', x: 1240, w: 1160, badge: 'Direction B', title: 'Grouped by source', sub: 'Split into “inherited from org” and “set for this student”.' },
+    { v: 'C', x: 2480, w: 1240, badge: 'Direction C', title: 'Provenance table', sub: 'Scannable table with a “Set at” + org-default column.' },
+  ];
+
+  return (
+    <>
+      <TitleBand />
+      {cols.map(c => (
+        <React.Fragment key={c.v}>
+          <Head x={c.x} w={c.w} badge={c.badge} title={c.title} sub={c.sub} />
+          <div data-drags-parent="1" style={{ position: 'absolute', left: c.x, top: 214, width: c.w }}>
+            <div style={{ background: '#fff', borderRadius: 16, boxShadow: '0 1px 0 rgba(16,24,40,.04), 0 18px 50px -18px rgba(16,24,40,.22)', overflow: 'hidden', border: '1px solid #e4e7ec' }}>
+              <VSDirection key={c.v + '-' + key} variant={c.v} cfg={cfg} />
+            </div>
+          </div>
+        </React.Fragment>
+      ))}
+
+      <div data-drags-parent="1" style={{ position: 'absolute', left: 0, top: 1560, width: 1160 }}>
+        <div className="reccard">
+          <h4><Ico name="Star" size={17} />Reading the model</h4>
+          <ul>
+            <li><span className="k">A</span><div><b>Source badges</b> — best default. Shows the full picture in one list; the badge answers “where is this set?” inline, and overridden rows carry the struck-through org value.</div></li>
+            <li><span className="k">B</span><div><b>Grouped</b> — clearest for the mental model of inheritance: what the org sets vs what’s been changed for this student. Slightly more vertical space.</div></li>
+            <li><span className="k">C</span><div><b>Table</b> — densest and most scannable when there are many subjects/levels; the “Set at” + “Organisation default” columns make provenance explicit.</div></li>
+            <li><span className="k">↑</span><div>All three lead with a resolved summary, an <b>Edit for this student</b> button and a <b>Manage organisation default</b> link, and preview what the student actually sees.</div></li>
+          </ul>
+        </div>
+      </div>
+
+      <TweaksPanel>
+        <TweakSection label="Scenario" />
+        <TweakRadio label="Where it’s set" value={t.scenario} options={['Mixed', 'Organisation only', 'Student overrides', 'None (empty)']} onChange={(v) => setTweak('scenario', v)} />
+        <TweakSection label="Detail" />
+        <TweakToggle label="Show overridden org value" value={t.showGlobal} onChange={(v) => setTweak('showGlobal', v)} />
+        <TweakToggle label="Student-portal preview" value={t.preview} onChange={(v) => setTweak('preview', v)} />
+      </TweaksPanel>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Canvas />);
+</script>
+</body>
+</html>

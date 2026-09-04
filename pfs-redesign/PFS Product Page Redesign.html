@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Brand" name="PFS Product Page Redesign" subtitle="Four CRO concepts for the Functional Skills Maths L2 buy box, desktop + mobile, interactive" viewport="1600x2000" -->
+<html lang="en-GB">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>PFS Product Page Redesign — Functional Skills Maths Level 2</title>
+<link rel="stylesheet" href="../styles.css"/>
+<style>
+body{margin:0;background:#F3F4F6}
+a{color:#0F8610}a:hover{color:#116A12}
+.frame{background:#fff;border:1px solid #E5E7EB;border-radius:14px;overflow:hidden}
+.phone{background:#fff;border:1px solid #E5E7EB;border-radius:20px;overflow:hidden;box-shadow:0 10px 15px -3px rgba(0,0,0,.1)}
+</style>
+</head>
+<body>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="pfs-data.js"></script>
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="pfs-parts.jsx"></script>
+<script type="text/babel" src="pfs-enforcers.jsx"></script>
+<script type="text/babel" src="pfs-buybox.jsx"></script>
+<script type="text/babel" src="pfs-buybox2.jsx"></script>
+<script type="text/babel" src="pfs-buybox3.jsx"></script>
+<script type="text/babel" src="pfs-buybox4.jsx"></script>
+<script type="text/babel" src="pfs-mobile-c8a.jsx"></script>
+<script type="text/babel" src="pfs-mobile.jsx"></script>
+<div id="root"></div>
+<script type="text/babel">
+const CONCEPTS = [
+  { n:1, key:'C1', name:'Straight answer', box:BuyBox1, h:1830,
+    note:'Two decisions, not four. Invigilation style is derived from the awarding body (the platform already restricts it) and the date is deferred, because "book now, choose date later" is an existing product type. Hick\'s Law: every removed choice removes a reason to leave.' },
+  { n:2, key:'C2', name:'Outcome-led', box:BuyBox2, h:2095,
+    note:'Leads with risk reversal rather than price. The free resit is reframed as "you cannot lose the fee", and the consequence of not taking it is stated on the cheaper options. Loss aversion plus Cialdini social proof, placed within eye-line of the CTA.' },
+  { n:3, key:'C3', name:'Deadline-led', box:BuyBox3, h:1680,
+    note:'Asks the one question the audience actually arrives with. Self-selection collapses four decisions into one, then resolves a single price. Fast Track is sold where it is genuinely needed instead of implied everywhere.' },
+  { n:4, key:'C4', name:'Assisted', box:BuyBox4, h:1970,
+    note:'For the parent and the low-confidence returner. A two-question helper answers "do I need the course?", and phone/callback sit under the CTA — capturing the not-ready without diverting the ready. Anxiety, not price, is the blocker here.' }
+];
+
+const CONCEPTS2 = [
+  { key:'C5', name:'Full enforcer', box:BuyBox5, h:1770, gallery:'wide',
+    note:'Nothing removed — and at full width nothing has to compete. The enforcers get their own 360px rail (countdown, places, guarantee, secure checkout, adviser), proof and reviews get the left rail, and the middle column is nothing but the decision. Colour is semantic: amber for time, emerald for the guarantee, blue for help, green for selection.' },
+  { key:'C6', name:'No imagery, side-by-side', box:BuyBox6, h:1660, gallery:'wide',
+    note:'The gallery is deleted and the width goes to the one job width is genuinely good for: three packages compared side by side at full size, every inclusion listed, no scrolling and no tab-switching. A full-bleed price band replaces the hero image.' },
+  { key:'C7', name:'Booking-first', box:BuyBox7, h:1860, gallery:'wide',
+    note:'The date was the worst thing on the live page because it was crammed into a 640px rail. Given the full width it becomes the clearest: a real month, every sitting priced, the result date on every cell, LOW and SOON flagged in words. Package and Fast Track sit in a 440px rail beside it.' }
+];
+
+const AUDIT = [
+  ['Select a date','Moved','Thirty-six clickable prices before the buyer knows what they are buying. The function is kept — one binary, then a six-slot panel with the result date against each (C1–C4), or as step 1 outright (C7). It was the single largest source of decision paralysis on the page, not a trust device.'],
+  ['Countdown timer','Restored','Cut in the first round only because it was one of five simultaneous urgency devices. It is a real deadline and the only one that says WHEN rather than HOW MANY, so it earns a place — restored in C5 and C6, once, with the offer end named.'],
+  ['Spaces remaining','Kept, once','Was two bars saying the same thing. Now one, with a progress bar so “8 left” reads as scarcity rather than shouting. Scarcity works through contrast — five alarms at once and none of them lands.'],
+  ['Secure payment badges','Kept, moved','Two rows mid-page became one row at the CTA. Payment anxiety happens at the moment of payment; a badge 900px above the button is decoration. Same marks, better placement.'],
+  ['Call us','Kept, promoted','Was a band near the page foot. Now directly under the CTA (C4–C7) with opening hours and “they’ll tell you if you don’t need the course”. The parent persona will not buy without speaking to a person — burying the number loses that sale silently.'],
+  ['Feature checklist','Restored','Folded into package blurbs in the first round, and you are right that it was a loss. It does independent work: it answers “what am I getting for £441” for buyers who do not read comparison copy. Back as “What’s included” in C5, C6 and C7.'],
+  ['Customer reviews','Restored inline','They sat eight screens down, past the point most sessions end. Two named reviews now sit within eye-line of the CTA (C5), with the full feed still below. Social proof works at the decision, not after it.'],
+  ['93% pass rate','Kept, once','Appeared five times. Stated once, with its sample size (5,399 sittings), beside the choice it should influence. Repetition without new information reads as pressure and costs credibility.'],
+  ['Rainbow “lower/higher price” bar','Cut','A gradient cannot tell you which date to pick. The CHEAPEST and SOONEST flags do the same job in words — which also survives colour-blindness, greyscale and a phone in sunlight.'],
+  ['Course Option Comparison section','Cut as a section','A literal second copy of configurator steps 3 and 4, four thousand pixels below them. The package rows are now the only place options are compared.'],
+  ['Red promo bar + yellow duplicate','Merged','Both said “8 spaces remaining”. One line now carries both real facts — places left and the offer end date.'],
+  ['Gallery imagery','Reduced','Stock photography of someone at a laptop is not evidence. The 90-second at-home setup video is — it answers the second-biggest objection. C5 and C7 keep a thin strip plus the video; C6 drops imagery entirely so the difference is measurable rather than argued.']
+];
+
+const PALETTE = [
+  ['#0FBC0F','Pass green','Selection, CTA, pass. Never decorative — so a green edge always means “this is the one you have chosen”.'],
+  ['#0E9F6E','Emerald','The guarantee and the free resit. Deliberately distinct from brand green so “you cannot lose the fee” does not read as another button — and solid #047857 whenever it carries text, since #0E9F6E is only 3.39:1 on white.'],
+  ['#D97706','Amber','Time, and only time: countdown, places left, Fast Track. One hue for every deadline on the page.'],
+  ['#1C64F2','Info blue','Explanation and help — result timing, the adviser panel, the setup video.'],
+  ['#C70036','Red','The cost of failing, and form errors. Nothing else, so it keeps its force.']
+];
+
+function App() {
+  return (
+    <DesignCanvas title="PFS product page — conversion redesign"
+      subtitle="Functional Skills Maths Level 2 · four concepts on one structure: package first, date deferred, one price that survives to checkout">
+
+      <DCSection id="desktop" title="Desktop concepts" subtitle="1216px container, 640px buy column. Every option is live — change a package or date and the total, the CTA label and the summary all move together.">
+        {CONCEPTS.map(c => (
+          <DCArtboard key={c.key} id={c.key} label={`${c.key} — ${c.name}`} width={1216} height={c.h}>
+            <div className="frame"><PageShell note={c.note}><c.box/></PageShell></div>
+          </DCArtboard>
+        ))}
+      </DCSection>
+
+      <DCSection id="mobile" title="Mobile concepts" subtitle="390×844. Sticky bar carries the live price and opens a full-screen sheet — the configurator never competes with the content for space.">
+        {CONCEPTS.map(c => (
+          <DCArtboard key={c.key} id={'M'+c.key} label={`${c.key} mobile — ${c.name}`} width={390} height={844}>
+            <div className="phone"><MobileFrame variant={c.n}/></div>
+          </DCArtboard>
+        ))}
+      </DCSection>
+
+      <DCSection id="outside" title="Outside the structure — full width" subtitle="1470px, the width most desktops actually give you. Three layouts that use the horizontal space rather than a narrow column: an enforcer rail, a side-by-side comparison, and a full month calendar.">
+        {CONCEPTS2.map(c => (
+          <DCArtboard key={c.key} id={c.key} label={`${c.key} — ${c.name}`} width={1470} height={c.h}>
+            <div className="frame"><PageShell note={c.note} gallery={c.gallery}><c.box/></PageShell></div>
+          </DCArtboard>
+        ))}
+      </DCSection>
+
+      <DCSection id="conventional" title="C8 — conventional e-commerce" subtitle="The marketplace pattern most people have used a thousand times: thumbnail rail, gallery, details column, boxed buy rail. The furniture is mapped onto this product rather than copied — delivery date becomes result date, stock level becomes places on the sitting, free returns becomes the free resit, sold-by becomes the exam centre and awarding body.">
+        <DCArtboard id="C8" label="C8 — Conventional e-commerce" width={1470} height={1550}>
+          <div className="frame"><PageShell gallery="wide"><BuyBox8/></PageShell></div>
+        </DCArtboard>
+        <DCArtboard id="C8-notes" label="Why it fits, and where it doesn't" width={620} height={1400}>
+          <div className="frame" style={{padding:28}}>
+            <h2 style={{fontSize:20,fontWeight:700,letterSpacing:'-.02em',margin:'0 0 8px'}}>The case for the familiar pattern</h2>
+            <p style={{fontSize:13.5,color:'#4A5565',margin:'0 0 18px',lineHeight:1.6}}>Jakob's Law: people spend most of their time on other sites, so they expect yours to work the same way. A boxed buy rail on the right, a details column in the middle and a thumbnail gallery on the left is the most rehearsed interaction on the consumer web — it costs a buyer nothing to learn.</p>
+            <div style={{display:'grid',gap:12,marginBottom:22}}>
+              {[
+                ['The delivery-date paradigm fits exactly','Marketplaces made a promise-shaped date the most important thing in the rail. This product has one too — the result date — and it is currently buried. “Result by 9 Sep” in green is the single most useful sentence on the page for the nursing applicant.'],
+                ['Stock language already exists here','“Only 8 places left” is a real stock level on a real sitting. In this pattern it reads as inventory rather than as a pressure tactic, which is both more honest and more effective.'],
+                ['Free returns → free resit','The rail’s returns line is where buyers look for their escape route. The free resit belongs exactly there.'],
+                ['Sold by / dispatched from → legitimacy','“Exam centre: Pass · Awarded by TQUK and Open Awards” answers the diploma-mill objection in the place buyers already check for it.'],
+                ['Quantity → learners','The one variation this product has that marketplaces do too: a parent or employer buying for someone else. Currently the page has no way to express that at all.'],
+                ['Review distribution bars','The 5-to-1-star histogram is a high-trust convention because it shows the bad reviews exist. 4.7 with a visible 3% one-star is more credible than 4.7 alone.']
+              ].map(([t,d]) => <div key={t} style={{display:'grid',gridTemplateColumns:'18px 1fr',gap:11,alignItems:'start'}}>
+                <span style={{marginTop:2}}><Check s={16}/></span>
+                <div><b style={{display:'block',fontSize:13.5,fontWeight:600,color:'#101828',marginBottom:2}}>{t}</b><span style={{fontSize:12.5,color:'#6A7282',lineHeight:1.5}}>{d}</span></div>
+              </div>)}
+            </div>
+            <h3 style={{fontSize:16,fontWeight:700,letterSpacing:'-.015em',margin:'0 0 8px',color:'#9B1C1C'}}>Where the pattern fights the product</h3>
+            <div style={{display:'grid',gap:12,marginBottom:22}}>
+              {[
+                ['It assumes a commodity decision','The pattern is optimised for “which variant, how many”. This is a £441 decision loaded with “am I capable of passing?” — and the rail has nowhere to put reassurance. Dan bounces off C8 where he converts on C2.'],
+                ['The decision is split across two columns','Package and sitting live in the middle column; price and CTA live in the rail. The buyer’s eye has to cross the page to see the consequence of a choice. C1 keeps cause and effect in one column, which is why its CTA carries the total.'],
+                ['Boxes flatten hierarchy','Everything becomes a bordered card of roughly equal weight. The 93% pass rate ends up as one bullet among six — the strongest asset on the page, demoted by the layout.'],
+                ['It invites the tactics back','This is the pattern most likely to accumulate badges, banners and cross-sells, because it has slots for them. That is how the current page got here.']
+              ].map(([t,d]) => <div key={t} style={{display:'grid',gridTemplateColumns:'18px 1fr',gap:11,alignItems:'start'}}>
+                <span style={{marginTop:3,width:12,height:2,background:'#9B1C1C',borderRadius:2}}/>
+                <div><b style={{display:'block',fontSize:13.5,fontWeight:600,color:'#101828',marginBottom:2}}>{t}</b><span style={{fontSize:12.5,color:'#6A7282',lineHeight:1.5}}>{d}</span></div>
+              </div>)}
+            </div>
+            <div style={{background:'#F0FEEF',border:'1px solid #B8FBB7',borderRadius:10,padding:'14px 16px'}}>
+              <b style={{display:'block',fontSize:13.5,fontWeight:700,color:'#116A12',marginBottom:5}}>My recommendation</b>
+              <p style={{fontSize:12.5,color:'#116A12',margin:'0 0 8px',lineHeight:1.55}}>Worth testing, and it is the best A/B partner for C1 — they fail in opposite directions, so the result tells you something either way. But test it as the transactional variant it is, on <b>revenue per session</b> rather than add-to-basket.</p>
+              <p style={{fontSize:12.5,color:'#116A12',margin:0,lineHeight:1.55}}>My expectation: C8 wins with returning and paid-search visitors who already know what they want, and loses with the first-time anxious buyer — which is most of this audience. If that is what the data says, the answer is C1’s decision column inside C8’s rail, not one or the other.</p>
+            </div>
+          </div>
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="c8a" title="C8-A — built for an HTML-only A/B test" subtitle="C8's skeleton with every selection kept in the shape the live page already renders. Verified against the repo: the buy box is a WooCommerce Composite Product, so each step is a composite component and the options are already radio buttons in a segmented row — the change is template markup, SCSS and admin copy.">
+        <DCArtboard id="C8A" label="C8-A — Conventional, current controls" width={1470} height={2150}>
+          <div className="frame"><PageShell gallery="wide"><BuyBox8A/></PageShell></div>
+        </DCArtboard>
+        <DCArtboard id="C8A-mobile" label="C8-A mobile" width={390} height={844}>
+          <div className="phone"><MobileC8A/></div>
+        </DCArtboard>
+        <DCArtboard id="C8A-impl" label="What it takes to ship" width={640} height={1650}>
+          <div className="frame" style={{padding:28}}>
+            <h2 style={{fontSize:20,fontWeight:700,letterSpacing:'-.02em',margin:'0 0 8px'}}>Shippable as a template change</h2>
+            <p style={{fontSize:13.5,color:'#4A5565',margin:'0 0 8px',lineHeight:1.6}}>Checked against the source rather than the screenshot. The buy box is a <b>WooCommerce Composite Product</b> — <code style={{fontSize:12}}>composite_form</code> with <code style={{fontSize:12}}>navigation_style 'single'</code>, one <code style={{fontSize:12}}>component-single-page.php</code> block per step. Each step is a composite <i>component</i>, not a variation attribute, and each resolves to a separate product carrying <code style={{fontSize:12}}>_aem_product_type</code>.</p>
+            <p style={{fontSize:13.5,color:'#4A5565',margin:'0 0 20px',lineHeight:1.6}}>That is better news than I assumed: mme-core already overrides the option template, and it already renders a segmented radio row.</p>
+
+            <h3 style={{fontSize:13,fontWeight:700,letterSpacing:'.05em',textTransform:'uppercase',color:'#116A12',margin:'0 0 10px'}}>Already exists — restyle only</h3>
+            <div style={{display:'grid',gap:10,marginBottom:22}}>
+              {[
+                ['The segmented toggle rows','mme-core’s <code>single-product/js/options-radio-buttons.php</code> already emits a radio per option with <code>first-of-type rounded-left</code> / <code>last-of-type rounded-right</code> and <code>d-flex flex-fill</code> labels. C8-A’s step rows are that template with different SCSS.'],
+                ['Calendar on demand','<code>component-single-page.php</code> reads the ACF field <code>calendar_options_show_calendar_on_page_load</code> and adds an <code>open</code> class, alongside an existing <code>toggled</code>/<code>closed</code> system. “Choose date now” is that toggle, defaulted closed.'],
+                ['A live running total','Composite products maintain their own price as components are selected. The rail displays a value the page already computes — it does not need a new calculation.'],
+                ['Places-remaining copy','<code>product-sale-spaces.php</code> is coupon-driven with ACF fields for the template string and colours. Rewording and recolouring it is an admin change, not a deploy.'],
+                ['Step labels and consequence lines','Component titles and descriptions are admin fields rendered by <code>component-title.php</code> / <code>component-description.php</code>. The invigilation consequence line goes there rather than into new markup.'],
+                ['Reviews histogram','<code>single-product-reviews.php</code> already holds the review data. The histogram is a rearrangement of it.']
+              ].map(([t,d]) => <div key={t} style={{display:'grid',gridTemplateColumns:'18px 1fr',gap:11,alignItems:'start'}}>
+                <span style={{marginTop:2}}><Check s={16}/></span>
+                <div><b style={{display:'block',fontSize:13.5,fontWeight:600,color:'#101828',marginBottom:2}}>{t}</b><span style={{fontSize:12.5,color:'#6A7282',lineHeight:1.5}} dangerouslySetInnerHTML={{__html:d}}/></div>
+              </div>)}
+            </div>
+
+            <h3 style={{fontSize:13,fontWeight:700,letterSpacing:'.05em',textTransform:'uppercase',color:'#9A3412',margin:'0 0 10px'}}>Real work, scoped</h3>
+            <div style={{display:'grid',gap:10,marginBottom:22}}>
+              {[
+                ['The three-column layout','The composite form is one <code>&lt;form&gt;</code> wrapping all components, so the buy rail cannot simply be a sibling of the steps — it has to sit inside the form or read from it. Cheapest route: keep the form intact and position the rail with grid, no DOM re-parenting.'],
+                ['Result date in the rail','The business-day helper in <code>BusinessLogic.php</code> already computes it for the account area. Surfacing it on the product page needs it exposed to the template or localised to JS.'],
+                ['Learners quantity','Genuinely new. Composite quantity is per component, so a page-level multiplier has to fan out across every selected line item. Drop it for a pure markup test — it is additive.'],
+                ['Disabling step 4 until the course is added','Composite components support conditional visibility, but the current build shows it always and validates on submit. Worth checking whether an existing scenario rule covers it before writing JS.']
+              ].map(([t,d]) => <div key={t} style={{display:'grid',gridTemplateColumns:'18px 1fr',gap:11,alignItems:'start'}}>
+                <span style={{marginTop:6,width:12,height:2,background:'#D97706',borderRadius:2}}/>
+                <div><b style={{display:'block',fontSize:13.5,fontWeight:600,color:'#101828',marginBottom:2}}>{t}</b><span style={{fontSize:12.5,color:'#6A7282',lineHeight:1.5}} dangerouslySetInnerHTML={{__html:d}}/></div>
+              </div>)}
+            </div>
+
+            <div style={{background:'#FFF7ED',border:'1px solid #FED7AA',borderRadius:10,padding:'14px 16px',marginBottom:18}}>
+              <b style={{display:'block',fontSize:13.5,fontWeight:700,color:'#9A3412',marginBottom:5}}>What keeping all four steps costs</b>
+              <p style={{fontSize:12.5,color:'#9A3412',margin:'0 0 8px',lineHeight:1.55}}>This is the honest trade for a cheap test. Four decisions stay, so the Hick’s Law gain that C1 was built for does not arrive — expect a smaller lift than C1’s, from clarity and price transparency rather than from reduced choice.</p>
+              <p style={{fontSize:12.5,color:'#9A3412',margin:0,lineHeight:1.55}}>What it does fix without touching the platform: the price is resolved and visible in the rail at every step, the invigilation choice finally states its consequence, step 4 is disabled instead of throwing a validation error, and the calendar gets the full width it needs to be readable.</p>
+            </div>
+            <div style={{background:'#F0FEEF',border:'1px solid #B8FBB7',borderRadius:10,padding:'14px 16px'}}>
+              <b style={{display:'block',fontSize:13.5,fontWeight:700,color:'#116A12',marginBottom:5}}>Test it against the live page, not against C1</b>
+              <p style={{fontSize:12.5,color:'#116A12',margin:0,lineHeight:1.55}}>C8-A vs control is a clean read on layout and clarity with the option set held constant. That isolates one variable, and it means a win is attributable to the presentation rather than to the reduced choice set — which then makes C1 the obvious follow-up rather than a competing bet.</p>
+            </div>
+          </div>
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="audit" title="Enforcer audit — what happened to each element, and why" subtitle="Every device on the live page, with the decision and the reasoning. Four are restored after your note; one is genuinely cut.">
+        <DCArtboard id="audit-table" label="Element by element" width={900} height={1160}>
+          <div className="frame" style={{padding:0}}>
+            <div style={{display:'grid',gridTemplateColumns:'210px 108px 1fr',background:'#F9FAFB',borderBottom:'1.5px solid #D1D5DB',padding:'12px 20px',gap:16}}>
+              {['Element','Decision','Reasoning'].map(h => <span key={h} style={{fontSize:10.5,fontWeight:700,letterSpacing:'.06em',textTransform:'uppercase',color:'#101828'}}>{h}</span>)}
+            </div>
+            {AUDIT.map(([el,verdict,why],i) => {
+              const tone = verdict.indexOf('Cut')===0 ? ['#FDF2F2','#9B1C1C'] : verdict.indexOf('Restored')===0 ? ['#ECFDF5','#03543F'] : (verdict==='Moved'||verdict==='Merged') ? ['#EEF6FF','#1E429F'] : ['#F0FEEF','#116A12'];
+              return <div key={el} style={{display:'grid',gridTemplateColumns:'210px 108px 1fr',gap:16,padding:'14px 20px',borderTop:i?'1px solid #E5E7EB':'none',alignItems:'start'}}>
+                <span style={{fontSize:13.5,fontWeight:600,color:'#101828',lineHeight:1.4}}>{el}</span>
+                <span style={{fontSize:11,fontWeight:700,color:tone[1],background:tone[0],borderRadius:6,padding:'4px 8px',textAlign:'center',lineHeight:1.3}}>{verdict}</span>
+                <span style={{fontSize:13,color:'#4A5565',lineHeight:1.55}}>{why}</span>
+              </div>;
+            })}
+          </div>
+        </DCArtboard>
+        <DCArtboard id="palette" label="Where the colour comes from" width={560} height={720}>
+          <div className="frame" style={{padding:28}}>
+            <h2 style={{fontSize:20,fontWeight:700,letterSpacing:'-.02em',margin:'0 0 6px'}}>Colour with a job</h2>
+            <p style={{fontSize:13.5,color:'#6A7282',margin:'0 0 20px',lineHeight:1.55}}>The first round was near-monochrome because I was cutting noise. The fix is not more colour but colour that carries meaning — five roles, each used for one thing, so a hue becomes information rather than decoration.</p>
+            <div style={{display:'grid',gap:12}}>
+              {PALETTE.map(([hex,name,use]) => <div key={hex} style={{display:'grid',gridTemplateColumns:'44px 1fr',gap:14,alignItems:'start'}}>
+                <span style={{width:44,height:44,borderRadius:10,background:hex,border:'1px solid rgba(0,0,0,.08)'}}/>
+                <div><b style={{display:'block',fontSize:14,fontWeight:600,color:'#101828'}}>{name} <span style={{fontWeight:400,color:'#98A2B3',fontFamily:'ui-monospace,Menlo,monospace',fontSize:11.5}}>{hex}</span></b><span style={{fontSize:12.5,color:'#6A7282',lineHeight:1.5}}>{use}</span></div>
+              </div>)}
+            </div>
+            <div style={{marginTop:22,paddingTop:18,borderTop:'1px solid #E5E7EB'}}>
+              <b style={{fontSize:13.5,fontWeight:600,color:'#101828',display:'block',marginBottom:6}}>The rule that stops it becoming the current page</b>
+              <p style={{fontSize:12.5,color:'#6A7282',lineHeight:1.55,margin:0}}>Two saturated blocks may never touch. The live page stacks a red bar, a green banner, a yellow bar and a red countdown in one column, and the effect is that none of them registers. Here a coloured block is always separated by white space and plain text, so each one still means something when the eye reaches it.</p>
+            </div>
+          </div>
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="skeleton" title="Page below the buy box" subtitle="Shared across all four concepts. The current page repeats the 93% claim five times and duplicates the configurator as a comparison table; this order states each thing once, where it is needed.">
+        <DCArtboard id="skeleton-order" label="Recommended section order" width={720} height={730}>
+          <div className="frame" style={{padding:28}}>
+            <h2 style={{fontSize:20,fontWeight:700,letterSpacing:'-.02em',margin:'0 0 6px'}}>Below the fold, in this order</h2>
+            <p style={{fontSize:13.5,color:'#6A7282',margin:'0 0 20px',lineHeight:1.55}}>Nine sections become six. Everything cut was either a duplicate of the buy box or a second copy of a claim already made above.</p>
+            <BelowFold/>
+          </div>
+        </DCArtboard>
+        <DCArtboard id="cut" label="What comes off the page" width={560} height={730}>
+          <div className="frame" style={{padding:28}}>
+            <h2 style={{fontSize:20,fontWeight:700,letterSpacing:'-.02em',margin:'0 0 6px'}}>Removed, and why</h2>
+            <p style={{fontSize:13.5,color:'#6A7282',margin:'0 0 20px',lineHeight:1.55}}>Each of these is either a duplicate, an unverifiable claim, or a competing urgency device.</p>
+            <div style={{display:'grid',gap:12}}>
+              {[
+                ['Price calendar in the buy box','36 clickable prices before a decision is even framed. Moved behind "pick a date now".'],
+                ['Rainbow lower/higher price bar','Decorative, tells the buyer nothing actionable.'],
+                ['Four of the five urgency devices','A red bar, a yellow bar, a countdown, "1 day left" and per-date decay all compete. One line survives.'],
+                ['Course Option Comparison section','It duplicated steps 3 and 4 of the configurator. Now the only place packages are compared.'],
+                ['93% stat × 4 repeats','Stated once, with its sample size, next to the decision it should influence.'],
+                ['Two payment-badge rows','One row, at the CTA, where payment anxiety actually occurs.']
+              ].map(([t,d]) => <div key={t} style={{display:'grid',gridTemplateColumns:'20px 1fr',gap:12,alignItems:'start'}}>
+                <span style={{width:18,height:18,borderRadius:999,background:'#FDF2F2',color:'#9B1C1C',fontSize:13,fontWeight:700,display:'grid',placeItems:'center',marginTop:2}}>−</span>
+                <div><b style={{fontSize:14,fontWeight:600,color:'#101828',display:'block'}}>{t}</b><span style={{fontSize:12.5,color:'#6A7282',lineHeight:1.45}}>{d}</span></div>
+              </div>)}
+            </div>
+          </div>
+        </DCArtboard>
+      </DCSection>
+
+    </DesignCanvas>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

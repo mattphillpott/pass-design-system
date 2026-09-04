@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" class="pass-revise" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pass Revise — Prototype index</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{font-family:var(--font-sans);background:radial-gradient(1200px 560px at 50% -8%, var(--color-primary-bg), transparent 68%), var(--bg-page);color:var(--fg-1);-webkit-font-smoothing:antialiased;min-height:100vh}
+  a{text-decoration:none;color:inherit}
+  .wrap{max-width:1080px;margin:0 auto;padding:56px 28px 80px}
+  .top{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+  .top .mk{width:34px;height:34px}
+  .wm{font-size:24px;font-weight:900;letter-spacing:-.03em;display:flex;align-items:baseline;gap:6px}
+  .wm em{font-style:normal;font-weight:600;color:var(--color-primary);font-size:20px}
+  .lede{font-size:16px;color:var(--fg-3);margin:6px 0 36px;max-width:640px;line-height:1.55}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .card{display:flex;flex-direction:column;gap:10px;background:var(--bg-surface);border:1px solid var(--border-default);border-radius:var(--radius-2xl);padding:24px;transition:border-color .14s,box-shadow .14s,transform .08s}
+  .card:hover{border-color:var(--color-primary);box-shadow:var(--shadow-md);transform:translateY(-2px)}
+  .eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--color-primary)}
+  .card h2{margin:2px 0 0;font-size:20px;font-weight:800;letter-spacing:-.01em}
+  .card p{margin:0;font-size:14px;line-height:1.5;color:var(--fg-3)}
+  .go{margin-top:auto;font-size:13.5px;font-weight:700;color:var(--color-primary);display:inline-flex;align-items:center;gap:6px}
+  .note{margin-top:34px;font-size:13px;color:var(--fg-4);line-height:1.6}
+  @media(max-width:720px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <svg class="mk" viewBox="0 0 295 325" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M193.03,174.82l-9.48,12.3c-15.05,19.53-43.07,23.15-62.6,8.1l-62.6-48.26c-13.16-10.15-15.61-29.04-5.46-42.19,10.15-13.16,29.04-15.6,42.2-5.46l50.3,38.77L236.08,20.43C216.07,7.52,192.26,0,166.68,0H30C13.43,0,0,13.43,0,30v264.81c0,16.57,13.43,30,30,30,33.05,0,62.07-21.98,71.03-53.79l4.11-14.59h61.53c70.81,0,128.22-57.41,128.22-128.22h0c0-23.16-6.17-44.86-16.91-63.61l-84.96,110.21Z" fill="var(--color-primary)"/></svg>
+      <span class="wm">Pass<em>revise</em></span>
+    </div>
+    <p class="lede">Prototype index. Each screen opens with a live state cockpit (visitor / device / light-dark and screen-specific toggles) so you can walk every state.</p>
+    <div class="grid">
+      <a class="card" href="Homepage.html">
+        <span class="eyebrow">Public · SEO</span>
+        <h2>Homepage</h2>
+        <p>The public marketing homepage — hero, course finder, Smart Mark showcase, pricing teaser, mega-menu &amp; cookie consent.</p>
+        <span class="go">Open →</span>
+      </a>
+      <a class="card" href="hub/Course Hub.html">
+        <span class="eyebrow">SEO · Discovery</span>
+        <h2>Course Hub</h2>
+        <p>One template across Qualification → Subject → Board → Course landing.</p>
+        <span class="go">Open →</span>
+      </a>
+      <a class="card" href="exam-question/Exam Question.html">
+        <span class="eyebrow">Study</span>
+        <h2>Study screens</h2>
+        <p>One shell hosting <b>Revision Notes</b>, <b>Flashcards</b>, <b>Exam Questions</b> (dual-gate content/marking + Smart Mark + paywall preview→lock), <b>Past Papers</b> and the <b>sit-paper-online</b> attempt. Switch content types from the left rail; use the cockpit for visitor/state.</p>
+        <span class="go">Open →</span>
+      </a>
+      <a class="card" href="dashboard/Dashboard.html">
+        <span class="eyebrow">Authed home</span>
+        <h2>Dashboard</h2>
+        <p>Courses, grades &amp; progress, onboarding wizard, Add Course, What's new.</p>
+        <span class="go">Open →</span>
+      </a>
+      <a class="card" href="auth/Auth.html">
+        <span class="eyebrow">Access</span>
+        <h2>Auth</h2>
+        <p>Login, register and the contextual registration-wall modal.</p>
+        <span class="go">Open →</span>
+      </a>
+      <a class="card" href="Pass Revise Brand Foundation.html">
+        <span class="eyebrow">Foundation</span>
+        <h2>Brand &amp; tokens</h2>
+        <p>Colour, type and light/dark system (Volt direction).</p>
+        <span class="go">Open →</span>
+      </a>
+      <a class="card" href="Topic.html">
+        <span class="eyebrow">SEO · Deep landing</span>
+        <h2>Topic node</h2>
+        <p>A spec-topic landing with the persistent course sidebar and per-concept resource listing.</p>
+        <span class="go">Open →</span>
+      </a>
+      <a class="card" href="Search.html">
+        <span class="eyebrow">Discovery</span>
+        <h2>Search</h2>
+        <p>Autocomplete + results grouped by type (notes, questions, topics, papers, glossary).</p>
+        <span class="go">Open →</span>
+      </a>
+      <a class="card" href="Subscription.html">
+        <span class="eyebrow">Convert</span>
+        <h2>Subscription &amp; pricing</h2>
+        <p>Plans with monthly/annual toggle, checkout hand-off, and the post-payment unlock-in-place moment (success &amp; failure).</p>
+        <span class="go">Open →</span>
+      </a>
+      <a class="card" href="Account.html">
+        <span class="eyebrow">Authed</span>
+        <h2>Account &amp; settings</h2>
+        <p>Profile, login &amp; security, subscription management, accessibility prefs, saved &amp; notifications.</p>
+        <span class="go">Open →</span>
+      </a>
+      <a class="card" href="SystemStates.html">
+        <span class="eyebrow">System</span>
+        <h2>System states</h2>
+        <p>Loading skeleton, empty, error, 404 and 410 — the shared states used across screens.</p>
+        <span class="go">Open →</span>
+      </a>
+    </div>
+    <p class="note">Open <b>index.html</b> in any browser. Keep the folder structure intact — every screen loads the shared <b>styles.css</b> from the project root. No internet needed except web fonts (falls back to system fonts offline).</p>
+  </div>
+</body>
+</html>

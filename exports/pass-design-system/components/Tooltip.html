@@ -1,0 +1,37 @@
+<!-- Tooltip — pure CSS (peer/group-hover) version works for non-interactive tooltips.
+     For ARIA-correct tooltips with delays + portal, use PrimeVue Tooltip or @floating-ui.
+
+     Apply these class strings to the tooltip element rendered by the lib. -->
+
+<!-- ─── Pure-CSS hover tooltip ─── -->
+<span class="relative inline-flex group">
+  <button class="inline-flex w-9 h-9 items-center justify-center rounded-md text-fg-3 hover:bg-bg-raised hover:text-fg-1 focus-visible:ring-[3px] focus-visible:ring-primary-600/25">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+  </button>
+  <span role="tooltip"
+    class="absolute bottom-[calc(100%+6px)] left-1/2 -translate-x-1/2 z-[1700]
+           px-2.5 py-1.5 rounded-md text-xs font-medium text-white bg-gray-900 shadow
+           whitespace-nowrap opacity-0 pointer-events-none
+           group-hover:opacity-100 group-focus-within:opacity-100
+           transition-opacity duration-150">
+    Reset progress
+    <span class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></span>
+  </span>
+</span>
+
+<!-- ─── Positions — class on tooltip element ─── -->
+<!-- top:    bottom-[calc(100%+6px)] left-1/2 -translate-x-1/2 -->
+<!-- bottom: top-[calc(100%+6px)] left-1/2 -translate-x-1/2 -->
+<!-- left:   right-[calc(100%+6px)] top-1/2 -translate-y-1/2 -->
+<!-- right:  left-[calc(100%+6px)] top-1/2 -translate-y-1/2 -->
+
+<!-- ─── Light variant (use on dark surface only) ─── -->
+<span role="tooltip" class="px-2.5 py-1.5 rounded-md text-xs font-medium text-fg-1 bg-bg-surface border border-border-default shadow-md">
+  Marked to examiner standard
+</span>
+
+<!-- ─── Rich tooltip (text + key) ─── -->
+<span role="tooltip" class="inline-flex items-center gap-2 px-3 py-2 rounded-md text-xs text-white bg-gray-900 shadow-lg">
+  Save learner profile
+  <kbd class="inline-flex items-center px-1 h-4 rounded text-[10px] font-semibold bg-white/15 ring-1 ring-white/20">⌘S</kbd>
+</span>

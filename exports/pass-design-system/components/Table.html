@@ -1,0 +1,96 @@
+<!-- Table — for reporting / learner lists. Sticky header optional. -->
+
+<div class="rounded-lg border border-border-default bg-bg-surface overflow-hidden">
+  <!-- Optional toolbar -->
+  <div class="flex items-center justify-between gap-3 px-4 h-14 border-b border-border-default">
+    <h3 class="text-sm font-semibold text-fg-1">Learners (24)</h3>
+    <div class="flex items-center gap-2">
+      <input type="search" placeholder="Search" class="h-9 px-3 rounded-md text-sm bg-bg-surface border border-border-default focus-visible:border-primary-600 focus-visible:ring-[3px] focus-visible:ring-primary-600/25"/>
+      <button class="h-9 px-3 rounded-md text-sm font-medium bg-bg-surface border border-border-default text-fg-2 hover:bg-bg-raised">Export</button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="overflow-x-auto">
+    <table class="min-w-full text-sm">
+      <thead>
+        <tr class="bg-bg-sunken text-left text-xs font-semibold uppercase tracking-wider text-fg-4">
+          <th class="px-4 py-3 w-10"><input type="checkbox" class="w-4 h-4 rounded-sm accent-primary-600"/></th>
+          <th class="px-4 py-3">
+            <button class="inline-flex items-center gap-1 hover:text-fg-2">Learner
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M7 14l5-5 5 5"/></svg>
+            </button>
+          </th>
+          <th class="px-4 py-3">Cohort</th>
+          <th class="px-4 py-3">Subject</th>
+          <th class="px-4 py-3">Progress</th>
+          <th class="px-4 py-3">Status</th>
+          <th class="px-4 py-3 text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-border-default">
+        <tr class="hover:bg-bg-sunken transition-colors duration-100">
+          <td class="px-4 py-3"><input type="checkbox" class="w-4 h-4 rounded-sm accent-primary-600"/></td>
+          <td class="px-4 py-3">
+            <div class="flex items-center gap-3">
+              <span class="inline-flex w-8 h-8 items-center justify-center rounded-full bg-primary-100 text-primary-700 text-xs font-semibold">AB</span>
+              <div>
+                <div class="font-medium text-fg-1">Amir Bashir</div>
+                <div class="text-xs text-fg-4">amir.b@centre.ac.uk</div>
+              </div>
+            </div>
+          </td>
+          <td class="px-4 py-3 text-fg-2">FS-L2-2026A</td>
+          <td class="px-4 py-3 text-fg-2">Maths</td>
+          <td class="px-4 py-3">
+            <div class="flex items-center gap-2">
+              <div class="w-24 h-1.5 rounded-full bg-gray-200 overflow-hidden">
+                <div class="h-full bg-primary-600" style="width: 72%"></div>
+              </div>
+              <span class="text-xs tabular-nums text-fg-3">72%</span>
+            </div>
+          </td>
+          <td class="px-4 py-3"><span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-50 text-success-700"><span class="w-1.5 h-1.5 rounded-full bg-success-600"></span>On track</span></td>
+          <td class="px-4 py-3 text-right">
+            <button class="inline-flex w-8 h-8 items-center justify-center rounded-md text-fg-4 hover:bg-bg-raised hover:text-fg-1" aria-label="More">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="18" cy="12" r="1.6"/></svg>
+            </button>
+          </td>
+        </tr>
+        <tr class="hover:bg-bg-sunken">
+          <td class="px-4 py-3"><input type="checkbox" class="w-4 h-4 rounded-sm accent-primary-600"/></td>
+          <td class="px-4 py-3"><div class="font-medium text-fg-1">Chloe Davies</div><div class="text-xs text-fg-4">chloe.d@centre.ac.uk</div></td>
+          <td class="px-4 py-3 text-fg-2">FS-L2-2026A</td>
+          <td class="px-4 py-3 text-fg-2">English</td>
+          <td class="px-4 py-3"><div class="flex items-center gap-2"><div class="w-24 h-1.5 rounded-full bg-gray-200 overflow-hidden"><div class="h-full bg-warning-600" style="width: 28%"></div></div><span class="text-xs tabular-nums text-fg-3">28%</span></div></td>
+          <td class="px-4 py-3"><span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-warning-50 text-warning-700"><span class="w-1.5 h-1.5 rounded-full bg-warning-600"></span>At risk</span></td>
+          <td class="px-4 py-3 text-right"><button class="text-sm text-primary-700 hover:underline">Open</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Footer / pagination -->
+  <div class="flex items-center justify-between px-4 h-14 border-t border-border-default text-sm text-fg-3">
+    <span>Showing <strong class="text-fg-1">1–10</strong> of 24</span>
+    <div class="inline-flex items-center gap-1">
+      <button class="h-8 px-2.5 rounded-md text-fg-2 hover:bg-bg-raised">‹</button>
+      <button class="h-8 w-8 rounded-md bg-primary-600 text-white font-semibold">1</button>
+      <button class="h-8 w-8 rounded-md text-fg-2 hover:bg-bg-raised">2</button>
+      <button class="h-8 w-8 rounded-md text-fg-2 hover:bg-bg-raised">3</button>
+      <button class="h-8 px-2.5 rounded-md text-fg-2 hover:bg-bg-raised">›</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Sticky header (inside scroll container) ─── -->
+<!-- Add  class="sticky top-0 z-10 bg-bg-sunken"  on <thead> -->
+
+<!-- ─── Dense / compact row ─── -->
+<!-- Use class="px-3 py-2" on td/th instead of px-4 py-3 -->
+
+<!-- ─── Empty body row ─── -->
+<tr><td colspan="7" class="px-4 py-16 text-center text-sm text-fg-4">No learners match your filters.</td></tr>
+
+<!-- ─── Loading skeleton row ─── -->
+<tr><td colspan="7" class="px-4 py-3"><div class="h-4 rounded skeleton"></div></td></tr>

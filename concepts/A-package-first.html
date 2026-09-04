@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8"/>
+<title>A — Package first</title>
+<link rel="stylesheet" href="../styles.css"/>
+<style>
+body{margin:0;background:var(--color-gray-100);padding:32px;display:flex;justify-content:center}
+.col{width:700px}
+.hdr{margin-bottom:20px}
+.stars{color:#F5A623;font-size:15px;letter-spacing:1px}
+.rev{font-size:13px;color:var(--fg-4)}
+h1{font-size:32px;font-weight:800;letter-spacing:-.025em;line-height:1.15;margin:8px 0 8px}
+.sub{font-size:15px;color:var(--fg-3);line-height:1.6;margin:0 0 20px}
+.step{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-4);margin:0 0 10px}
+.pkgs{display:grid;gap:10px;margin-bottom:24px}
+.pkg{display:grid;grid-template-columns:22px 1fr auto;gap:14px;align-items:start;background:#fff;border:1px solid var(--border-default);border-radius:12px;padding:18px 20px;cursor:pointer;position:relative;transition:border-color .15s var(--ease-in-out),box-shadow .15s var(--ease-in-out)}
+.pkg:hover{border-color:var(--border-strong)}
+.pkg.on{border-color:var(--color-primary);border-width:2px;padding:17px 19px;box-shadow:0 0 0 3px rgba(15,188,15,.12)}
+.dot{width:20px;height:20px;border-radius:999px;border:1.5px solid var(--border-strong);margin-top:2px;flex:none;display:grid;place-items:center}
+.pkg.on .dot{border-color:var(--color-primary);border-width:6px}
+.pname{font-size:17px;font-weight:700;color:var(--fg-1);margin:0 0 4px}
+.pmeta{font-size:13.5px;color:var(--fg-3);line-height:1.5;margin:0}
+.pprice{text-align:right;white-space:nowrap}
+.pnow{font-size:22px;font-weight:800;color:var(--fg-1);letter-spacing:-.02em}
+.pwas{font-size:13px;color:var(--fg-5);text-decoration:line-through}
+.rec{position:absolute;top:-10px;right:16px;background:var(--color-primary);color:#fff;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 10px;border-radius:999px}
+.tag{display:inline-block;background:var(--color-success-bg);color:var(--color-success-700);font-size:12px;font-weight:600;padding:2px 8px;border-radius:5px;margin-top:8px}
+.when{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px}
+.wopt{border:1px solid var(--border-default);border-radius:12px;padding:14px 16px;background:#fff;cursor:pointer}
+.wopt.on{border-color:var(--color-primary);border-width:2px;padding:13px 15px}
+.wt{font-size:14.5px;font-weight:600;color:var(--fg-1);margin:0 0 3px}
+.wd{font-size:12.5px;color:var(--fg-4);margin:0}
+.note{font-size:12.5px;color:var(--fg-4);margin:0 0 24px}
+.total{background:var(--bg-sunken);border:1px solid var(--border-default);border-radius:12px;padding:18px 20px;margin-bottom:12px}
+.trow{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;color:var(--fg-3);padding:3px 0}
+.tbig{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--border-default);margin-top:10px;padding-top:12px}
+.tbig span:first-child{font-size:15px;font-weight:600;color:var(--fg-1)}
+.tbig span:last-child{font-size:30px;font-weight:800;letter-spacing:-.025em}
+.mth{text-align:right;font-size:13px;color:var(--fg-4);margin-top:2px}
+.cta{width:100%;height:56px;border:none;border-radius:12px;background:var(--color-primary);color:#fff;font-family:inherit;font-size:18px;font-weight:700;cursor:pointer}
+.cta:hover{background:var(--color-primary-hover)}
+.urg{display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;color:var(--color-warning);font-weight:600;margin-top:12px}
+.proof{border-top:1px solid var(--border-default);margin-top:24px;padding-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:12px 24px}
+.pi{display:grid;grid-template-columns:18px 1fr;gap:10px;align-items:start}
+.pi svg{margin-top:3px}
+.pi b{display:block;font-size:13.5px;font-weight:600;color:var(--fg-1)}
+.pi span{font-size:12.5px;color:var(--fg-4);line-height:1.45}
+.bodies{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;padding-top:18px;border-top:1px solid var(--border-default)}
+.chip{font-size:11.5px;font-weight:600;color:var(--fg-4);border:1px solid var(--border-default);border-radius:6px;padding:5px 9px;background:#fff}
+</style>
+</head>
+<body>
+<div class="col">
+<div class="hdr">
+<div><span class="stars">★★★★★</span> <span class="rev">4.7 from 258 Trustpilot reviews</span></div>
+<h1>Functional Skills Maths Level 2</h1>
+<p class="sub">Ofqual-regulated, GCSE-equivalent. Sat at home, marked by our examiners. Accepted by UK universities, employers and apprenticeship providers.</p>
+</div>
+
+<p class="step">1 · Choose what you need</p>
+<div class="pkgs">
+  <div class="pkg"><div class="dot"></div><div><p class="pname">Exam only</p><p class="pmeta">The exam plus the £119.99 exam pack. No course.</p></div><div class="pprice"><div class="pwas">£197.00</div><div class="pnow">£157.60</div></div></div>
+  <div class="pkg"><div class="dot"></div><div><p class="pname">Exam + course</p><p class="pmeta">3 months' course access, tutor-marked assignments, practice papers.</p></div><div class="pprice"><div class="pwas">£427.00</div><div class="pnow">£341.60</div></div></div>
+  <div class="pkg on"><div class="rec">93% pass with this</div><div class="dot"></div><div><p class="pname">Exam + course + free resit</p><p class="pmeta">12 months' access, everything above, and a second exam free if you don't pass.</p><span class="tag">Free resit included</span></div><div class="pprice"><div class="pwas">£552.00</div><div class="pnow">£441.60</div></div></div>
+</div>
+
+<p class="step">2 · When do you want to sit it?</p>
+<div class="when">
+  <div class="wopt on"><p class="wt">Decide later</p><p class="wd">Book today, pick your date any time in the next 12 months.</p></div>
+  <div class="wopt"><p class="wt">Pick a date now</p><p class="wd">August dates from £240. Later dates cost less.</p></div>
+</div>
+<p class="note">Dated slots are priced individually — you'll see the exact price before you pay.</p>
+
+<div class="total">
+  <div class="trow"><span>Exam + course + free resit</span><span>£441.60</span></div>
+  <div class="trow"><span>Exam pack</span><span>Included</span></div>
+  <div class="trow"><span>Exam date</span><span>Choose later</span></div>
+  <div class="tbig"><span>Total today</span><span>£441.60</span></div>
+</div>
+<p class="mth">or from £36.80/month with Klarna, Clearpay or Payl8r</p>
+<button class="cta">Add to basket</button>
+<div class="urg"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 8 places left at this price · offer ends Friday 28 August</div>
+
+<div class="proof">
+  <div class="pi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0FBC0F" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg><div><b>93% pass rate</b><span>Across 5,399 sittings of this exam.</span></div></div>
+  <div class="pi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0FBC0F" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg><div><b>Results in 2 working days</b><span>Remote invigilation. Human-invigilated: 6–16 days.</span></div></div>
+  <div class="pi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0FBC0F" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg><div><b>Sat entirely at home</b><span>No exam centre, no travel. See the 90-second setup.</span></div></div>
+  <div class="pi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0FBC0F" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg><div><b>Price-match guarantee</b><span>On like-for-like Level 2 Maths exams.</span></div></div>
+</div>
+<div class="bodies"><span class="chip">Ofqual regulated</span><span class="chip">City &amp; Guilds</span><span class="chip">TQUK</span><span class="chip">Open Awards</span><span class="chip">Accepted by 140+ UK universities</span></div>
+</div>
+</body>
+</html>

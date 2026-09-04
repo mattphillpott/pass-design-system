@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" class="pass-revise" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Pass Revise — Sign in</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="auth.css">
+</head>
+<body>
+  <div id="app" class="app"></div>
+
+  <!-- prototype state cockpit (not part of the product UI) -->
+  <div id="cockpit" class="cockpit" aria-label="Prototype controls">
+    <div class="ck-group">
+      <span class="ck-lbl">Screen</span>
+      <div class="seg" data-seg="screen">
+        <button data-screen="login" class="on">Login</button>
+        <button data-screen="register">Register</button>
+        <button data-screen="reset">Reset</button>
+        <button data-screen="verify">Verify</button>
+        <button data-screen="blocked">Under-13</button>
+        <button data-screen="regwall">Reg-wall</button>
+      </div>
+    </div>
+    <div class="ck-div"></div>
+    <div class="ck-group ck-ctx">
+      <span class="ck-lbl">Wall&nbsp;context</span>
+      <div class="seg" data-seg="ctx">
+        <button data-ctx="mark" class="on">Mark</button>
+        <button data-ctx="note">Note</button>
+        <button data-ctx="paper">Paper</button>
+      </div>
+    </div>
+    <div class="ck-div"></div>
+    <div class="ck-group">
+      <span class="ck-lbl">Form</span>
+      <div class="seg" data-seg="form">
+        <button data-form="default" class="on">Default</button>
+        <button data-form="error">Error</button>
+        <button data-form="success">Success</button>
+      </div>
+    </div>
+    <div class="ck-div"></div>
+    <div class="ck-group">
+      <span class="ck-lbl">Device</span>
+      <div class="seg" data-seg="device">
+        <button data-d="desktop" class="on">Desktop</button>
+        <button data-d="mobile">Mobile</button>
+      </div>
+    </div>
+    <div class="ck-div"></div>
+    <div class="ck-group">
+      <div class="seg" data-seg="theme">
+        <button data-t="light" class="on" title="Light">☀</button>
+        <button data-t="dark" title="Dark">☾</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="auth.js"></script>
+</body>
+</html>

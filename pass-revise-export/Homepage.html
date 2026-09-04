@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="pass-revise">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pass Revise — GCSE & A-Level revision notes, exam questions & past papers</title>
+<meta name="description" content="Board-specific revision notes, exam questions with instant Smart Mark feedback, and past papers for GCSE, IGCSE, AS and A-Level. One subscription unlocks every subject.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg-page);color:var(--fg-1);font-family:var(--font-sans);-webkit-font-smoothing:antialiased;line-height:1.55}
+  a{color:var(--fg-link);text-decoration:none}
+  a:hover{color:var(--primary-hover)}
+  h1,h2,h3,h4{margin:0;letter-spacing:-.02em;line-height:1.1}
+  p{margin:0}
+  img{max-width:100%;display:block}
+  button{font-family:inherit}
+  :focus-visible{outline:none;box-shadow:var(--shadow-focus);border-radius:var(--radius-sm)}
+  .skip{position:absolute;left:-999px;top:8px;z-index:200;background:var(--primary);color:var(--on-primary);padding:10px 16px;border-radius:var(--radius-md);font-weight:600}
+  .skip:focus{left:8px}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 20px;border-radius:var(--radius-lg);border:1px solid transparent;font-weight:600;font-size:15px;cursor:pointer;transition:background .15s,border-color .15s,color .15s,transform .05s;white-space:nowrap}
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{background:var(--primary);color:var(--on-primary)}
+  .btn-primary:hover{background:var(--primary-hover);color:var(--on-primary)}
+  .btn-ghost{background:transparent;color:var(--fg-1);border-color:transparent}
+  .btn-ghost:hover{background:var(--bg-raised);color:var(--fg-1)}
+  .btn-outline{background:var(--bg-surface);color:var(--fg-1);border-color:var(--border-strong)}
+  .btn-outline:hover{border-color:var(--primary);color:var(--primary)}
+  .btn-lg{height:52px;padding:0 26px;font-size:16px}
+  .btn svg{width:18px;height:18px}
+
+  /* header */
+  header.site{position:sticky;top:0;z-index:80;background:color-mix(in srgb,var(--bg-page) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--border-default)}
+  .nav{display:flex;align-items:center;gap:22px;height:68px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:19px;color:var(--fg-1);letter-spacing:-.03em}
+  .brand:hover{color:var(--fg-1)}
+  .brand .logo{width:30px;height:30px;border-radius:8px;background:var(--primary);display:grid;place-items:center;color:var(--on-primary)}
+  .brand .logo svg{width:19px;height:19px}
+  .brand em{font-style:normal;color:var(--primary)}
+  .nav-links{display:flex;align-items:center;gap:4px;margin-left:8px}
+  .nav-links > *{position:relative}
+  .navbtn{display:inline-flex;align-items:center;gap:5px;height:40px;padding:0 13px;border:none;background:transparent;color:var(--fg-2);font-weight:600;font-size:15px;border-radius:var(--radius-md);cursor:pointer}
+  .navbtn:hover{background:var(--bg-raised);color:var(--fg-1)}
+  .navbtn .chev{width:15px;height:15px;transition:transform .18s}
+  .navbtn[aria-expanded=true] .chev{transform:rotate(180deg)}
+  .nav-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+  .icon-btn{width:40px;height:40px;display:grid;place-items:center;border:1px solid var(--border-default);background:var(--bg-surface);border-radius:var(--radius-md);color:var(--fg-2);cursor:pointer}
+  .icon-btn:hover{color:var(--fg-1);border-color:var(--border-strong)}
+  .icon-btn svg{width:18px;height:18px}
+  .hamburger{display:none}
+
+  /* mega-menu */
+  .mega{position:absolute;top:60px;left:0;z-index:70;width:min(720px,92vw);background:var(--bg-surface);border:1px solid var(--border-default);border-radius:var(--radius-xl);box-shadow:var(--shadow-xl);padding:20px;display:none}
+  .mega.open{display:block}
+  .mega-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+  .mega-tab{height:34px;padding:0 14px;border-radius:var(--radius-full);border:1px solid var(--border-default);background:var(--bg-page);color:var(--fg-2);font-weight:600;font-size:13.5px;cursor:pointer}
+  .mega-tab.on{background:var(--primary);color:var(--on-primary);border-color:var(--primary)}
+  .mega-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+  .mega-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-md);color:var(--fg-1);font-weight:500;font-size:14.5px}
+  .mega-item:hover{background:var(--primary-bg);color:var(--primary)}
+  .mega-item .dot{width:9px;height:9px;border-radius:3px;flex:none}
+  .mega-foot{margin-top:16px;padding-top:14px;border-top:1px solid var(--border-default);display:flex;justify-content:space-between;align-items:center;font-size:13.5px}
+
+  /* hero */
+  .hero{padding:64px 0 40px}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--primary);background:var(--primary-bg);padding:6px 12px;border-radius:var(--radius-full);margin-bottom:20px}
+  .hero h1{font-size:clamp(38px,5vw,58px);font-weight:800}
+  .hero h1 mark{background:none;color:var(--primary)}
+  .hero .lede{margin-top:20px;font-size:19px;color:var(--fg-3);max-width:34ch}
+  .hero-trust{margin-top:26px;display:flex;flex-wrap:wrap;gap:18px 26px;color:var(--fg-3);font-size:14.5px;font-weight:500}
+  .hero-trust span{display:inline-flex;align-items:center;gap:8px}
+  .hero-trust svg{width:17px;height:17px;color:var(--success)}
+
+  /* course finder card */
+  .finder{background:var(--bg-surface);border:1px solid var(--border-default);border-radius:var(--radius-2xl);box-shadow:var(--shadow-lg);padding:26px}
+  .finder h2{font-size:20px;font-weight:700;margin-bottom:4px}
+  .finder p.sub{color:var(--fg-4);font-size:14px;margin-bottom:18px}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:13px;font-weight:600;color:var(--fg-2);margin-bottom:6px}
+  .select{position:relative}
+  .select select{appearance:none;width:100%;height:48px;padding:0 40px 0 14px;border-radius:var(--radius-lg);border:1px solid var(--border-strong);background:var(--bg-page);color:var(--fg-1);font-size:15px;font-family:inherit;cursor:pointer}
+  .select select:focus{outline:none;border-color:var(--primary);box-shadow:var(--shadow-focus)}
+  .select .caret{position:absolute;right:14px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--fg-4);pointer-events:none}
+  .finder .btn{width:100%;margin-top:6px}
+  .finder .or{margin-top:14px;text-align:center;font-size:13.5px;color:var(--fg-4)}
+  .finder .or a{font-weight:600}
+
+  /* section scaffold */
+  section.blk{padding:56px 0}
+  .sec-head{text-align:center;max-width:640px;margin:0 auto 40px}
+  .sec-head .eyebrow{margin-bottom:14px}
+  .sec-head h2{font-size:clamp(28px,3.4vw,40px);font-weight:800}
+  .sec-head p{margin-top:14px;color:var(--fg-3);font-size:17px}
+
+  /* boards strip */
+  .boards{border-top:1px solid var(--border-default);border-bottom:1px solid var(--border-default);background:var(--bg-page-alt)}
+  .boards .wrap{display:flex;align-items:center;justify-content:center;gap:14px 40px;flex-wrap:wrap;padding:24px}
+  .boards .lab{font-size:13px;font-weight:600;color:var(--fg-4);text-transform:uppercase;letter-spacing:.05em}
+  .boards .board{font-weight:800;font-size:18px;color:var(--fg-3);letter-spacing:-.01em}
+
+  /* features */
+  .feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+  .feat{position:relative;background:var(--bg-surface);border:1px solid var(--border-default);border-radius:var(--radius-xl);padding:26px;overflow:hidden}
+  .feat .ic{width:46px;height:46px;border-radius:var(--radius-lg);display:grid;place-items:center;margin-bottom:16px}
+  .feat .ic svg{width:24px;height:24px}
+  .feat h3{font-size:20px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+  .feat p{color:var(--fg-3);font-size:15px}
+  .feat .tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:3px 9px;border-radius:var(--radius-full)}
+  .tag-soon{background:var(--bg-raised);color:var(--fg-4)}
+  .tag-new{background:var(--success-bg);color:var(--success-fg)}
+  .ic-primary{background:var(--primary-bg);color:var(--primary)}
+  .ic-amber{background:var(--accent-bg);color:var(--accent-fg)}
+  .ic-green{background:var(--success-bg);color:var(--success-fg)}
+
+  /* smart mark showcase */
+  .showcase{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+  .showcase .body h2{font-size:clamp(26px,3vw,36px);font-weight:800}
+  .showcase .body p{margin-top:16px;color:var(--fg-3);font-size:16.5px}
+  .showcase ul{list-style:none;padding:0;margin:22px 0 0;display:flex;flex-direction:column;gap:12px}
+  .showcase li{display:flex;gap:11px;font-size:15.5px;color:var(--fg-2)}
+  .showcase li svg{width:20px;height:20px;color:var(--success);flex:none;margin-top:1px}
+  .mark-demo{background:var(--bg-surface);border:1px solid var(--border-default);border-radius:var(--radius-2xl);box-shadow:var(--shadow-lg);padding:22px}
+  .md-q{font-size:14px;color:var(--fg-3);margin-bottom:6px}
+  .md-a{background:var(--bg-page-alt);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:13px 15px;font-size:14.5px;color:var(--fg-1);margin-bottom:14px}
+  .md-result{border:1px solid color-mix(in srgb,var(--success) 40%,transparent);background:var(--success-bg);border-radius:var(--radius-lg);padding:14px 16px}
+  .md-score{display:flex;align-items:center;justify-content:space-between;font-weight:700;color:var(--success-fg);font-size:15px;margin-bottom:10px}
+  .md-score .pts{font-size:20px}
+  .md-check{display:flex;gap:9px;font-size:13.5px;color:var(--fg-2);padding:4px 0}
+  .md-check svg{width:16px;height:16px;flex:none;margin-top:1px}
+  .md-check.hit svg{color:var(--success)}
+  .md-check.miss{color:var(--fg-4)}
+  .md-check.miss svg{color:var(--fg-5)}
+
+  /* popular subjects */
+  .subj-tabs{display:flex;justify-content:center;gap:8px;margin-bottom:26px}
+  .subj-tab{height:40px;padding:0 20px;border-radius:var(--radius-full);border:1px solid var(--border-default);background:var(--bg-surface);color:var(--fg-2);font-weight:600;font-size:14.5px;cursor:pointer}
+  .subj-tab.on{background:var(--fg-1);color:var(--bg-page);border-color:var(--fg-1)}
+  .subj-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .subj{display:flex;align-items:center;gap:13px;padding:16px;background:var(--bg-surface);border:1px solid var(--border-default);border-radius:var(--radius-xl);color:var(--fg-1);font-weight:600;font-size:15px;transition:border-color .15s,transform .1s}
+  .subj:hover{border-color:var(--primary);color:var(--fg-1);transform:translateY(-2px)}
+  .subj .badge{width:40px;height:40px;border-radius:var(--radius-md);display:grid;place-items:center;font-weight:800;font-size:15px;flex:none;color:#fff}
+
+  /* pricing teaser */
+  .price-cta{background:linear-gradient(135deg,var(--volt-600),var(--volt-800));border-radius:var(--radius-2xl);padding:48px;text-align:center;color:#fff;position:relative;overflow:hidden}
+  .price-cta h2{font-size:clamp(26px,3vw,36px);font-weight:800;color:#fff}
+  .price-cta p{margin-top:14px;font-size:17px;color:rgba(255,255,255,.85);max-width:46ch;margin-left:auto;margin-right:auto}
+  .price-cta .amount{margin-top:22px;font-size:16px;color:rgba(255,255,255,.9)}
+  .price-cta .amount b{font-size:34px;font-weight:800}
+  .price-cta .btn-primary{background:#fff;color:var(--volt-700);margin-top:22px}
+  .price-cta .btn-primary:hover{background:#fff;color:var(--volt-800)}
+  .price-cta .fine{margin-top:14px;font-size:13px;color:rgba(255,255,255,.7)}
+
+  /* faq */
+  .faq{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+  .qa{border:1px solid var(--border-default);border-radius:var(--radius-lg);background:var(--bg-surface);overflow:hidden}
+  .qa summary{list-style:none;cursor:pointer;padding:18px 20px;font-weight:600;font-size:16px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .qa summary::-webkit-details-marker{display:none}
+  .qa summary .pm{width:20px;height:20px;flex:none;color:var(--fg-4);transition:transform .18s}
+  .qa[open] summary .pm{transform:rotate(45deg)}
+  .qa .ans{padding:0 20px 18px;color:var(--fg-3);font-size:15px}
+
+  /* footer */
+  footer.site{border-top:1px solid var(--border-default);background:var(--bg-page-alt);margin-top:20px}
+  .foot-grid{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:32px;padding:52px 0 32px}
+  .foot-brand p{color:var(--fg-4);font-size:14px;margin-top:14px;max-width:30ch}
+  .foot-col h4{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--fg-3);margin-bottom:14px;font-weight:700}
+  .foot-col a{display:block;color:var(--fg-3);font-size:14.5px;padding:5px 0}
+  .foot-col a:hover{color:var(--primary)}
+  .foot-bar{border-top:1px solid var(--border-default);padding:20px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--fg-4);font-size:13.5px}
+  .foot-bar .credit b{color:var(--fg-2);font-weight:700}
+  .foot-bar .fb-right{display:flex;align-items:center;gap:18px}
+  .foot-bar a{color:var(--fg-4)}
+  .foot-bar a:hover{color:var(--primary)}
+
+  /* AI FAB */
+  .fab{position:fixed;right:22px;bottom:22px;z-index:90;display:flex;align-items:center;gap:10px;height:54px;padding:0 20px 0 16px;border-radius:var(--radius-full);border:1px solid var(--border-default);background:var(--bg-surface);box-shadow:var(--shadow-xl);color:var(--fg-1);font-weight:600;font-size:15px;cursor:pointer}
+  .fab .orb{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--volt-400),var(--volt-600));display:grid;place-items:center;color:#fff}
+  .fab .orb svg{width:17px;height:17px}
+  .fab .soon{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--fg-4);background:var(--bg-raised);padding:2px 7px;border-radius:var(--radius-full)}
+
+  /* cookie banner */
+  .cookie{position:fixed;left:22px;bottom:22px;z-index:110;width:min(420px,calc(100vw - 44px));background:var(--bg-surface);border:1px solid var(--border-strong);border-radius:var(--radius-xl);box-shadow:var(--shadow-xl);padding:20px;display:none}
+  .cookie.show{display:block}
+  .cookie h3{font-size:16px;font-weight:700;margin-bottom:8px}
+  .cookie p{font-size:13.5px;color:var(--fg-3);margin-bottom:16px}
+  .cookie p a{font-weight:600}
+  .cookie-actions{display:flex;gap:10px;flex-wrap:wrap}
+  .cookie-actions .btn{height:40px;flex:1;font-size:14px;min-width:120px}
+
+  /* mobile drawer */
+  .drawer-scrim{position:fixed;inset:0;z-index:95;background:rgba(0,0,0,.4);display:none}
+  .drawer-scrim.show{display:block}
+  .drawer{position:fixed;top:0;right:0;bottom:0;z-index:96;width:min(340px,86vw);background:var(--bg-page);border-left:1px solid var(--border-default);box-shadow:var(--shadow-xl);transform:translateX(100%);transition:transform .24s ease;display:flex;flex-direction:column;padding:18px}
+  .drawer.show{transform:translateX(0)}
+  .drawer-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .drawer nav{display:flex;flex-direction:column;gap:2px}
+  .drawer nav a,.drawer nav button{text-align:left;background:transparent;border:none;color:var(--fg-1);font-weight:600;font-size:17px;padding:13px 10px;border-radius:var(--radius-md);cursor:pointer}
+  .drawer nav a:hover,.drawer nav button:hover{background:var(--bg-raised)}
+  .drawer .dr-cta{margin-top:auto;display:flex;flex-direction:column;gap:10px;padding-top:16px;border-top:1px solid var(--border-default)}
+  .drawer .dr-cta .btn{width:100%}
+
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;gap:32px}
+    .showcase{grid-template-columns:1fr;gap:28px}
+    .subj-grid{grid-template-columns:repeat(2,1fr)}
+    .feat-grid{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:1fr 1fr;gap:26px}
+    .nav-links{display:none}
+    .hamburger{display:grid}
+    .desktop-cta{display:none}
+    .price-cta{padding:36px 24px}
+  }
+  @media (max-width:560px){
+    .subj-grid{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:1fr}
+    .hero{padding:40px 0 20px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="Homepage.html" aria-label="Pass Revise home">
+      <span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+      Pass <em>revise</em>
+    </a>
+    <div class="nav-links">
+      <div>
+        <button class="navbtn" id="megaBtn" aria-expanded="false" aria-haspopup="true">Start studying
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="mega" id="mega" role="menu" aria-label="Choose a course">
+          <div class="mega-tabs" id="megaTabs"></div>
+          <div class="mega-grid" id="megaGrid"></div>
+          <div class="mega-foot">
+            <span style="color:var(--fg-4)">Can’t find your course?</span>
+            <a href="Search.html">Search all courses →</a>
+          </div>
+        </div>
+      </div>
+      <a class="navbtn" href="hub/Course Hub.html">Subjects</a>
+      <a class="navbtn" href="Subscription.html">Pricing</a>
+      <a class="navbtn" href="#how">How it works</a>
+    </div>
+    <div class="nav-right">
+      <button class="icon-btn" id="themeBtn" aria-label="Switch to dark theme" title="Toggle theme">
+        <svg id="themeIc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <a class="btn btn-ghost desktop-cta" href="auth/Auth.html">Log in</a>
+      <a class="btn btn-primary desktop-cta" href="auth/Auth.html">Get started</a>
+      <button class="icon-btn hamburger" id="menuBtn" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">GCSE · IGCSE · AS · A-Level</span>
+        <h1>Revision that knows <mark>your exact exam</mark>.</h1>
+        <p class="lede">Board-specific notes, exam questions marked the moment you answer, and every past paper — in one place.</p>
+        <div class="hero-trust">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Matched to the 2025 specs</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Written by examiners & tutors</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Free to start</span>
+        </div>
+      </div>
+      <div class="finder" role="form" aria-label="Find your course">
+        <h2>Find your course</h2>
+        <p class="sub">Pick your qualification, subject and board.</p>
+        <div class="field">
+          <label for="fQual">Qualification</label>
+          <div class="select">
+            <select id="fQual"></select>
+            <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+        </div>
+        <div class="field">
+          <label for="fSubj">Subject</label>
+          <div class="select">
+            <select id="fSubj"></select>
+            <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+        </div>
+        <div class="field">
+          <label for="fBoard">Exam board</label>
+          <div class="select">
+            <select id="fBoard"></select>
+            <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+        </div>
+        <a class="btn btn-primary btn-lg" id="finderGo" href="hub/Course Hub.html">Start revising free
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <p class="or">Not sure yet? <a href="hub/Course Hub.html">Browse all subjects</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOARDS -->
+  <div class="boards">
+    <div class="wrap">
+      <span class="lab">Every major board</span>
+      <span class="board">AQA</span><span class="board">Edexcel</span><span class="board">OCR</span><span class="board">WJEC&nbsp;Eduqas</span><span class="board">CIE</span>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="blk" id="how">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Everything in one subscription</span>
+        <h2>Four ways to revise, one place to do it</h2>
+        <p>Move from understanding to exam-ready without switching tabs.</p>
+      </div>
+      <div class="feat-grid">
+        <a class="feat" href="exam-question/Exam Question.html">
+          <div class="ic ic-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+          <h3>Revision Notes</h3>
+          <p>Concise, board-specific notes with diagrams, worked examples and exam tips — mapped to every spec point.</p>
+        </a>
+        <a class="feat" href="exam-question/Exam Question.html">
+          <div class="ic ic-amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          <h3>Exam Questions <span class="tag tag-new">Smart Mark</span></h3>
+          <p>Real exam-style questions marked instantly against the mark scheme — with a point-by-point breakdown of what you got and what you missed.</p>
+        </a>
+        <a class="feat" href="exam-question/Exam Question.html">
+          <div class="ic ic-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></div>
+          <h3>Past Papers</h3>
+          <p>Every past paper and mark scheme, plus a timed on-screen mode so you can sit them like the real thing.</p>
+        </a>
+        <div class="feat">
+          <div class="ic ic-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="13" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-1"/></svg></div>
+          <h3>Flashcards <span class="tag tag-soon">Coming soon</span></h3>
+          <p>Spaced-repetition flashcard decks for every topic, so the facts stick when it counts.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SMART MARK SHOWCASE -->
+  <section class="blk" style="background:var(--bg-page-alt);border-top:1px solid var(--border-default);border-bottom:1px solid var(--border-default)">
+    <div class="wrap showcase">
+      <div class="body">
+        <span class="eyebrow">Smart Mark</span>
+        <h2>Answer in your own words. Marked in seconds.</h2>
+        <p>Type a full written answer and Smart Mark checks it against the real mark scheme — awarding the points you earned and showing the ones you missed, so you know exactly how to improve.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Point-by-point mark-scheme breakdown</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Honest about uncertainty — flags marks to double-check</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Reading and questions are free — Smart Mark comes with Premium</li>
+        </ul>
+      </div>
+      <div class="mark-demo" aria-hidden="true">
+        <p class="md-q">Explain why graphite conducts electricity. <b style="color:var(--fg-2)">[2 marks]</b></p>
+        <div class="md-a">Graphite has delocalised electrons that are free to move through the structure and carry charge.</div>
+        <div class="md-result">
+          <div class="md-score"><span>Smart Mark</span><span class="pts">2 / 2</span></div>
+          <div class="md-check hit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Delocalised / free electrons</div>
+          <div class="md-check hit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Electrons move / carry charge</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POPULAR SUBJECTS -->
+  <section class="blk">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Popular right now</span>
+        <h2>Jump into a subject</h2>
+      </div>
+      <div class="subj-tabs" id="subjTabs">
+        <button class="subj-tab on" data-q="GCSE">GCSE</button>
+        <button class="subj-tab" data-q="A-Level">A-Level</button>
+      </div>
+      <div class="subj-grid" id="subjGrid"></div>
+    </div>
+  </section>
+
+  <!-- PRICING TEASER -->
+  <section class="blk">
+    <div class="wrap">
+      <div class="price-cta">
+        <h2>One subscription. Every subject.</h2>
+        <p>Unlock Smart Mark, every note, question and past paper across all your courses. Start free — upgrade when you’re ready.</p>
+        <div class="amount"><b>from {price}</b> / month</div>
+        <a class="btn btn-primary btn-lg" href="Subscription.html">See plans</a>
+        <p class="fine">Cancel anytime. Prices shown at checkout.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="blk" style="background:var(--bg-page-alt);border-top:1px solid var(--border-default)">
+    <div class="wrap">
+      <div class="sec-head"><span class="eyebrow">FAQ</span><h2>Questions, answered</h2></div>
+      <div class="faq">
+        <details class="qa" open><summary>Is Pass Revise really matched to my exam board?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="ans">Yes. Every note, question and past paper is tagged to a specific qualification, subject and board (AQA, Edexcel, OCR, WJEC Eduqas, CIE), so you only ever see content for the exam you’re actually sitting.</div></details>
+        <details class="qa"><summary>What can I use for free?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="ans">You can read a large amount of revision content and attempt exam questions for free. Smart Mark feedback, full note libraries and past-paper downloads are part of Premium.</div></details>
+        <details class="qa"><summary>How does Smart Mark work?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="ans">You answer in your own words and Smart Mark compares your response to the mark scheme, awarding the points it can clearly identify. When it isn’t confident, it tells you and offers a self-assessment checklist so you’re never misled.</div></details>
+        <details class="qa"><summary>Who is Pass Revise for?<svg class="pm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></summary><div class="ans">Students revising for GCSE, IGCSE, AS and A-Level. You need to be 13 or over to create an account.</div></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="Homepage.html"><span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Pass <em>revise</em></a>
+        <p>Board-specific revision for GCSE and A-Level, built to get you exam-ready.</p>
+      </div>
+      <div class="foot-col"><h4>Study</h4><a href="exam-question/Exam Question.html">Revision Notes</a><a href="exam-question/Exam Question.html">Exam Questions</a><a href="exam-question/Exam Question.html">Past Papers</a><a href="Search.html">Search</a></div>
+      <div class="foot-col"><h4>Qualifications</h4><a href="hub/Course Hub.html">GCSE</a><a href="hub/Course Hub.html">IGCSE</a><a href="hub/Course Hub.html">AS-Level</a><a href="hub/Course Hub.html">A-Level</a></div>
+      <div class="foot-col"><h4>Company</h4><a href="#">About</a><a href="Subscription.html">Pricing</a><a href="#">Contact</a><a href="#">Careers</a></div>
+      <div class="foot-col"><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a><a href="#" id="manageCookies">Manage cookies</a><a href="#">Safeguarding</a></div>
+    </div>
+    <div class="foot-bar">
+      <span class="credit">© 2025 Pass Revise — <b>by Complete Tuition</b></span>
+      <span class="fb-right">
+        <a href="#">Privacy</a><a href="#">Terms</a>
+        <button class="navbtn" id="themeBtn2" style="height:32px;padding:0 10px">Theme</button>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<!-- AI assistant FAB (visual only) -->
+<button class="fab" id="aiFab" aria-label="AI study assistant — coming soon">
+  <span class="orb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 6.4L21 11l-6.6 2.6L12 20l-2.4-6.4L3 11l6.6-2.6z"/></svg></span>
+  Ask AI <span class="soon">Soon</span>
+</button>
+
+<!-- Cookie / CMP banner -->
+<div class="cookie" id="cookie" role="dialog" aria-live="polite" aria-label="Cookie choices">
+  <h3>Your privacy</h3>
+  <p>We use essential cookies to make Pass Revise work. With your consent we’d also use analytics cookies to improve it. No non-essential cookies are set until you choose. <a href="#" id="manageCookies2">Manage choices</a>.</p>
+  <div class="cookie-actions">
+    <button class="btn btn-outline" id="ckReject">Essential only</button>
+    <button class="btn btn-primary" id="ckAccept">Accept all</button>
+  </div>
+</div>
+
+<!-- Mobile drawer -->
+<div class="drawer-scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Menu">
+  <div class="drawer-top">
+    <a class="brand" href="Homepage.html"><span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Pass <em>revise</em></a>
+    <button class="icon-btn" id="drawerClose" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  </div>
+  <nav>
+    <a href="hub/Course Hub.html">Start studying</a>
+    <a href="hub/Course Hub.html">Subjects</a>
+    <a href="Subscription.html">Pricing</a>
+    <a href="#how">How it works</a>
+    <a href="Search.html">Search</a>
+  </nav>
+  <div class="dr-cta">
+    <a class="btn btn-outline" href="auth/Auth.html">Log in</a>
+    <a class="btn btn-primary" href="auth/Auth.html">Get started free</a>
+  </div>
+</aside>
+
+<script>
+(function(){
+  var QUALS = ['GCSE','A-Level','IGCSE','AS-Level'];
+  var BOARDS = ['AQA','Edexcel','OCR','WJEC Eduqas','CIE'];
+  var SUBJECTS = {
+    'GCSE': ['Biology','Chemistry','Physics','Combined Science','Mathematics','English Language','English Literature','Geography','History','Psychology','Business','Computer Science'],
+    'A-Level': ['Biology','Chemistry','Physics','Mathematics','Psychology','Economics','Business','Geography','History','Sociology'],
+    'IGCSE': ['Biology','Chemistry','Physics','Mathematics','English','Geography'],
+    'AS-Level': ['Biology','Chemistry','Physics','Mathematics','Psychology','Economics']
+  };
+  var TONES = ['#6C3BF4','#0FA968','#2A6FDB','#E5388A','#F5B301','#00B3C4','#FF5A3C','#8F66F6'];
+  function initials(s){ return s.replace(/[^A-Za-z ]/g,'').split(/\s+/).map(function(w){return w[0];}).join('').slice(0,2).toUpperCase(); }
+
+  /* ---- theme ---- */
+  var root = document.documentElement;
+  function applyTheme(t){
+    if(t==='dark'){ root.setAttribute('data-theme','dark'); } else { root.removeAttribute('data-theme'); }
+    var ic = document.getElementById('themeIc'), btn=document.getElementById('themeBtn');
+    if(btn) btn.setAttribute('aria-label', t==='dark'?'Switch to light theme':'Switch to dark theme');
+    if(ic){ ic.innerHTML = t==='dark'
+      ? '<path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/>'
+      : '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'; }
+    try{ localStorage.setItem('pr-theme', t); }catch(e){}
+  }
+  var saved; try{ saved = localStorage.getItem('pr-theme'); }catch(e){}
+  applyTheme(saved || (window.matchMedia && matchMedia('(prefers-color-scheme:dark)').matches ? 'dark':'light'));
+  function toggleTheme(){ applyTheme(root.hasAttribute('data-theme')?'light':'dark'); }
+  document.getElementById('themeBtn').addEventListener('click', toggleTheme);
+  document.getElementById('themeBtn2').addEventListener('click', toggleTheme);
+
+  /* ---- finder selects ---- */
+  var fQ=document.getElementById('fQual'), fS=document.getElementById('fSubj'), fB=document.getElementById('fBoard');
+  QUALS.forEach(function(q){ fQ.add(new Option(q,q)); });
+  BOARDS.forEach(function(b){ fB.add(new Option(b,b)); });
+  function fillSubjects(){ fS.innerHTML=''; (SUBJECTS[fQ.value]||[]).forEach(function(s){ fS.add(new Option(s,s)); }); }
+  fillSubjects(); fQ.addEventListener('change', fillSubjects);
+
+  /* ---- mega-menu ---- */
+  var mega=document.getElementById('mega'), megaBtn=document.getElementById('megaBtn');
+  var megaTabs=document.getElementById('megaTabs'), megaGrid=document.getElementById('megaGrid'), megaQual='GCSE';
+  function renderMega(){
+    megaTabs.innerHTML = QUALS.map(function(q){ return '<button class="mega-tab'+(q===megaQual?' on':'')+'" data-mq="'+q+'">'+q+'</button>'; }).join('');
+    megaGrid.innerHTML = (SUBJECTS[megaQual]||[]).map(function(s,i){ return '<a class="mega-item" href="hub/Course Hub.html"><span class="dot" style="background:'+TONES[i%TONES.length]+'"></span>'+s+'</a>'; }).join('');
+  }
+  renderMega();
+  function openMega(o){ mega.classList.toggle('open',o); megaBtn.setAttribute('aria-expanded',o?'true':'false'); }
+  megaBtn.addEventListener('click', function(e){ e.stopPropagation(); openMega(!mega.classList.contains('open')); });
+  megaTabs.addEventListener('click', function(e){ var b=e.target.closest('[data-mq]'); if(b){ megaQual=b.getAttribute('data-mq'); renderMega(); } });
+  document.addEventListener('click', function(e){ if(!mega.contains(e.target) && e.target!==megaBtn){ openMega(false); } });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ openMega(false); closeDrawer(); } });
+
+  /* ---- popular subjects ---- */
+  var subjGrid=document.getElementById('subjGrid'), subjQ='GCSE';
+  function renderSubj(){
+    subjGrid.innerHTML = (SUBJECTS[subjQ]||[]).slice(0,8).map(function(s,i){
+      return '<a class="subj" href="hub/Course Hub.html"><span class="badge" style="background:'+TONES[i%TONES.length]+'">'+initials(s)+'</span>'+s+'</a>';
+    }).join('');
+  }
+  renderSubj();
+  document.getElementById('subjTabs').addEventListener('click', function(e){
+    var b=e.target.closest('[data-q]'); if(!b) return;
+    subjQ=b.getAttribute('data-q'); [].forEach.call(this.children,function(c){c.classList.toggle('on',c===b);}); renderSubj();
+  });
+
+  /* ---- mobile drawer ---- */
+  var scrim=document.getElementById('scrim'), drawer=document.getElementById('drawer');
+  function openDrawer(){ scrim.classList.add('show'); drawer.classList.add('show'); }
+  function closeDrawer(){ scrim.classList.remove('show'); drawer.classList.remove('show'); }
+  document.getElementById('menuBtn').addEventListener('click', openDrawer);
+  document.getElementById('drawerClose').addEventListener('click', closeDrawer);
+  scrim.addEventListener('click', closeDrawer);
+
+  /* ---- AI fab ---- */
+  document.getElementById('aiFab').addEventListener('click', function(){
+    var f=this; var old=f.querySelector('.soon').textContent; f.querySelector('.soon').textContent='Coming soon'; setTimeout(function(){ f.querySelector('.soon').textContent=old; },1600);
+  });
+
+  /* ---- cookie CMP ---- */
+  var cookie=document.getElementById('cookie'); var choice;
+  try{ choice = localStorage.getItem('pr-cookie-consent'); }catch(e){}
+  if(!choice){ setTimeout(function(){ cookie.classList.add('show'); }, 600); }
+  function setConsent(v){ try{ localStorage.setItem('pr-cookie-consent', v); }catch(e){} cookie.classList.remove('show'); }
+  document.getElementById('ckAccept').addEventListener('click', function(){ setConsent('all'); });
+  document.getElementById('ckReject').addEventListener('click', function(){ setConsent('essential'); });
+  function reopenCookies(e){ if(e) e.preventDefault(); cookie.classList.add('show'); }
+  document.getElementById('manageCookies').addEventListener('click', reopenCookies);
+  document.getElementById('manageCookies2').addEventListener('click', reopenCookies);
+})();
+</script>
+</body>
+</html>

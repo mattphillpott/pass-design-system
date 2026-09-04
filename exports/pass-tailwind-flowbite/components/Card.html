@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pass · Card</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css">
+<!-- Tailwind v4 + Pass tokens + base — bundled for the v4 browser CDN runtime.
+     CRITICAL: `@import "tailwindcss";` must live INSIDE the scanned style block, alongside
+     @theme and any custom @utility/@variant directives. External `@import "tokens.css";`
+     does NOT resolve inside <style type="text/tailwindcss"> — so we paste the bodies in.
+     For NPM/Vite builds, ignore this block and link tokens.css + base.css from your
+     Tailwind entry CSS as documented in setup.md.
+     [pass-tw-inline-start] -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style type="text/tailwindcss">
+@import "tailwindcss";
+
+/* Pass Design System — Tailwind v4 tokens for Flowbite v3
+ *
+ * Drop into your Tailwind v4 entry CSS:
+ *
+ *   @import "tailwindcss";
+ *   @plugin "flowbite/plugin";
+ *   @source "../../node_modules/flowbite";
+ *   @import "./tokens.css";
+ *   @import "./base.css";
+ *
+ * Tailwind v4 reads CSS custom properties declared inside @theme to generate
+ * utilities (bg-primary-600, text-gray-700, rounded-lg, shadow-md, etc.).
+ *
+ * Flowbite v3 reads the SAME `primary-*` and `gray-*` scales — so dropping
+ * any Flowbite component (Button, Datepicker, Modal, Stepper) inherits the
+ * Pass green palette automatically. No config file needed.
+ *
+ * Brand: Pass Green. Primary = green-600 (#0FBC0F).
+ * Type:  Inter via Google Fonts (loaded below).
+ */
+
+/* ─────────────────────────────────────────────
+ * 1) THEME — Tailwind v4 token surface
+ *    Everything Flowbite needs lives here.
+ * ───────────────────────────────────────────── */
+@theme {
+  /* ── Color: brand (Pass Green) ──
+   * Flowbite v3 buttons & components read `--color-primary-*` directly. */
+  --color-primary-50:  oklch(0.985 0.025 142);   /* #F0FEEF */
+  --color-primary-100: oklch(0.965 0.055 142);   /* #DBFEDA */
+  --color-primary-200: oklch(0.925 0.115 142);   /* #B8FBB7 */
+  --color-primary-300: oklch(0.860 0.190 142);   /* #81F580 */
+  --color-primary-400: oklch(0.790 0.235 142);   /* #42E741 */
+  --color-primary-500: oklch(0.730 0.245 142);   /* #18CF18 */
+  --color-primary-600: oklch(0.690 0.230 142);   /* #0FBC0F — PRIMARY */
+  --color-primary-700: oklch(0.555 0.190 142);   /* #0F8610 — hover */
+  --color-primary-800: oklch(0.470 0.160 142);   /* #116A12 — press */
+  --color-primary-900: oklch(0.405 0.140 142);   /* #105712 */
+  --color-primary-950: oklch(0.275 0.095 142);   /* #033005 */
+
+  /* ── Color: gray ramp ──
+   * Slate-leaning neutrals. Flowbite components inherit these as gray-*. */
+  --color-gray-25:  oklch(0.992 0.002 250);
+  --color-gray-50:  oklch(0.985 0.003 250);
+  --color-gray-100: oklch(0.967 0.004 250);
+  --color-gray-200: oklch(0.918 0.006 250);
+  --color-gray-300: oklch(0.855 0.009 250);
+  --color-gray-400: oklch(0.700 0.015 250);
+  --color-gray-500: oklch(0.555 0.020 250);
+  --color-gray-600: oklch(0.445 0.025 250);
+  --color-gray-700: oklch(0.365 0.030 250);
+  --color-gray-800: oklch(0.265 0.035 250);
+  --color-gray-900: oklch(0.180 0.040 250);
+  --color-gray-950: oklch(0.115 0.035 250);
+
+  /* ── Color: semantic ── */
+  --color-green-50:   oklch(0.975 0.025 160);
+  --color-green-500:  oklch(0.665 0.155 160);
+  --color-green-600:  oklch(0.605 0.150 160);   /* #0E9F6E success */
+  --color-green-700:  oklch(0.515 0.145 160);
+
+  --color-yellow-50:  oklch(0.975 0.030  65);
+  --color-yellow-500: oklch(0.720 0.180  55);
+  --color-yellow-600: oklch(0.665 0.180  55);   /* #D97706 warning */
+  --color-yellow-700: oklch(0.560 0.165  55);
+
+  --color-red-50:   oklch(0.975 0.020  20);
+  --color-red-500:  oklch(0.580 0.220  18);
+  --color-red-600:  oklch(0.530 0.230  18);     /* #C70036 danger */
+  --color-red-700:  oklch(0.450 0.210  20);
+
+  --color-blue-50:   oklch(0.975 0.020 250);
+  --color-blue-500:  oklch(0.620 0.190 255);
+  --color-blue-600:  oklch(0.560 0.195 258);    /* #1C64F2 info */
+  --color-blue-700:  oklch(0.475 0.185 258);
+
+  --color-orange-300: oklch(0.825 0.105  55);   /* #FDBA8C — celebratory accent */
+  --color-orange-500: oklch(0.700 0.180  45);   /* #F97316 */
+
+  /* ── Semantic surface aliases (resolved per scheme below) ── */
+  --color-bg-page:      var(--color-gray-50);
+  --color-bg-page-alt:  #FFFFFF;
+  --color-bg-surface:   #FFFFFF;
+  --color-bg-raised:    var(--color-gray-100);
+  --color-bg-sunken:    var(--color-gray-50);
+  --color-bg-brand:     var(--color-primary-600);
+  --color-bg-brand-soft:var(--color-primary-50);
+
+  --color-fg-1:        var(--color-gray-900);  /* primary text */
+  --color-fg-2:        var(--color-gray-700);
+  --color-fg-3:        var(--color-gray-600);
+  --color-fg-4:        var(--color-gray-500);
+  --color-fg-5:        var(--color-gray-400);
+  --color-fg-inverse:  #FFFFFF;
+  --color-fg-link:     var(--color-primary-700);
+  --color-fg-brand:    var(--color-primary-600);
+
+  --color-border-default: var(--color-gray-200);
+  --color-border-strong:  var(--color-gray-300);
+  --color-border-brand:   var(--color-primary-600);
+
+  /* ── Typography ── */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-display: var(--font-sans);
+
+  --font-weight-regular:    400;
+  --font-weight-medium:     500;
+  --font-weight-semibold:   600;
+  --font-weight-bold:       700;
+  --font-weight-extrabold:  800;
+
+  /* Tailwind v4 generates text-xs … text-6xl from these */
+  --text-xs:   12px;
+  --text-xs--line-height: 1rem;
+  --text-sm:   14px;
+  --text-sm--line-height: 1.25rem;
+  --text-base: 16px;
+  --text-base--line-height: 1.5rem;
+  --text-lg:   18px;
+  --text-lg--line-height: 1.75rem;
+  --text-xl:   20px;
+  --text-xl--line-height: 1.75rem;
+  --text-2xl:  24px;
+  --text-2xl--line-height: 2rem;
+  --text-3xl:  30px;
+  --text-3xl--line-height: 2.25rem;
+  --text-4xl:  36px;
+  --text-4xl--line-height: 2.5rem;
+  --text-5xl:  48px;
+  --text-5xl--line-height: 1;
+  --text-6xl:  60px;
+  --text-6xl--line-height: 1;
+
+  --leading-tight:   1.2;
+  --leading-snug:    1.35;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.625;
+
+  --tracking-tighter: -0.04em;
+  --tracking-tight:   -0.025em;
+  --tracking-normal:  0;
+  --tracking-wide:    0.025em;
+
+  /* ── Spacing — 4 px base ── */
+  --spacing: 0.25rem;
+
+  /* ── Radius ── */
+  --radius-xs:   4px;
+  --radius-sm:   6px;
+  --radius-md:   8px;
+  --radius-lg:   12px;           /* DEFAULT — cards, buttons, inputs */
+  --radius-xl:   16px;
+  --radius-2xl:  24px;
+  --radius-full: 9999px;
+
+  /* ── Shadows ── */
+  --shadow-sm:    0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow:       0 1px 3px 0 rgb(0 0 0 / 0.10), 0 1px 2px -1px rgb(0 0 0 / 0.10);
+  --shadow-md:    0 4px 6px -1px rgb(0 0 0 / 0.10), 0 2px 4px -2px rgb(0 0 0 / 0.10);
+  --shadow-lg:    0 10px 15px -3px rgb(0 0 0 / 0.10), 0 4px 6px -4px rgb(0 0 0 / 0.10);
+  --shadow-xl:    0 20px 25px -5px rgb(0 0 0 / 0.10), 0 8px 10px -6px rgb(0 0 0 / 0.10);
+  --shadow-2xl:   0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+  --shadow-focus: 0 0 0 3px oklch(0.690 0.230 142 / 0.25);
+
+  /* ── Z index ── */
+  --z-base:      0;
+  --z-raised:    10;
+  --z-dropdown:  1000;
+  --z-sticky:    1100;
+  --z-fixed:     1200;
+  --z-overlay:   1300;
+  --z-modal:     1400;
+  --z-popover:   1500;
+  --z-toast:     1600;
+  --z-tooltip:   1700;
+
+  /* ── Motion ── */
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:    cubic-bezier(0, 0, 0.2, 1);
+  --ease-in:     cubic-bezier(0.4, 0, 1, 1);
+  --ease-spring: cubic-bezier(0.5, 1.5, 0.5, 1);
+
+  --duration-instant: 75ms;
+  --duration-hover:   150ms;
+  --duration-small:   200ms;
+  --duration-panel:   300ms;
+  --duration-modal:   400ms;
+
+  /* ── Breakpoints (Tailwind defaults — repeated for documentation) ── */
+  --breakpoint-sm:  640px;
+  --breakpoint-md:  768px;
+  --breakpoint-lg:  1024px;
+  --breakpoint-xl:  1280px;
+  --breakpoint-2xl: 1536px;
+}
+
+/* ─────────────────────────────────────────────
+ * 2) DARK SCHEME — overrides the semantic aliases.
+ *    Both the .dark class AND prefers-color-scheme are honoured.
+ *    Flowbite's `dark:*` variants read the same .dark class.
+ * ───────────────────────────────────────────── */
+@layer base {
+  :root { color-scheme: light; }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light) {
+      color-scheme: dark;
+      --color-bg-page:      var(--color-gray-950);
+      --color-bg-page-alt:  var(--color-gray-900);
+      --color-bg-surface:   var(--color-gray-900);
+      --color-bg-raised:    var(--color-gray-800);
+      --color-bg-sunken:    var(--color-gray-950);
+      --color-bg-brand-soft:oklch(0.275 0.095 142);
+
+      --color-fg-1: var(--color-gray-50);
+      --color-fg-2: var(--color-gray-200);
+      --color-fg-3: var(--color-gray-300);
+      --color-fg-4: var(--color-gray-400);
+      --color-fg-5: var(--color-gray-500);
+      --color-fg-link: var(--color-primary-400);
+      --color-fg-brand: var(--color-primary-400);
+
+      --color-border-default: var(--color-gray-800);
+      --color-border-strong:  var(--color-gray-700);
+    }
+  }
+
+  .dark {
+    color-scheme: dark;
+    --color-bg-page:      var(--color-gray-950);
+    --color-bg-page-alt:  var(--color-gray-900);
+    --color-bg-surface:   var(--color-gray-900);
+    --color-bg-raised:    var(--color-gray-800);
+    --color-bg-sunken:    var(--color-gray-950);
+    --color-bg-brand-soft:oklch(0.275 0.095 142);
+
+    --color-fg-1: var(--color-gray-50);
+    --color-fg-2: var(--color-gray-200);
+    --color-fg-3: var(--color-gray-300);
+    --color-fg-4: var(--color-gray-400);
+    --color-fg-5: var(--color-gray-500);
+    --color-fg-link: var(--color-primary-400);
+    --color-fg-brand: var(--color-primary-400);
+
+    --color-border-default: var(--color-gray-800);
+    --color-border-strong:  var(--color-gray-700);
+  }
+
+  .light { color-scheme: light; }
+}
+
+/* ─────────────────────────────────────────────
+ * 3) CUSTOM VARIANT — Tailwind v4 @variant
+ *    `dark:bg-gray-800` now works against the .dark class.
+ * ───────────────────────────────────────────── */
+@variant dark (&:where(.dark, .dark *));
+
+
+/* Pass Design System — global base styles.
+ * Imported AFTER tokens.css. Compatible with Tailwind v4 + Flowbite v3.
+ */
+
+@layer base {
+  /* ── Reset ── */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    font-feature-settings: "cv02", "cv11", "ss01";
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    color: var(--color-fg-1);
+    background-color: var(--color-bg-page);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-fg-1);
+    line-height: var(--leading-tight);
+    text-wrap: balance;
+  }
+  p { margin: 0; text-wrap: pretty; }
+  small { font-size: var(--text-xs); color: var(--color-fg-4); }
+
+  a {
+    color: var(--color-fg-link);
+    text-decoration-color: transparent;
+    text-underline-offset: 0.2em;
+    transition: text-decoration-color var(--duration-hover) var(--ease-in-out),
+                color var(--duration-hover) var(--ease-in-out);
+  }
+  a:hover { text-decoration: underline; text-decoration-color: currentColor; }
+
+  hr {
+    border: 0;
+    border-top: 1px solid var(--color-border-default);
+    margin: 24px 0;
+  }
+
+  img, svg, video, canvas { display: block; max-width: 100%; }
+  svg { fill: currentColor; }
+
+  input, button, textarea, select { font: inherit; color: inherit; }
+
+  input[type="number"] { -moz-appearance: textfield; }
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+  /* ── Focus-visible ring — single source of truth ── */
+  :focus { outline: none; }
+  :focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-focus);
+    border-color: var(--color-primary-600);
+  }
+
+  ::selection {
+    background: oklch(0.690 0.230 142 / 0.25);
+    color: var(--color-fg-1);
+  }
+
+  /* ── Scrollbar ── */
+  * { scrollbar-width: thin; scrollbar-color: var(--color-gray-300) transparent; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-gray-300);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-gray-400); background-clip: padding-box; }
+  .dark ::-webkit-scrollbar-thumb { background: var(--color-gray-700); background-clip: padding-box; }
+  .dark ::-webkit-scrollbar-thumb:hover { background: var(--color-gray-600); background-clip: padding-box; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ─────────────────────────────────────────────
+ * Utility classes (Tailwind v4 @utility)
+ * ───────────────────────────────────────────── */
+@utility container-page {
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (min-width: 768px) { padding-inline: 1.5rem; }
+}
+
+@utility container-portal {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (min-width: 768px) { padding-inline: 1.5rem; }
+}
+
+@utility focus-ring {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+  border-color: var(--color-primary-600);
+}
+
+@utility skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-gray-100) 0%,
+    var(--color-gray-200) 50%,
+    var(--color-gray-100) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+  border-radius: var(--radius-md);
+}
+@keyframes skeleton-shimmer {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+
+@utility eyebrow {
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-primary-600);
+}
+
+/* ─────────────────────────────────────────────
+ * Flowbite component nudges
+ * Most of Flowbite's defaults are fine. These three small overrides
+ * keep Flowbite components on-brand with Pass's preference for 12 px
+ * radii and slightly tighter focus rings.
+ * ───────────────────────────────────────────── */
+@layer components {
+  /* Buttons: 12 px radius instead of Flowbite's default 8 px */
+  .btn, [data-flowbite="button"], button.flowbite-btn {
+    border-radius: var(--radius-lg);
+  }
+  /* Inputs: 12 px radius, 42 px height to match Pass card system */
+  input.flowbite-input, .form-input {
+    border-radius: var(--radius-lg);
+  }
+}
+
+</style>
+<!-- [pass-tw-inline-end] -->
+
+<style>
+  body { background: var(--color-bg-page); }
+  .doc-section { padding: 32px; max-width: 1200px; margin: 0 auto; }
+  .doc-title { font-size: 32px; font-weight: 800; letter-spacing: -0.025em; }
+  .doc-sub { color: var(--color-fg-3); margin-top: 4px; }
+  .doc-h2 { font-size: 18px; font-weight: 700; margin: 32px 0 12px; color: var(--color-fg-1); }
+  .doc-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 20px; border: 1px solid var(--color-border-default); background: var(--color-bg-surface); border-radius: 12px; }
+  .doc-row + .doc-row { margin-top: 12px; }
+  .doc-grid { display: grid; gap: 16px; }
+  .doc-code { background: #0F172A; color: #E2E8F0; padding: 14px 16px; border-radius: 10px; font-size: 12px; font-family: 'JetBrains Mono', ui-monospace, monospace; overflow-x: auto; white-space: pre; line-height: 1.5; margin-top: 8px; }
+  .doc-back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--color-fg-3); text-decoration: none; margin-bottom: 16px; }
+  .doc-back:hover { color: var(--color-fg-1); }
+</style>
+
+</head>
+<body>
+<main class="doc-section">
+<a class="doc-back" href="../index.html">← All components</a>
+<h1 class="doc-title">Card</h1>
+
+<p class="doc-sub">12 px radius, 1 px gray-200 border, white surface, 24 px padding. Shadows only on hover or overlays.</p>
+
+<h2 class="doc-h2">Static card</h2>
+<div class="doc-row"><div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg">
+   <h5 class="mb-2 text-xl font-bold text-gray-900">Functional Skills Maths L2</h5>
+   <p class="mb-4 text-sm text-gray-700 leading-relaxed">Equivalent to GCSE grade C/4. Sit from home with online invigilation.</p>
+   <a href="#" class="inline-flex items-center gap-1.5 text-sm font-medium text-primary-700 hover:text-primary-800">
+     Book your exam
+     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
+   </a>
+ </div></div>
+
+<h2 class="doc-h2">Hover-lift card</h2>
+<div class="doc-row"><a href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg hover:border-gray-300 hover:shadow-md transition">
+  <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-primary-50 text-primary-700 text-xs font-medium">Most popular</span>
+  <h5 class="mt-3 text-lg font-semibold text-gray-900">Premium bundle</h5>
+  <p class="mt-1 text-sm text-gray-500">12-month full access · free resit.</p>
+  <div class="mt-4 text-2xl font-extrabold tracking-tight text-primary-700">£284 <span class="text-sm font-medium text-gray-500">added</span></div>
+ </a></div>
+
+<h2 class="doc-h2">Stat card</h2>
+<div class="doc-row"><div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg">
+  <div class="text-sm font-medium text-gray-500">Pass rate (Premium)</div>
+  <div class="mt-1 text-4xl font-extrabold tracking-tight text-gray-900">93%</div>
+  <div class="mt-2 inline-flex items-center gap-1 text-xs font-medium text-primary-700">
+    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8v6h-2V10l-6 6-4-4-6 6z"/></svg>
+    +12% vs last cohort
+  </div>
+ </div></div>
+
+<h2 class="doc-h2">Card with header / footer</h2>
+<div class="doc-row"><div class="max-w-md bg-white border border-gray-200 rounded-lg overflow-hidden">
+  <div class="px-6 py-4 border-b border-gray-200">
+    <h5 class="text-base font-semibold text-gray-900">Booking summary</h5>
+  </div>
+  <div class="p-6 space-y-2 text-sm">
+    <div class="flex justify-between"><span class="text-gray-500">Invigilation</span><span class="font-medium text-gray-900">Online human</span></div>
+    <div class="flex justify-between"><span class="text-gray-500">Date</span><span class="font-medium text-gray-900">Wed 28 May</span></div>
+    <div class="flex justify-between"><span class="text-gray-500">Time</span><span class="font-medium text-gray-900">14:00</span></div>
+  </div>
+  <div class="px-6 py-4 bg-gray-50 border-t border-gray-200 flex justify-between items-center">
+    <span class="text-sm text-gray-500">Total today</span>
+    <span class="text-2xl font-extrabold tracking-tight text-primary-700">£127.32</span>
+  </div>
+ </div></div>
+
+</main>
+<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+</body>
+</html>

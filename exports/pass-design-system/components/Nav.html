@@ -1,0 +1,75 @@
+<!-- Nav — top bar (marketing) + sidebar (portal).
+     No JS dependencies for static markup; use PrimeVue Menubar / PanelMenu (unstyled)
+     for keyboard-correct mobile drawer + submenus. -->
+
+<!-- ─── Marketing top nav (sticky, 64px, white, 1px bottom border) ─── -->
+<header class="sticky top-0 z-[1100] h-16 bg-bg-surface/95 backdrop-blur border-b border-border-default">
+  <div class="container-page h-full flex items-center gap-6">
+    <a href="/" class="inline-flex items-center gap-2 font-extrabold text-lg text-fg-1">
+      <span class="inline-flex w-7 h-7 items-center justify-center rounded-md bg-primary-600 text-white">P</span>
+      Pass
+    </a>
+    <nav class="hidden md:flex items-center gap-1 ml-6">
+      <a href="#" class="h-9 px-3 inline-flex items-center rounded-md text-sm font-medium text-fg-2 hover:bg-bg-raised hover:text-fg-1">Platform</a>
+      <a href="#" class="h-9 px-3 inline-flex items-center rounded-md text-sm font-medium text-fg-2 hover:bg-bg-raised hover:text-fg-1">Solutions</a>
+      <a href="#" class="h-9 px-3 inline-flex items-center rounded-md text-sm font-medium text-fg-2 hover:bg-bg-raised hover:text-fg-1">Case studies</a>
+      <a href="#" class="h-9 px-3 inline-flex items-center rounded-md text-sm font-medium text-fg-2 hover:bg-bg-raised hover:text-fg-1">Pricing</a>
+    </nav>
+    <div class="ml-auto flex items-center gap-2">
+      <a href="#" class="hidden md:inline-flex h-9 px-3 items-center rounded-md text-sm font-medium text-fg-2 hover:bg-bg-raised">Sign in</a>
+      <a href="#" class="inline-flex h-9 px-4 items-center rounded-md text-sm font-medium bg-primary-600 text-white hover:bg-primary-700">Book a demo</a>
+      <button class="md:hidden inline-flex w-10 h-10 items-center justify-center rounded-md text-fg-2 hover:bg-bg-raised" aria-label="Open menu">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ─── Portal sidebar (256px fixed) ─── -->
+<aside class="fixed top-0 left-0 z-[1050] h-dvh w-64 bg-bg-surface border-r border-border-default flex flex-col">
+  <div class="h-16 flex items-center px-5 border-b border-border-default">
+    <a href="#" class="inline-flex items-center gap-2 font-extrabold text-fg-1">
+      <span class="inline-flex w-7 h-7 items-center justify-center rounded-md bg-primary-600 text-white">P</span>
+      Pass
+    </a>
+  </div>
+
+  <nav class="flex-1 px-3 py-4 space-y-6 overflow-y-auto">
+    <div>
+      <div class="px-2 mb-2 text-[11px] font-semibold uppercase tracking-wider text-fg-4">Teaching</div>
+      <ul class="space-y-0.5">
+        <li>
+          <a href="#" aria-current="page" class="inline-flex items-center gap-3 w-full h-9 px-2.5 rounded-md text-sm font-medium bg-primary-50 text-primary-700">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg>
+            Dashboard
+          </a>
+        </li>
+        <li><a href="#" class="inline-flex items-center gap-3 w-full h-9 px-2.5 rounded-md text-sm font-medium text-fg-2 hover:bg-bg-raised hover:text-fg-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/></svg> Courses</a></li>
+        <li><a href="#" class="inline-flex items-center gap-3 w-full h-9 px-2.5 rounded-md text-sm font-medium text-fg-2 hover:bg-bg-raised hover:text-fg-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> Mocks</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="px-2 mb-2 text-[11px] font-semibold uppercase tracking-wider text-fg-4">Reporting</div>
+      <ul class="space-y-0.5">
+        <li><a href="#" class="inline-flex items-center justify-between gap-3 w-full h-9 px-2.5 rounded-md text-sm font-medium text-fg-2 hover:bg-bg-raised hover:text-fg-1">
+          <span class="inline-flex items-center gap-3"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3v18h18M7 14l3-3 4 4 7-7"/></svg> Cohort report</span>
+          <span class="inline-flex items-center px-1.5 h-4 rounded-full text-[10px] font-semibold bg-danger-50 text-danger-700">3</span>
+        </a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="px-3 py-3 border-t border-border-default">
+    <button class="inline-flex items-center gap-3 w-full h-10 px-2.5 rounded-md text-sm text-fg-2 hover:bg-bg-raised">
+      <span class="inline-flex w-7 h-7 items-center justify-center rounded-full bg-primary-100 text-primary-700 text-xs font-semibold">JD</span>
+      <span class="flex-1 text-left">
+        <span class="block font-medium text-fg-1">Jane Doe</span>
+        <span class="block text-xs text-fg-4">Centre admin</span>
+      </span>
+      <svg class="w-4 h-4 text-fg-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+</aside>
+
+<!-- ─── Portal sidebar collapsed (icon-only @ <1024px breakpoint) ─── -->
+<!-- Apply class:  w-16  on aside; hide labels with  sr-only -->

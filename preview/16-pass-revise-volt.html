@@ -1,0 +1,48 @@
+<!-- @dsCard group="Pass Revise" viewport="1200x560" name="Volt — brand tokens" subtitle="Violet primary · amber premium · heritage green = pass. Pending CEO sign-off vs green." -->
+<!DOCTYPE html>
+<html lang="en" class="pass-revise" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body{margin:0;font-family:var(--font-sans);background:var(--bg-page);color:var(--fg-1);padding:32px 36px}
+  h2{margin:0 0 4px;font-size:22px;font-weight:800;letter-spacing:-.02em}
+  .sub{margin:0 0 24px;font-size:14px;color:var(--fg-4)}
+  .lab{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-4);margin:20px 0 10px}
+  .scale{display:grid;grid-template-columns:repeat(11,1fr);border-radius:12px;overflow:hidden;border:1px solid var(--border-default)}
+  .sw{height:70px;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px}
+  .sw .n{font-size:11px;font-weight:700}.sw .h{font-size:9px;opacity:.7;font-variant-numeric:tabular-nums}
+  .row{display:flex;gap:12px;flex-wrap:wrap}
+  .tok{flex:1;min-width:150px;border:1px solid var(--border-default);border-radius:12px;overflow:hidden;background:var(--bg-surface)}
+  .tok .cap{height:56px}.tok .m{padding:9px 12px;font-size:12px}.tok .m b{display:block;color:var(--fg-1);font-weight:700}.tok .m span{color:var(--fg-4);font-size:11px}
+  .theme-note{margin-top:22px;padding:12px 14px;background:var(--accent-bg);border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);border-radius:10px;font-size:12.5px;color:var(--fg-2)}
+  .theme-note b{color:var(--fg-1)}
+</style>
+</head>
+<body>
+  <h2>Pass Revise — Volt</h2>
+  <p class="sub">Scoped theme over the Pass design system · <code>class="pass-revise"</code> · light &amp; dark</p>
+
+  <div class="lab">Primary — Volt violet</div>
+  <div class="scale" id="scale"></div>
+
+  <div class="lab">Roles</div>
+  <div class="row">
+    <div class="tok"><div class="cap" style="background:var(--color-primary)"></div><div class="m"><b>Primary</b><span>brand · CTAs · links</span></div></div>
+    <div class="tok"><div class="cap" style="background:var(--accent)"></div><div class="m"><b>Premium</b><span>unlock · subscribe</span></div></div>
+    <div class="tok"><div class="cap" style="background:var(--success)"></div><div class="m"><b>Pass / Correct</b><span>heritage green</span></div></div>
+    <div class="tok"><div class="cap" style="background:var(--color-warning)"></div><div class="m"><b>Low confidence</b><span>Smart Mark review</span></div></div>
+    <div class="tok"><div class="cap" style="background:var(--color-danger)"></div><div class="m"><b>Incorrect</b><span>needs work</span></div></div>
+  </div>
+
+  <div class="theme-note"><b>⚠ Pending CEO sign-off:</b> primary may revert to heritage Pass green (#0FBC0F). It's a one-block change in <code>pass-revise-theme.css</code> (repoint <code>--color-primary*</code> from <code>--volt-*</code> to <code>--pass-green-*</code>).</div>
+
+<script>
+  const S=[50,100,200,300,400,500,600,700,800,900,950];
+  document.getElementById('scale').innerHTML=S.map(n=>{
+    const v=getComputedStyle(document.documentElement).getPropertyValue('--volt-'+n).trim();
+    return `<div class="sw" style="background:${v};color:${n>=500?'#fff':'#1F0E52'}"><span class="n">${n}${n===500?' •':''}</span><span class="h">${v.toUpperCase()}</span></div>`;
+  }).join('');
+</script>
+</body>
+</html>

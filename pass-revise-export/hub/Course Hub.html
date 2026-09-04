@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" class="pass-revise" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pass Revise — Hub template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="hub.css">
+</head>
+<body>
+  <div id="app" class="app"></div>
+
+  <!-- prototype state cockpit (not part of the product UI) -->
+  <div id="cockpit" class="cockpit" aria-label="Prototype controls">
+    <div class="ck-group">
+      <span class="ck-lbl">Hub&nbsp;level</span>
+      <div class="seg" data-seg="level">
+        <button data-l="qual" class="on">Qualification</button>
+        <button data-l="subject">Subject</button>
+        <button data-l="board">Board</button>
+        <button data-l="course">Course</button>
+      </div>
+    </div>
+    <div class="ck-div"></div>
+    <div class="ck-group">
+      <span class="ck-lbl">Visitor</span>
+      <div class="seg" data-seg="visitor">
+        <button data-v="guest" class="on">Guest</button>
+        <button data-v="free">Free</button>
+        <button data-v="subscriber">Subscriber</button>
+      </div>
+    </div>
+    <div class="ck-div"></div>
+    <div class="ck-group">
+      <span class="ck-lbl">Device</span>
+      <div class="seg" data-seg="device">
+        <button data-d="desktop" class="on">Desktop</button>
+        <button data-d="mobile">Mobile</button>
+      </div>
+    </div>
+    <div class="ck-div"></div>
+    <div class="ck-group">
+      <div class="seg" data-seg="theme">
+        <button data-t="light" class="on" title="Light">☀</button>
+        <button data-t="dark" title="Dark">☾</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="hub-data.js"></script>
+  <script src="hub.js"></script>
+</body>
+</html>

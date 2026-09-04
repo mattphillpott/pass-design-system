@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="pass-revise">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Electrolysis — AQA GCSE Chemistry revision | Pass Revise</title>
+<meta name="description" content="Electrolysis revision for AQA GCSE Chemistry: revision notes, exam questions and past papers for every concept — molten compounds, aqueous solutions and the electrolysis of brine.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="site.css">
+<style>
+  .work{max-width:1200px;margin:0 auto;padding:22px 24px 44px;display:grid;grid-template-columns:288px 1fr;gap:30px;align-items:start}
+  /* spec sidebar */
+  .spec{position:sticky;top:88px;background:var(--bg-surface);border:1px solid var(--border-default);border-radius:var(--radius-xl);overflow:hidden}
+  .spec-hd{padding:16px 18px;border-bottom:1px solid var(--border-default)}
+  .spec-hd .sub{display:flex;align-items:center;gap:10px}
+  .spec-hd .badge{width:34px;height:34px;border-radius:var(--radius-md);background:var(--primary);color:var(--on-primary);display:grid;place-items:center;font-weight:800;font-size:14px}
+  .spec-hd b{font-size:15px;font-weight:700}
+  .spec-hd span{display:block;font-size:12.5px;color:var(--fg-4)}
+  .spec-list{padding:8px;max-height:66vh;overflow:auto}
+  .tnode{border-radius:var(--radius-md)}
+  .tnode>button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:transparent;border:none;color:var(--fg-1);font-weight:600;font-size:14px;padding:10px 10px;border-radius:var(--radius-md);cursor:pointer}
+  .tnode>button:hover{background:var(--bg-raised)}
+  .tnode.on>button{color:var(--primary)}
+  .tnode .num{width:24px;height:24px;border-radius:7px;background:var(--bg-raised);color:var(--fg-3);font-size:12px;font-weight:700;display:grid;place-items:center;flex:none}
+  .tnode.on .num{background:var(--primary);color:var(--on-primary)}
+  .tnode .chev{margin-left:auto;width:15px;height:15px;color:var(--fg-4);transition:transform .18s}
+  .tnode.open .chev{transform:rotate(90deg)}
+  .concepts{display:none;padding:2px 8px 8px 44px;flex-direction:column;gap:1px}
+  .tnode.open .concepts{display:flex}
+  .concepts a{display:flex;align-items:center;gap:9px;padding:8px 9px;border-radius:var(--radius-sm);color:var(--fg-2);font-size:13.5px;font-weight:500}
+  .concepts a:hover{background:var(--bg-raised);color:var(--fg-1)}
+  .concepts a.cur{background:var(--primary-bg);color:var(--primary);font-weight:600}
+  .cdot{width:7px;height:7px;border-radius:50%;background:var(--border-strong);flex:none}
+  .concepts a.done .cdot{background:var(--success)}
+
+  /* main */
+  .crumb{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--fg-4);flex-wrap:wrap;margin-bottom:14px}
+  .crumb a{color:var(--fg-4)}
+  .crumb a:hover{color:var(--primary)}
+  .crumb svg{width:14px;height:14px;opacity:.6}
+  .thead{background:var(--bg-surface);border:1px solid var(--border-default);border-radius:var(--radius-2xl);padding:26px;margin-bottom:22px}
+  .thead h1{font-size:clamp(26px,3vw,34px);font-weight:800}
+  .thead .meta{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:14px;color:var(--fg-3);font-size:14.5px}
+  .thead .meta span{display:inline-flex;align-items:center;gap:8px}
+  .thead .meta svg{width:17px;height:17px;color:var(--fg-4)}
+  .thead .bar{margin-top:18px;display:flex;align-items:center;gap:14px}
+  .thead .track{flex:1;height:9px;border-radius:var(--radius-full);background:var(--bg-raised);overflow:hidden}
+  .thead .fill{height:100%;background:var(--success);border-radius:var(--radius-full)}
+  .thead .pct{font-weight:700;font-size:14px}
+  .thead .cta{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap}
+
+  .sec-t{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--fg-4);margin:26px 4px 12px}
+  .clist{display:flex;flex-direction:column;gap:12px}
+  .ccard{background:var(--bg-surface);border:1px solid var(--border-default);border-radius:var(--radius-xl);padding:18px 20px}
+  .ccard-hd{display:flex;align-items:center;gap:12px}
+  .ccard .cn{width:30px;height:30px;border-radius:8px;background:var(--bg-raised);color:var(--fg-3);font-weight:700;font-size:13px;display:grid;place-items:center;flex:none}
+  .ccard.done .cn{background:var(--success-bg);color:var(--success-fg)}
+  .ccard h3{font-size:16.5px;font-weight:700;flex:1}
+  .ccard .cpct{font-size:13px;color:var(--fg-4);font-weight:600}
+  .res{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+  .rchip{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 14px;border-radius:var(--radius-lg);border:1px solid var(--border-default);background:var(--bg-page);color:var(--fg-1);font-weight:600;font-size:13.5px}
+  .rchip:hover{border-color:var(--primary);color:var(--primary)}
+  .rchip svg{width:16px;height:16px}
+  .rchip .ct{color:var(--fg-4);font-weight:600}
+  .rchip.lock{color:var(--fg-4)}
+  .rchip.lock svg.lk{color:var(--accent-fg)}
+  .rchip.soon{opacity:.6;pointer-events:none}
+  .rchip .b-soon{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--fg-4);background:var(--bg-raised);padding:1px 6px;border-radius:var(--radius-full)}
+
+  .panel2{background:var(--bg-surface);border:1px solid var(--border-default);border-radius:var(--radius-xl);padding:18px 20px;display:flex;align-items:center;gap:16px}
+  .panel2 .pi{width:44px;height:44px;border-radius:var(--radius-lg);background:var(--success-bg);color:var(--success-fg);display:grid;place-items:center;flex:none}
+  .panel2 .pi svg{width:22px;height:22px}
+  .panel2 .pt{flex:1}
+  .panel2 .pt b{font-size:15.5px}
+  .panel2 .pt span{display:block;font-size:13px;color:var(--fg-4)}
+
+  .related{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .relc{background:var(--bg-surface);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:15px;color:var(--fg-1);font-weight:600;font-size:14.5px}
+  .relc:hover{border-color:var(--primary)}
+  .relc span{display:block;font-size:12.5px;color:var(--fg-4);font-weight:500;margin-top:3px}
+
+  @media (max-width:980px){ .work{grid-template-columns:1fr} .spec{display:none} .related{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<script>window.SITE = { active:'subjects', authed:false };</script>
+
+<main id="main">
+  <div class="work">
+    <!-- persistent spec sidebar -->
+    <aside class="spec" aria-label="Chemistry topics">
+      <div class="spec-hd"><div class="sub"><span class="badge">CH</span><div><b>Chemistry</b><span>AQA GCSE · 8462</span></div></div></div>
+      <div class="spec-list" id="specList"></div>
+    </aside>
+
+    <div>
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="Homepage.html">Home</a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+        <a href="hub/Course Hub.html">GCSE</a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+        <a href="hub/Course Hub.html">Chemistry</a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+        <span style="color:var(--fg-2)">Electrolysis</span>
+      </nav>
+
+      <div class="thead">
+        <h1>Electrolysis</h1>
+        <div class="meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 9 5-9 5-9-5 9-5z"/><path d="m3 12 9 5 9-5"/></svg>5 concepts</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>82 exam questions</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Past papers</span>
+        </div>
+        <div class="bar"><div class="track"><div class="fill" style="width:45%"></div></div><span class="pct">45%</span></div>
+        <div class="cta"><a class="btn btn-primary" href="exam-question/Exam Question.html">Continue revising</a><a class="btn btn-outline" href="exam-question/Exam Question.html">Practise exam questions</a></div>
+      </div>
+
+      <div class="sec-t">In this topic</div>
+      <div class="clist" id="clist"></div>
+
+      <div class="sec-t">Topic resources</div>
+      <div class="panel2" style="margin-bottom:12px">
+        <span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span>
+        <div class="pt"><b>Electrolysis in past papers</b><span>14 exam questions from 6 past papers · with mark schemes</span></div>
+        <a class="btn btn-outline" href="exam-question/Exam Question.html">Open</a>
+      </div>
+      <div class="panel2">
+        <span class="pi" style="background:var(--accent-bg);color:var(--accent-fg)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
+        <div class="pt"><b>Topic summary sheet (PDF)</b><span>One-page revision summary · Premium</span></div>
+        <a class="btn btn-accent" href="Subscription.html">Unlock</a>
+      </div>
+
+      <div class="sec-t">Related topics</div>
+      <div class="related">
+        <a class="relc" href="#">Reactivity of metals<span>Chemistry · 6 concepts</span></a>
+        <a class="relc" href="#">Rates of reaction<span>Chemistry · 4 concepts</span></a>
+        <a class="relc" href="#">Chemical bonding<span>Chemistry · 5 concepts</span></a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="site.js"></script>
+<script>
+(function(){
+  var TOPICS = [
+    { n:'Atomic structure', c:['Atoms & elements','The periodic table','Electronic structure'] },
+    { n:'Bonding & structure', c:['Ionic bonding','Covalent bonding','Metallic bonding'] },
+    { n:'Quantitative chemistry', c:['Relative mass','Moles','Concentration'] },
+    { n:'Chemical changes', c:['Reactivity of metals','Reactions of acids','Electrolysis'] , open:true},
+    { n:'Energy changes', c:['Exothermic & endothermic','Reaction profiles'] }
+  ];
+  var CONCEPTS = [
+    { n:'What is electrolysis?', pct:100, note:'free', q:12 },
+    { n:'The electrodes', pct:80, note:'free', q:14 },
+    { n:'Electrolysis of molten compounds', pct:40, note:'premium', q:18 },
+    { n:'Electrolysis of aqueous solutions', pct:10, note:'premium', q:22 },
+    { n:'Electrolysis of brine', pct:0, note:'premium', q:16 }
+  ];
+  var CUR = 'Electrolysis';
+  var HREF='exam-question/Exam Question.html';
+
+  // spec sidebar
+  document.getElementById('specList').innerHTML = TOPICS.map(function(t,i){
+    var open = t.open;
+    var concepts = t.c.map(function(c){
+      var cur = c===CUR;
+      var done = cur ? false : Math.random()>2; // deterministic: none marked here except via cur
+      return '<a class="'+(cur?'cur':'')+'" href="'+HREF+'"><span class="cdot"></span>'+c+'</a>';
+    }).join('');
+    return '<div class="tnode'+(open?' open on':'')+'"><button data-toggle><span class="num">'+(i+1)+'</span>'+t.n
+      +'<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>'
+      +'<div class="concepts">'+concepts+'</div></div>';
+  }).join('');
+  document.getElementById('specList').addEventListener('click', function(e){
+    var b=e.target.closest('[data-toggle]'); if(b) b.parentElement.classList.toggle('open');
+  });
+
+  // concept cards
+  function noteChip(kind){
+    if(kind==='free') return '<a class="rchip" href="'+HREF+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Revision note</a>';
+    return '<a class="rchip lock" href="'+HREF+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Revision note<svg class="lk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></a>';
+  }
+  document.getElementById('clist').innerHTML = CONCEPTS.map(function(c,i){
+    var done = c.pct===100;
+    return '<div class="ccard'+(done?' done':'')+'"><div class="ccard-hd">'
+      + '<span class="cn">'+(done?'<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>':(i+1))+'</span>'
+      + '<h3>'+c.n+'</h3><span class="cpct">'+c.pct+'%</span></div>'
+      + '<div class="res">'+noteChip(c.note)
+      + '<a class="rchip" href="'+HREF+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Exam questions <span class="ct">'+c.q+'</span></a>'
+      + '<span class="rchip soon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="13" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-1"/></svg>Flashcards <span class="b-soon">Soon</span></span>'
+      + '</div></div>';
+  }).join('');
+})();
+</script>
+</body>
+</html>

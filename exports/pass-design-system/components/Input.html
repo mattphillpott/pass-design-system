@@ -1,0 +1,102 @@
+<!-- Input — text / email / search / password / number / date / file
+     Pure HTML + Tailwind. No Flowbite, no JS. -->
+
+<!-- ─── Standard text input (label + help + error wiring) ─── -->
+<label class="block">
+  <span class="block mb-1.5 text-sm font-medium text-fg-2">Email address</span>
+  <input type="email" placeholder="you@example.com"
+    class="block w-full h-[42px] px-4 rounded-lg text-sm text-fg-1 bg-bg-surface
+           border border-border-default placeholder:text-fg-5
+           hover:border-border-strong
+           focus-visible:outline-none focus-visible:border-primary-600 focus-visible:ring-[3px] focus-visible:ring-primary-600/25
+           disabled:opacity-50 disabled:cursor-not-allowed
+           transition-[border-color,box-shadow] duration-150" />
+  <span class="block mt-1.5 text-xs text-fg-4">We'll never share your address.</span>
+</label>
+
+<!-- ─── Sizes — sm / md (default) / lg ─── -->
+<input type="text" placeholder="Small (h-9)"  class="block w-full h-9  px-3 rounded-lg text-sm bg-bg-surface border border-border-default placeholder:text-fg-5 focus-visible:border-primary-600 focus-visible:ring-[3px] focus-visible:ring-primary-600/25"/>
+<input type="text" placeholder="Medium (h-[42px])" class="block w-full h-[42px] px-4 rounded-lg text-sm bg-bg-surface border border-border-default placeholder:text-fg-5 focus-visible:border-primary-600 focus-visible:ring-[3px] focus-visible:ring-primary-600/25"/>
+<input type="text" placeholder="Large (h-12)" class="block w-full h-12 px-4 rounded-lg text-base bg-bg-surface border border-border-default placeholder:text-fg-5 focus-visible:border-primary-600 focus-visible:ring-[3px] focus-visible:ring-primary-600/25"/>
+
+<!-- ─── With leading icon (search) ─── -->
+<div class="relative">
+  <svg class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-fg-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
+  </svg>
+  <input type="search" placeholder="Search learners"
+    class="block w-full h-[42px] pl-10 pr-4 rounded-lg text-sm bg-bg-surface border border-border-default placeholder:text-fg-5
+           focus-visible:outline-none focus-visible:border-primary-600 focus-visible:ring-[3px] focus-visible:ring-primary-600/25"/>
+</div>
+
+<!-- ─── With trailing icon (clear) ─── -->
+<div class="relative">
+  <input type="text" value="Jane Doe"
+    class="block w-full h-[42px] pl-4 pr-10 rounded-lg text-sm bg-bg-surface border border-border-default
+           focus-visible:outline-none focus-visible:border-primary-600 focus-visible:ring-[3px] focus-visible:ring-primary-600/25"/>
+  <button type="button" aria-label="Clear" class="absolute right-2.5 top-1/2 -translate-y-1/2 inline-flex w-6 h-6 items-center justify-center rounded text-fg-4 hover:bg-bg-raised hover:text-fg-1">
+    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg>
+  </button>
+</div>
+
+<!-- ─── Prefix / suffix add-ons (URL, currency) ─── -->
+<div class="flex">
+  <span class="inline-flex items-center px-3 h-[42px] rounded-l-lg border border-r-0 border-border-default bg-bg-raised text-sm text-fg-3">https://</span>
+  <input type="text" placeholder="pass.tech"
+    class="flex-1 h-[42px] px-3 rounded-r-lg text-sm bg-bg-surface border border-border-default
+           focus-visible:outline-none focus-visible:border-primary-600 focus-visible:ring-[3px] focus-visible:ring-primary-600/25 focus-visible:relative focus-visible:z-10"/>
+</div>
+
+<div class="flex">
+  <input type="number" placeholder="0.00"
+    class="flex-1 h-[42px] px-3 rounded-l-lg text-sm bg-bg-surface border border-border-default
+           focus-visible:outline-none focus-visible:border-primary-600 focus-visible:ring-[3px] focus-visible:ring-primary-600/25 focus-visible:relative focus-visible:z-10"/>
+  <span class="inline-flex items-center px-3 h-[42px] rounded-r-lg border border-l-0 border-border-default bg-bg-raised text-sm text-fg-3">GBP</span>
+</div>
+
+<!-- ─── Error state ─── -->
+<label class="block">
+  <span class="block mb-1.5 text-sm font-medium text-fg-2">Email address</span>
+  <input type="email" value="not-an-email" aria-invalid="true" aria-describedby="email-err"
+    class="block w-full h-[42px] px-4 rounded-lg text-sm bg-bg-surface text-fg-1
+           border border-danger-600
+           focus-visible:outline-none focus-visible:border-danger-600 focus-visible:ring-[3px] focus-visible:ring-danger-600/25"/>
+  <span id="email-err" class="block mt-1.5 text-xs text-danger-700">Enter a valid email address.</span>
+</label>
+
+<!-- ─── Success state ─── -->
+<div class="relative">
+  <input type="text" value="centre-001-pass"
+    class="block w-full h-[42px] pl-4 pr-10 rounded-lg text-sm bg-bg-surface text-fg-1 border border-success-600
+           focus-visible:outline-none focus-visible:border-success-600 focus-visible:ring-[3px] focus-visible:ring-success-600/25"/>
+  <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-success-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>
+</div>
+
+<!-- ─── Disabled / readonly ─── -->
+<input type="text" disabled value="Locked"
+  class="block w-full h-[42px] px-4 rounded-lg text-sm bg-bg-raised text-fg-4 border border-border-default cursor-not-allowed"/>
+
+<input type="text" readonly value="Read-only value"
+  class="block w-full h-[42px] px-4 rounded-lg text-sm bg-bg-sunken text-fg-2 border border-border-default focus-visible:ring-[3px] focus-visible:ring-primary-600/25"/>
+
+<!-- ─── File input ─── -->
+<label class="block">
+  <span class="block mb-1.5 text-sm font-medium text-fg-2">Upload assignment</span>
+  <input type="file"
+    class="block w-full text-sm text-fg-3
+           file:mr-3 file:py-2 file:px-4 file:rounded-md file:border file:border-border-default
+           file:bg-bg-surface file:text-fg-1 file:text-sm file:font-medium
+           hover:file:bg-bg-raised cursor-pointer
+           focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-primary-600/25 rounded-lg"/>
+</label>
+
+<!-- ─── File dropzone (drag target) ─── -->
+<label class="block">
+  <input type="file" class="sr-only" />
+  <div class="flex flex-col items-center justify-center gap-2 px-6 py-10 rounded-lg border-2 border-dashed border-border-strong bg-bg-sunken text-center cursor-pointer
+              hover:bg-bg-raised hover:border-primary-600 transition-colors duration-150">
+    <svg class="w-8 h-8 text-fg-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 4v12m0-12-4 4m4-4 4 4M4 20h16"/></svg>
+    <div class="text-sm text-fg-2"><span class="font-medium text-primary-700">Click to upload</span> or drag and drop</div>
+    <div class="text-xs text-fg-4">PDF, DOCX up to 10 MB</div>
+  </div>
+</label>

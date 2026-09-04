@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!-- @dsCard group="UI Kit — Learning Portal" name="Course Dashboard Redesign" subtitle="Two directions — safe refresh + bold, gamified" viewport="1440x900" -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pass — Course Dashboard Redesign</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<style>
+  html, body { margin: 0; height: 100%; background: #F3F4F6; }
+  body { font-family: 'Inter', system-ui, sans-serif; }
+  /* Each artboard is a fixed-size frame; CourseDash* fills it. */
+  .frame { width: 1440px; height: 900px; background: #fff; overflow: hidden; }
+  .sidebar-frame { height: 1240px; background: #F9FAFB; overflow: hidden; display: flex; }
+  .sidebar-frame > aside { height: 1240px !important; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="CourseSidebar.jsx"></script>
+<script type="text/babel" src="CourseDashA.jsx"></script>
+<script type="text/babel" src="CourseDashB.jsx"></script>
+<script type="text/babel" src="SidebarVariants.jsx"></script>
+
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "density": "cosy"
+}/*EDITMODE-END*/;
+
+function App() {
+  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  return (
+    <>
+      <DesignCanvas title="Course Dashboard — Redesign Explorations" subtitle="Functional Skills English L2 · Two directions: a safe refresh and a bolder, gamified take.">
+        <DCSection id="redesign" title="Course dashboard">
+          <DCArtboard id="A" label="A · Safe refresh — same modules, warmer hierarchy" width={1440} height={900}>
+            <div className="frame"><CourseDashA density={tweaks.density}/></div>
+          </DCArtboard>
+          <DCArtboard id="B" label="B · Bold — focused, gamified, AI-coached" width={1440} height={900}>
+            <div className="frame"><CourseDashB density={tweaks.density}/></div>
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection id="sidebar" title="Sidebar — progress explorations" subtitle="Same nine units; five different ways of communicating where you are top→bottom. Only the active unit (Reading) shows its topics inline.">
+          <DCArtboard id="S1" label="1 · Timeline — safe refresh, connected dots" width={340} height={1240}>
+            <div className="sidebar-frame"><SidebarTimeline/></div>
+          </DCArtboard>
+          <DCArtboard id="S2" label="2 · Spine — single continuous fill bar" width={340} height={1240}>
+            <div className="sidebar-frame"><SidebarSpine/></div>
+          </DCArtboard>
+          <DCArtboard id="S3" label="3 · Stepper — current step blooms into a card" width={360} height={1240}>
+            <div className="sidebar-frame"><SidebarStepper/></div>
+          </DCArtboard>
+          <DCArtboard id="S4" label="4 · Stacked bars — every unit has its own bar" width={360} height={1240}>
+            <div className="sidebar-frame"><SidebarBars/></div>
+          </DCArtboard>
+          <DCArtboard id="S5" label="5 · Map — gentle path metaphor, You're Here pin" width={400} height={1240}>
+            <div className="sidebar-frame"><SidebarMap/></div>
+          </DCArtboard>
+        </DCSection>
+      </DesignCanvas>
+
+      <TweaksPanel title="Tweaks">
+        <TweakSection title="Layout">
+          <TweakRadio
+            label="Density"
+            value={tweaks.density}
+            options={[{value: 'cosy', label: 'Cosy'}, {value: 'compact', label: 'Compact'}]}
+            onChange={v => setTweak('density', v)}
+          />
+        </TweakSection>
+      </TweaksPanel>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

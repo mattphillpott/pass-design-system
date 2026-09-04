@@ -1,0 +1,55 @@
+<!-- Card — borders over shadows. Shadow only on hover / floating.
+     Canonical recipe: bg-bg-surface · border · rounded-lg · p-6 -->
+
+<!-- ─── Static card ─── -->
+<div class="rounded-lg border border-border-default bg-bg-surface p-6">
+  <h3 class="text-lg font-semibold text-fg-1">Mock exam — Maths L2</h3>
+  <p class="mt-1 text-sm text-fg-3">Marked to examiner standard within 24 hours.</p>
+</div>
+
+<!-- ─── Hover-lift card ─── -->
+<a href="#" class="block rounded-lg border border-border-default bg-bg-surface p-6
+                  hover:shadow-md hover:border-border-strong
+                  focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-primary-600/25
+                  transition-[box-shadow,border-color,transform] duration-200">
+  <h3 class="text-lg font-semibold text-fg-1">View case study</h3>
+  <p class="mt-1 text-sm text-fg-3">Educationwise: 90% of learners ahead of target.</p>
+  <span class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary-700">Read more <span aria-hidden="true">→</span></span>
+</a>
+
+<!-- ─── Card with header / body / footer ─── -->
+<div class="rounded-lg border border-border-default bg-bg-surface overflow-hidden">
+  <div class="px-6 py-4 border-b border-border-default flex items-center justify-between">
+    <h3 class="text-base font-semibold text-fg-1">Recent learners</h3>
+    <button type="button" class="text-sm font-medium text-primary-700 hover:underline">View all</button>
+  </div>
+  <div class="px-6 py-4 text-sm text-fg-2">
+    <!-- list / table goes here -->
+    Card body content
+  </div>
+  <div class="px-6 py-3 bg-bg-sunken border-t border-border-default flex items-center justify-end gap-2">
+    <button type="button" class="h-9 px-3 rounded-md text-sm font-medium text-fg-2 hover:bg-bg-raised">Cancel</button>
+    <button type="button" class="h-9 px-4 rounded-md text-sm font-medium bg-primary-600 text-white hover:bg-primary-700">Save</button>
+  </div>
+</div>
+
+<!-- ─── Stat card ─── -->
+<div class="rounded-lg border border-border-default bg-bg-surface p-6">
+  <div class="text-sm font-medium text-fg-4 uppercase tracking-wider">Pass rate</div>
+  <div class="mt-2 flex items-baseline gap-2">
+    <span class="text-4xl font-extrabold text-fg-1 tracking-tight">87%</span>
+    <span class="text-sm font-medium text-success-700 inline-flex items-center gap-0.5">
+      <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 5l8 9H4z"/></svg>
+      4.2%
+    </span>
+  </div>
+  <div class="mt-1 text-xs text-fg-4">vs last cohort</div>
+</div>
+
+<!-- ─── Empty state ─── -->
+<div class="rounded-lg border border-dashed border-border-strong bg-bg-sunken p-10 text-center">
+  <svg class="w-10 h-10 mx-auto text-fg-4" fill="none" stroke="currentColor" stroke-width="1.25" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 10h16M10 4v16"/></svg>
+  <h4 class="mt-3 text-base font-semibold text-fg-1">No mocks assigned</h4>
+  <p class="mt-1 text-sm text-fg-3">Assign a mock exam to start tracking learner progress.</p>
+  <button type="button" class="mt-4 inline-flex items-center h-9 px-4 rounded-md text-sm font-medium bg-primary-600 text-white hover:bg-primary-700">Assign mock</button>
+</div>

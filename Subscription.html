@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="pass-revise">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plans & pricing — Pass Revise</title>
+<meta name="description" content="One Pass Revise subscription unlocks Smart Mark, every revision note, exam question and past paper across all your subjects. Start free.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="site.css">
+<style>
+  .price-hero{padding:56px 0 24px;text-align:center}
+  .price-hero h1{font-size:clamp(34px,4.4vw,50px);font-weight:800}
+  .price-hero p{margin:16px auto 0;color:var(--fg-3);font-size:18px;max-width:46ch}
+
+  /* billing toggle */
+  .billing{display:flex;justify-content:center;margin:28px 0 8px}
+  .seg{display:inline-flex;background:var(--bg-raised);border:1px solid var(--border-default);border-radius:var(--radius-full);padding:4px;gap:4px}
+  .seg button{height:40px;padding:0 20px;border:none;background:transparent;color:var(--fg-2);font-weight:600;font-size:14.5px;border-radius:var(--radius-full);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+  .seg button.on{background:var(--bg-surface);color:var(--fg-1);box-shadow:var(--shadow-sm)}
+  .seg .save{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--success-fg);background:var(--success-bg);padding:2px 8px;border-radius:var(--radius-full)}
+
+  /* plans */
+  .plans{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:860px;margin:32px auto 0}
+  .plan{position:relative;background:var(--bg-surface);border:1px solid var(--border-default);border-radius:var(--radius-2xl);padding:30px}
+  .plan.pop{border-color:var(--primary);box-shadow:0 0 0 1px var(--primary),var(--shadow-lg)}
+  .plan .pop-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:5px 14px;border-radius:var(--radius-full)}
+  .plan h3{font-size:20px;font-weight:700}
+  .plan .tagline{color:var(--fg-4);font-size:14px;margin-top:4px;min-height:20px}
+  .plan .amt{display:flex;align-items:baseline;gap:6px;margin:20px 0 4px}
+  .plan .amt b{font-size:44px;font-weight:800;letter-spacing:-.03em}
+  .plan .amt span{color:var(--fg-4);font-size:15px;font-weight:600}
+  .plan .billed{color:var(--fg-4);font-size:13px;min-height:18px}
+  .plan .btn{width:100%;margin:22px 0 20px}
+  .plan ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px}
+  .plan li{display:flex;gap:10px;font-size:14.5px;color:var(--fg-2)}
+  .plan li svg{width:19px;height:19px;flex:none;margin-top:1px}
+  .plan li.yes svg{color:var(--success)}
+  .plan li.no{color:var(--fg-5)}
+  .plan li.no svg{color:var(--fg-5)}
+
+  .reassure{max-width:860px;margin:22px auto 0;display:flex;justify-content:center;gap:26px;flex-wrap:wrap;color:var(--fg-4);font-size:13.5px}
+  .reassure span{display:inline-flex;align-items:center;gap:7px}
+  .reassure svg{width:16px;height:16px;color:var(--success)}
+
+  /* modal */
+  .scrim{position:fixed;inset:0;z-index:120;background:color-mix(in srgb,#0b0d12 62%,transparent);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:20px}
+  .scrim.show{display:flex}
+  .modal{width:min(760px,100%);max-height:92vh;overflow:auto;background:var(--bg-page);border:1px solid var(--border-default);border-radius:var(--radius-2xl);box-shadow:var(--shadow-xl)}
+  .modal-hd{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border-default);position:sticky;top:0;background:var(--bg-page);z-index:2}
+  .modal-hd h2{font-size:18px;font-weight:700}
+  .checkout{display:grid;grid-template-columns:1fr .9fr;gap:0}
+  .co-form{padding:24px}
+  .co-summary{padding:24px;background:var(--bg-page-alt);border-left:1px solid var(--border-default)}
+  .co-summary h3{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--fg-4);margin-bottom:14px}
+  .sum-row{display:flex;justify-content:space-between;font-size:15px;padding:7px 0;color:var(--fg-2)}
+  .sum-row.total{border-top:1px solid var(--border-default);margin-top:10px;padding-top:14px;font-weight:800;color:var(--fg-1);font-size:18px}
+  .sum-feat{margin-top:18px;list-style:none;padding:0;display:flex;flex-direction:column;gap:9px}
+  .sum-feat li{display:flex;gap:9px;font-size:13.5px;color:var(--fg-3)}
+  .sum-feat svg{width:16px;height:16px;color:var(--success);flex:none}
+  .flabel{display:block;font-size:13px;font-weight:600;color:var(--fg-2);margin:14px 0 6px}
+  .finput{width:100%;height:46px;padding:0 14px;border:1px solid var(--border-strong);border-radius:var(--radius-lg);background:var(--bg-surface);color:var(--fg-1);font-size:15px;font-family:inherit}
+  .finput:focus{outline:none;border-color:var(--primary);box-shadow:var(--shadow-focus)}
+  .frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .card-row{position:relative}
+  .card-row .brands{position:absolute;right:12px;top:50%;transform:translateY(-50%);display:flex;gap:5px;color:var(--fg-4);font-size:11px;font-weight:700}
+  .testcard{margin-top:18px;padding:14px;border:1px dashed var(--border-strong);border-radius:var(--radius-lg);background:var(--bg-page-alt)}
+  .testcard .tt{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--fg-4);margin-bottom:8px;display:flex;align-items:center;gap:7px}
+  .testcard .seg{width:100%;display:flex}
+  .testcard .seg button{flex:1;justify-content:center}
+  .pay-note{display:flex;align-items:flex-start;gap:8px;margin-top:16px;font-size:12.5px;color:var(--fg-4)}
+  .pay-note svg{width:15px;height:15px;flex:none;margin-top:1px}
+
+  /* processing / result panels */
+  .panel{padding:48px 32px;text-align:center;display:none}
+  .panel.show{display:block}
+  .spinner{width:52px;height:52px;border:4px solid var(--border-default);border-top-color:var(--primary);border-radius:50%;margin:0 auto 22px;animation:spin 1s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .result-ic{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;margin:0 auto 20px}
+  .result-ic svg{width:40px;height:40px}
+  .ic-ok{background:var(--success-bg);color:var(--success)}
+  .ic-bad{background:var(--color-danger-bg,#2A0F16);color:var(--color-danger,#FB5C7D)}
+  .panel h2{font-size:26px;font-weight:800}
+  .panel p{margin:12px auto 0;color:var(--fg-3);font-size:16px;max-width:42ch}
+  .panel .btn{margin-top:24px}
+  .panel .btnrow{display:flex;gap:12px;justify-content:center;margin-top:24px;flex-wrap:wrap}
+
+  /* unlock-in-place reveal */
+  .unlock-demo{max-width:420px;margin:28px auto 0;text-align:left;border:1px solid var(--border-default);border-radius:var(--radius-xl);background:var(--bg-surface);padding:18px;position:relative;overflow:hidden}
+  .ud-badge{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:4px 10px;border-radius:var(--radius-full);background:var(--accent-bg);color:var(--accent-fg);margin-bottom:12px}
+  .ud-badge.done{background:var(--success-bg);color:var(--success-fg)}
+  .ud-line{height:11px;border-radius:6px;background:var(--bg-raised);margin:9px 0}
+  .ud-locked .ud-line{filter:blur(3px);opacity:.6}
+  .ud-real{font-size:14.5px;color:var(--fg-2);line-height:1.6}
+  .ud-real{display:none}
+  .unlock-demo.revealed .ud-locked{display:none}
+  .unlock-demo.revealed .ud-real{display:block;animation:rise .5s ease both}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  .icon-btn.close svg{width:18px;height:18px}
+  @media (max-width:760px){ .plans{grid-template-columns:1fr;max-width:440px} .checkout{grid-template-columns:1fr} .co-summary{border-left:none;border-top:1px solid var(--border-default)} }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<script>window.SITE = { active:'pricing', authed:false };</script>
+
+<main id="main">
+  <section class="price-hero wrap">
+    <span class="eyebrow">Pricing</span>
+    <h1 style="margin-top:14px">One subscription. Every subject.</h1>
+    <p>Start free and upgrade when you’re ready. Premium unlocks Smart Mark and every note, question and past paper across all your courses.</p>
+    <div class="billing">
+      <div class="seg" id="billing" role="tablist" aria-label="Billing period">
+        <button class="on" data-bill="monthly" role="tab" aria-selected="true">Monthly</button>
+        <button data-bill="annual" role="tab" aria-selected="false">Annual <span class="save">Best value</span></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" style="padding-bottom:8px">
+    <div class="plans">
+      <div class="plan">
+        <h3>Free</h3>
+        <p class="tagline">Everything you need to get going.</p>
+        <div class="amt"><b>Free</b></div>
+        <p class="billed">No card required</p>
+        <a class="btn btn-outline" href="auth/Auth.html">Start free</a>
+        <ul>
+          <li class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Read a wide range of revision notes</li>
+          <li class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Attempt free exam questions</li>
+          <li class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Self-mark against the mark scheme</li>
+          <li class="no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>Smart Mark instant feedback</li>
+          <li class="no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>Full note & past-paper library</li>
+        </ul>
+      </div>
+      <div class="plan pop">
+        <span class="pop-badge">Most popular</span>
+        <h3>Premium</h3>
+        <p class="tagline">The full Pass Revise, unlocked.</p>
+        <div class="amt"><b id="premAmt">{price}</b><span id="premPer">/month</span></div>
+        <p class="billed" id="premBilled">Billed monthly · cancel anytime</p>
+        <button class="btn btn-primary" id="goPremium">Go Premium</button>
+        <ul>
+          <li class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><b style="color:var(--fg-1)">Smart Mark</b>&nbsp;— instant marking on written answers</li>
+          <li class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Every revision note, across all subjects</li>
+          <li class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Unlimited exam questions</li>
+          <li class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>All past papers & mark schemes, downloadable</li>
+          <li class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Progress tracking across every course</li>
+        </ul>
+      </div>
+    </div>
+    <div class="reassure">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Cancel anytime</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Prices shown at checkout</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Parent/guardian purchase supported</span>
+    </div>
+  </section>
+
+  <section class="blk">
+    <div class="wrap">
+      <div class="sec-head"><span class="eyebrow">FAQ</span><h2>Billing questions</h2></div>
+      <div style="max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:10px">
+        <details class="qa" open style="border:1px solid var(--border-default);border-radius:var(--radius-lg);background:var(--bg-surface)"><summary style="list-style:none;cursor:pointer;padding:18px 20px;font-weight:600;font-size:16px;display:flex;justify-content:space-between;gap:16px">Can a parent or guardian pay?<span>+</span></summary><div style="padding:0 20px 18px;color:var(--fg-3);font-size:15px">Yes. The subscription can be purchased and managed by a parent or guardian on the student’s account.</div></details>
+        <details class="qa" style="border:1px solid var(--border-default);border-radius:var(--radius-lg);background:var(--bg-surface)"><summary style="list-style:none;cursor:pointer;padding:18px 20px;font-weight:600;font-size:16px;display:flex;justify-content:space-between;gap:16px">Can I cancel?<span>+</span></summary><div style="padding:0 20px 18px;color:var(--fg-3);font-size:15px">Yes — cancel anytime from your account. You keep Premium until the end of the period you’ve paid for.</div></details>
+        <details class="qa" style="border:1px solid var(--border-default);border-radius:var(--radius-lg);background:var(--bg-surface)"><summary style="list-style:none;cursor:pointer;padding:18px 20px;font-weight:600;font-size:16px;display:flex;justify-content:space-between;gap:16px">What happens to my free progress?<span>+</span></summary><div style="padding:0 20px 18px;color:var(--fg-3);font-size:15px">Nothing is lost. Everything you’ve read, attempted and saved stays exactly where it was — Premium simply unlocks the rest in place.</div></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- CHECKOUT MODAL -->
+<div class="scrim" id="checkoutScrim" role="dialog" aria-modal="true" aria-label="Checkout">
+  <div class="modal">
+    <div class="modal-hd">
+      <h2 id="coTitle">Complete your subscription</h2>
+      <button class="icon-btn close" id="coClose" aria-label="Close checkout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+
+    <!-- form -->
+    <div class="checkout" id="coForm">
+      <div class="co-form">
+        <label class="flabel" for="coName">Name on card</label>
+        <input class="finput" id="coName" value="A. Okafor" autocomplete="cc-name">
+        <label class="flabel" for="coCard">Card number</label>
+        <div class="card-row"><input class="finput" id="coCard" inputmode="numeric" placeholder="1234 1234 1234 1234" value="4242 4242 4242 4242"><span class="brands">VISA</span></div>
+        <div class="frow">
+          <div><label class="flabel" for="coExp">Expiry</label><input class="finput" id="coExp" placeholder="MM / YY" value="09 / 28"></div>
+          <div><label class="flabel" for="coCvc">CVC</label><input class="finput" id="coCvc" inputmode="numeric" placeholder="123" value="123"></div>
+        </div>
+        <div class="testcard">
+          <div class="tt"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>Demo — choose a test outcome</div>
+          <div class="seg" id="testOutcome">
+            <button class="on" data-outcome="ok">Successful card</button>
+            <button data-outcome="fail">Declined card</button>
+          </div>
+        </div>
+        <div class="pay-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Payments are encrypted. This is a design prototype — no real card is charged.</div>
+        <button class="btn btn-primary btn-block btn-lg" id="payBtn" style="margin-top:18px">Pay <span id="payAmt">{price}</span> & unlock</button>
+      </div>
+      <div class="co-summary">
+        <h3>Order summary</h3>
+        <div class="sum-row"><span>Pass Revise Premium</span><span id="sumPlan">Monthly</span></div>
+        <div class="sum-row"><span id="sumPerLabel">Per month</span><span id="sumPrice">{price}</span></div>
+        <div class="sum-row total"><span>Due today</span><span id="sumTotal">{price}</span></div>
+        <ul class="sum-feat">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Smart Mark on every question</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>All notes, questions & past papers</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Every subject you study</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- processing -->
+    <div class="panel" id="coProcessing">
+      <div class="spinner"></div>
+      <h2>Confirming your payment…</h2>
+      <p>Hold tight — this only takes a moment.</p>
+    </div>
+
+    <!-- success -->
+    <div class="panel" id="coSuccess">
+      <div class="result-ic ic-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <h2>You’re Premium 🎉</h2>
+      <p>Everything is unlocked — right where you left it. Watch a locked resource open in place:</p>
+      <div class="unlock-demo" id="unlockDemo">
+        <span class="ud-badge" id="udBadge"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Premium · locked</span>
+        <div class="ud-locked"><div class="ud-line" style="width:92%"></div><div class="ud-line" style="width:84%"></div><div class="ud-line" style="width:70%"></div></div>
+        <div class="ud-real">Concentrated sodium chloride solution (brine) is electrolysed industrially to produce chlorine at the anode, hydrogen at the cathode, and sodium hydroxide in solution — the chlor-alkali process.</div>
+      </div>
+      <div class="btnrow">
+        <a class="btn btn-primary btn-lg" href="dashboard/Dashboard.html">Start revising</a>
+        <a class="btn btn-outline" href="exam-question/Exam Question.html">Back to my question</a>
+      </div>
+    </div>
+
+    <!-- failure -->
+    <div class="panel" id="coFailure">
+      <div class="result-ic ic-bad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></div>
+      <h2>Payment declined</h2>
+      <p>Your card was declined and you have not been charged. You can try again or use a different card — your place is saved.</p>
+      <div class="btnrow">
+        <button class="btn btn-primary btn-lg" id="retryBtn">Try again</button>
+        <a class="btn btn-outline" href="#" id="failClose">Not now</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="site.js"></script>
+<script>
+(function(){
+  var bill='monthly';
+  var billing=document.getElementById('billing');
+  function applyBill(){
+    var monthly = bill==='monthly';
+    document.getElementById('premPer').textContent='/month';
+    document.getElementById('premAmt').textContent = monthly ? '{price}' : '{price_annual}';
+    document.getElementById('premBilled').textContent = monthly ? 'Billed monthly · cancel anytime' : 'Billed annually · cancel anytime';
+    document.getElementById('sumPlan').textContent = monthly ? 'Monthly' : 'Annual';
+    document.getElementById('sumPerLabel').textContent = monthly ? 'Per month' : 'Per year';
+    document.getElementById('sumPrice').textContent = monthly ? '{price}' : '{price_annual_total}';
+    document.getElementById('sumTotal').textContent = monthly ? '{price}' : '{price_annual_total}';
+    document.getElementById('payAmt').textContent = monthly ? '{price}' : '{price_annual_total}';
+  }
+  billing.addEventListener('click', function(e){
+    var b=e.target.closest('[data-bill]'); if(!b) return;
+    bill=b.getAttribute('data-bill');
+    [].forEach.call(billing.children,function(c){ var on=c===b; c.classList.toggle('on',on); c.setAttribute('aria-selected',on?'true':'false'); });
+    applyBill();
+  });
+  applyBill();
+
+  /* checkout flow */
+  var scrim=document.getElementById('checkoutScrim');
+  var panes={ form:document.getElementById('coForm'), proc:document.getElementById('coProcessing'), ok:document.getElementById('coSuccess'), fail:document.getElementById('coFailure') };
+  var title=document.getElementById('coTitle');
+  var outcome='ok';
+  function showPane(k){
+    panes.form.style.display = k==='form' ? 'grid' : 'none';
+    ['proc','ok','fail'].forEach(function(p){ panes[p].classList.toggle('show', p===k); });
+    title.textContent = k==='ok' ? 'Welcome to Premium' : k==='fail' ? 'Payment problem' : 'Complete your subscription';
+  }
+  function openCheckout(){ showPane('form'); scrim.classList.add('show'); document.body.style.overflow='hidden'; }
+  function closeCheckout(){ scrim.classList.remove('show'); document.body.style.overflow=''; document.getElementById('unlockDemo').classList.remove('revealed'); resetBadge(); }
+  document.getElementById('goPremium').addEventListener('click', openCheckout);
+  document.getElementById('coClose').addEventListener('click', closeCheckout);
+  scrim.addEventListener('click', function(e){ if(e.target===scrim) closeCheckout(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && scrim.classList.contains('show')) closeCheckout(); });
+
+  var to=document.getElementById('testOutcome');
+  to.addEventListener('click', function(e){ var b=e.target.closest('[data-outcome]'); if(!b) return; outcome=b.getAttribute('data-outcome'); [].forEach.call(to.children,function(c){c.classList.toggle('on',c===b);}); });
+
+  function resetBadge(){ var bd=document.getElementById('udBadge'); bd.classList.remove('done'); bd.innerHTML='<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Premium · locked'; }
+  function runReveal(){
+    var demo=document.getElementById('unlockDemo'); var bd=document.getElementById('udBadge');
+    setTimeout(function(){ demo.classList.add('revealed'); bd.classList.add('done'); bd.innerHTML='<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Unlocked'; }, 500);
+  }
+  document.getElementById('payBtn').addEventListener('click', function(){
+    showPane('proc');
+    setTimeout(function(){
+      if(outcome==='ok'){ showPane('ok'); runReveal(); }
+      else { showPane('fail'); }
+    }, 1400);
+  });
+  document.getElementById('retryBtn').addEventListener('click', function(){ showPane('form'); });
+  document.getElementById('failClose').addEventListener('click', function(e){ e.preventDefault(); closeCheckout(); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,365 @@
+/* ============================================================================
+   PFS — C8-A variation stylesheet
+   Paste into your A/B tool's CSS box. Everything is scoped to html.pfs-v2,
+   so the variation is a single class away from off.
+
+   Add the class SYNCHRONOUSLY in the tool's head snippet, before first paint:
+     document.documentElement.classList.add('pfs-v2');
+   Doing it later causes a visible reflow (the "flicker" the tools warn about).
+
+   SELECTOR PROVENANCE — every class below is taken from the live templates in
+   MathsMadeEasy/mme-wp, not guessed:
+     mme-core/.../single-product/add-to-cart/composite.php
+       #composite-product-form.composite_form.cart_group.card.shadow.border
+     mme-core/.../single-product/component-single-page.php
+       #component_<id>.row[.open|.toggled|.closed]
+       .component_title_wrapper  .component_inner
+       .component_description_wrapper  .component_selections
+     mme-core/.../single-product/js/options-radio-buttons.php
+       fieldset.component_option_radio_buttons_fieldset
+       ul.component_option_radio_buttons_container
+       li.component_option_radio_button_container
+       div.component_option_radio_button[data-val]
+       .radio_button_input  input.radio_button
+       label.component_option_radio_button_select[.first-of-type|.last-of-type]
+
+   Selectors marked (VERIFY) are WooCommerce/theme defaults I could not confirm
+   from the repo. Check those five against the real DOM before you ship.
+   ============================================================================ */
+
+html.pfs-v2 {
+  --v2-line: #E5E7EB;
+  --v2-fg1: #101828;
+  --v2-fg2: #344054;
+  --v2-fg3: #4A5565;
+  --v2-fg4: #6A7282;
+  --v2-fg5: #98A2B3;
+  --v2-sunk: #F9FAFB;
+  --v2-pri: #0FBC0F;          /* brand green — borders, fills, badges */
+  --v2-pri-dk: #116A12;       /* brand green for TEXT (AA on tint) */
+  --v2-pri-tint: #F0FEEF;
+  --v2-succ-text: #047857;    /* result dates, "in stock" — 5.5:1 on white */
+  --v2-amber: #D97706;        /* the ONE urgency colour */
+  --v2-info-bg: #EEF6FF;
+  --v2-info-bd: #C3DDFD;
+  --v2-info-fg: #1A56DB;
+  --v2-danger: #C70036;
+  --v2-radius: 10px;
+}
+
+/* ---------------------------------------------------------------------------
+   1 · PAGE SHELL — three columns: thumbs+gallery / details / (rail is in §3)
+   (VERIFY) div.product and .woocommerce-product-gallery / .summary are Woo
+   defaults; your theme may wrap them differently.
+   --------------------------------------------------------------------------- */
+html.pfs-v2 div.product {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 28px 44px;
+  align-items: start;
+  max-width: 1470px;
+  margin-inline: auto;
+}
+html.pfs-v2 .woocommerce-product-gallery { grid-column: 1; position: sticky; top: 24px; }
+html.pfs-v2 .summary.entry-summary { grid-column: 2; margin: 0; }
+
+/* Imagery demoted. The gallery was ~40% of the first screen; the buying
+   decision is not made by looking at stock photography. */
+html.pfs-v2 .woocommerce-product-gallery__wrapper img { border-radius: 8px; }
+html.pfs-v2 .flex-control-thumbs,
+html.pfs-v2 .woocommerce-product-gallery .flex-control-nav {
+  display: grid !important;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+  margin-top: 10px;
+}
+html.pfs-v2 .flex-control-thumbs img { border-radius: 5px; opacity: .75; }
+html.pfs-v2 .flex-control-thumbs .flex-active { opacity: 1; outline: 2px solid var(--v2-pri); outline-offset: -2px; border-radius: 5px; }
+
+/* ---------------------------------------------------------------------------
+   2 · TITLE, RATING, PRICE
+   --------------------------------------------------------------------------- */
+html.pfs-v2 .product_title {
+  font-size: 26px; font-weight: 600; letter-spacing: -.015em;
+  line-height: 1.25; color: var(--v2-fg1); margin: 0 0 6px;
+}
+html.pfs-v2 .woocommerce-product-rating { margin: 0 0 4px; display: flex; align-items: center; gap: 10px; }
+html.pfs-v2 .woocommerce-product-rating__count,
+html.pfs-v2 .woocommerce-review-link { font-size: 13.5px; text-decoration: none; }
+
+/* The headline price sits in a hairline band, not a coloured slab. */
+html.pfs-v2 .summary > .price {
+  border-top: 1px solid var(--v2-line);
+  border-bottom: 1px solid var(--v2-line);
+  padding: 14px 0; margin: 0 0 18px;
+  display: flex; align-items: flex-end; gap: 10px;
+}
+html.pfs-v2 .summary > .price ins { text-decoration: none; font-size: 34px; font-weight: 700; letter-spacing: -.025em; line-height: 1; color: var(--v2-fg1); }
+html.pfs-v2 .summary > .price del { font-size: 15px; color: var(--v2-fg5); padding-bottom: 6px; }
+
+/* The sale banner image and the duplicate 20% OFF pill both go. One saving
+   statement, in text, next to the price. */
+html.pfs-v2 .pfs-sale-banner,
+html.pfs-v2 .summary .pfs-discount-pill { display: none !important; }
+
+/* ---------------------------------------------------------------------------
+   3 · THE COMPOSITE FORM — steps left, buy rail right
+   The form wraps every component AND (via woocommerce_composite_after_components)
+   the price + add-to-cart block, so the rail can be a grid child. No DOM
+   re-parenting needed — which is what keeps this a low-risk variation.
+   --------------------------------------------------------------------------- */
+html.pfs-v2 #composite-product-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 372px;
+  gap: 0 28px;
+  align-items: start;
+  /* kill the theme's card chrome */
+  background: none; border: 0 !important; box-shadow: none !important;
+  padding: 0; border-radius: 0;
+}
+html.pfs-v2 #composite-product-form > [id^="component_"] { grid-column: 1; }
+
+/* (VERIFY) .composite_wrap is the Woo CP block holding price/availability/
+   button. If yours differs, change this one selector and the rail follows. */
+html.pfs-v2 .composite_wrap {
+  grid-column: 2;
+  grid-row: 1 / span 99;
+  position: sticky; top: 24px;
+  border: 1px solid var(--v2-line);
+  border-radius: 12px;
+  padding: 18px 20px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+}
+
+/* ---------------------------------------------------------------------------
+   4 · STEP HEADINGS
+   --------------------------------------------------------------------------- */
+html.pfs-v2 [id^="component_"].row { display: block; margin: 0 0 18px; }
+html.pfs-v2 .component_title_wrapper {
+  display: block !important; padding: 0; margin: 0 0 3px; text-align: left;
+}
+html.pfs-v2 .component_title {
+  font-size: 13.5px; font-weight: 700; color: var(--v2-fg1);
+  margin: 0; text-transform: none; letter-spacing: 0;
+}
+html.pfs-v2 .component_title .step_index,
+html.pfs-v2 .component_title .step_number {
+  color: var(--v2-fg4); font-weight: 600; margin-right: 6px; background: none; padding: 0;
+}
+html.pfs-v2 .component_description_wrapper,
+html.pfs-v2 .component_description {
+  font-size: 12.5px; color: var(--v2-fg4); line-height: 1.45; margin: 0 0 9px;
+}
+html.pfs-v2 .component_description p { margin: 0; font-size: inherit; color: inherit; }
+
+/* ---------------------------------------------------------------------------
+   5 · THE SELECTION CONTROL — outlined, equal width
+   This is the heart of the variation. The markup already emits a radio per
+   option in a flex row; only the skin changes. Bright #0FBC0F never carries
+   text: selected labels are #116A12 on #F0FEEF (>10:1), not white on green
+   (4.7:1, which fails AA at this size).
+   --------------------------------------------------------------------------- */
+html.pfs-v2 .component_option_radio_buttons_fieldset { border: 0; margin: 0; padding: 0; }
+html.pfs-v2 .component_option_radio_buttons_container {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0; padding: 0; list-style: none;
+}
+html.pfs-v2 .component_option_radio_button_container { margin: 0; padding: 0; float: none !important; width: auto !important; }
+html.pfs-v2 .component_option_radio_button { display: block !important; height: 100%; }
+html.pfs-v2 .radio_button_input { display: block !important; height: 100%; }
+
+/* The real input stays in the accessibility tree, visually hidden. */
+html.pfs-v2 input.radio_button {
+  position: absolute; width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  clip: rect(0 0 0 0); clip-path: inset(50%); overflow: hidden; white-space: nowrap;
+}
+
+html.pfs-v2 label.component_option_radio_button_select {
+  display: flex !important; align-items: center; justify-content: center;
+  height: 100%; margin: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--v2-line);
+  border-radius: var(--v2-radius) !important;   /* overrides rounded-left/right */
+  background: #fff;
+  text-align: center; cursor: pointer;
+  transition: border-color .15s, background-color .15s;
+}
+html.pfs-v2 label.component_option_radio_button_select > span {
+  font-size: 14.5px; font-weight: 500; line-height: 1.3; color: var(--v2-fg2);
+}
+html.pfs-v2 label.component_option_radio_button_select:hover { border-color: #C6CBD2; }
+
+/* SELECTED — outlined, not filled */
+html.pfs-v2 input.radio_button:checked + label.component_option_radio_button_select {
+  border: 2px solid var(--v2-pri);
+  padding: 11px 13px;                            /* keep the box the same size */
+  background: var(--v2-pri-tint);
+}
+html.pfs-v2 input.radio_button:checked + label.component_option_radio_button_select > span {
+  font-weight: 700; color: var(--v2-pri-dk);
+}
+/* Keyboard focus must stay visible — it is the only cue for non-mouse users. */
+html.pfs-v2 input.radio_button:focus-visible + label.component_option_radio_button_select {
+  outline: 2px solid var(--v2-pri); outline-offset: 2px;
+}
+html.pfs-v2 input.radio_button:disabled + label.component_option_radio_button_select {
+  opacity: .45; cursor: not-allowed;
+}
+
+/* Option copy split by JS into title + consequence (see variation.js §3). */
+html.pfs-v2 .pfs-opt-title { display: block; font-size: 14.5px; font-weight: inherit; line-height: 1.3; }
+html.pfs-v2 .pfs-opt-sub {
+  display: block; font-size: 12px; margin-top: 3px; line-height: 1.4;
+  color: var(--v2-fg4); font-weight: 400;
+}
+html.pfs-v2 input.radio_button:checked + label .pfs-opt-sub { color: var(--v2-pri-dk); opacity: .85; }
+
+/* "Most popular" — one badge, reused. */
+html.pfs-v2 .component_option_radio_button_container.pfs-popular { padding-top: 9px; }
+html.pfs-v2 .component_option_radio_button_container.pfs-popular > .component_option_radio_button { position: relative; }
+html.pfs-v2 .pfs-badge {
+  position: absolute; top: -9px; left: 50%; transform: translateX(-50%);
+  background: var(--v2-pri); color: #fff;
+  font-size: 10px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+  padding: 2px 9px; border-radius: 999px; white-space: nowrap; z-index: 2;
+}
+
+/* Step 4 reads as unavailable rather than throwing a validation error. */
+html.pfs-v2 [id^="component_"].pfs-step-locked .component_inner { opacity: .5; pointer-events: none; }
+
+/* ---------------------------------------------------------------------------
+   6 · DATE STEP — calendar behind "Choose date now"
+   --------------------------------------------------------------------------- */
+html.pfs-v2 .pfs-date-toggle {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 0 0 10px;
+}
+html.pfs-v2 .pfs-date-toggle button {
+  border: 1px solid var(--v2-line); border-radius: var(--v2-radius);
+  background: #fff; padding: 12px 14px; cursor: pointer;
+  font: inherit; text-align: center;
+}
+html.pfs-v2 .pfs-date-toggle button[aria-pressed="true"] {
+  border: 2px solid var(--v2-pri); padding: 11px 13px; background: var(--v2-pri-tint);
+}
+html.pfs-v2 .pfs-date-toggle button[aria-pressed="true"] .pfs-opt-title { color: var(--v2-pri-dk); font-weight: 700; }
+html.pfs-v2 .pfs-date-collapsed .pfs-calendar-host { display: none !important; }
+
+/* Calendar gets the full column width — it was the most cramped thing on the
+   page. Colour is removed from the price cells; the cheap/expensive rainbow
+   told the buyer nothing they could act on. */
+html.pfs-v2 .pfs-calendar-host table td,
+html.pfs-v2 .pfs-calendar-host .calendar-day { background-image: none !important; }
+html.pfs-v2 .pfs-calendar-host .calendar-legend { font-size: 11.5px; color: var(--v2-fg4); }
+
+/* ---------------------------------------------------------------------------
+   7 · BUY RAIL CONTENTS
+   --------------------------------------------------------------------------- */
+html.pfs-v2 .composite_price .amount,
+html.pfs-v2 .composite_price ins { font-size: 28px; font-weight: 700; letter-spacing: -.025em; color: var(--v2-fg1); text-decoration: none; }
+html.pfs-v2 .composite_price del { font-size: 14px; color: var(--v2-fg5); }
+
+html.pfs-v2 .pfs-rail-summary {
+  background: var(--v2-sunk); border-radius: 8px; padding: 11px 13px; margin: 14px 0;
+}
+html.pfs-v2 .pfs-rail-summary .pfs-sitting { font-size: 13px; color: var(--v2-fg2); margin: 0 0 3px; }
+html.pfs-v2 .pfs-rail-summary .pfs-sitting b { color: var(--v2-fg1); font-weight: 700; }
+html.pfs-v2 .pfs-rail-summary .pfs-result { font-size: 14px; font-weight: 700; color: var(--v2-succ-text); margin: 0; }
+
+html.pfs-v2 .composite_availability .stock,
+html.pfs-v2 .pfs-instock { font-size: 14.5px; font-weight: 700; color: var(--v2-succ-text); margin: 0 0 3px; }
+
+/* ONE urgency line. The page currently fires five devices at once; scarcity
+   works by contrast, so five simultaneous alarms read as decoration. */
+html.pfs-v2 .pfs-urgency { font-size: 12.5px; font-weight: 600; color: var(--v2-amber); margin: 0 0 14px; }
+html.pfs-v2 .pfs-sale-spaces--duplicate,
+html.pfs-v2 .pfs-countdown--duplicate { display: none !important; }
+
+/* (VERIFY) button class — confirm against the rendered button. */
+html.pfs-v2 .single_add_to_cart_button,
+html.pfs-v2 .composite_add_to_cart_button {
+  width: 100%; height: 46px; border: 0; border-radius: 999px;
+  background: var(--v2-pri); color: #fff;
+  font-size: 15.5px; font-weight: 700; letter-spacing: 0;
+  cursor: pointer; margin: 0 0 9px;
+}
+html.pfs-v2 .single_add_to_cart_button:hover { background: #0F8610; }
+html.pfs-v2 .single_add_to_cart_button:disabled,
+html.pfs-v2 .single_add_to_cart_button.disabled { background: var(--v2-fg5); cursor: not-allowed; }
+
+html.pfs-v2 .pfs-rail-specs { border-top: 1px solid var(--v2-line); padding-top: 8px; }
+html.pfs-v2 .pfs-rail-specs .pfs-spec {
+  display: flex; justify-content: space-between; gap: 12px;
+  font-size: 12.5px; padding: 5px 0; border-bottom: 1px solid var(--v2-line);
+}
+html.pfs-v2 .pfs-rail-specs .pfs-spec:last-child { border-bottom: 0; }
+html.pfs-v2 .pfs-rail-specs dt { color: var(--v2-fg4); margin: 0; }
+html.pfs-v2 .pfs-rail-specs dd { color: var(--v2-fg2); margin: 0; text-align: right; }
+html.pfs-v2 .pfs-rail-specs dd.is-good { color: var(--v2-succ-text); font-weight: 600; }
+
+html.pfs-v2 .pfs-secure {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--v2-line);
+  font-size: 12px; color: var(--v2-fg4);
+}
+
+/* Payment marks: one row at the CTA, where payment anxiety actually happens.
+   The page currently prints them three times. */
+html.pfs-v2 .pfs-pay-marks { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+html.pfs-v2 .pfs-pay-marks img { height: 20px; width: auto; }
+html.pfs-v2 .pfs-payment-block--duplicate { display: none !important; }
+
+/* ---------------------------------------------------------------------------
+   8 · REMOVED SECTIONS
+   Add the real selectors for these; each is a duplicate of something above.
+   --------------------------------------------------------------------------- */
+html.pfs-v2 .pfs-hide { display: none !important; }
+
+/* ---------------------------------------------------------------------------
+   9 · MOBILE — steps stay inline, sticky bar carries the live total
+   --------------------------------------------------------------------------- */
+@media (max-width: 1199px) {
+  html.pfs-v2 div.product { grid-template-columns: minmax(0, 1fr); }
+  html.pfs-v2 .woocommerce-product-gallery { grid-column: 1; position: static; }
+  html.pfs-v2 .summary.entry-summary { grid-column: 1; }
+  html.pfs-v2 #composite-product-form { grid-template-columns: minmax(0, 1fr); }
+  html.pfs-v2 .composite_wrap {
+    grid-column: 1; grid-row: auto; position: static;
+    border: 0; padding: 0; box-shadow: none;
+  }
+  html.pfs-v2 .component_option_radio_buttons_container { grid-template-columns: minmax(0, 1fr); }
+  html.pfs-v2 label.component_option_radio_button_select { justify-content: flex-start; text-align: left; }
+  html.pfs-v2 .pfs-date-toggle { grid-template-columns: minmax(0, 1fr); }
+
+  /* Gallery reduced to a 36px utility row: one thumbnail + the setup video.
+     A hero photo of someone at a laptop answers nothing; the video answers
+     "can I really sit this at home?", which is the top objection. */
+  html.pfs-v2 .woocommerce-product-gallery__wrapper { max-height: 36px; overflow: hidden; }
+  html.pfs-v2 .flex-control-thumbs { grid-template-columns: repeat(7, 1fr); }
+  html.pfs-v2 .pfs-video-cta {
+    display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px;
+    border: 1px solid var(--v2-info-bd); border-radius: 8px; background: var(--v2-info-bg);
+    font-size: 12.5px; font-weight: 600; color: var(--v2-info-fg); text-decoration: none;
+  }
+
+  html.pfs-v2 .pfs-sticky-bar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 999;
+    background: #fff; border-top: 1px solid var(--v2-line);
+    box-shadow: 0 -4px 12px rgba(0,0,0,.06);
+    padding: 10px 16px; box-sizing: border-box;
+  }
+  html.pfs-v2 .pfs-sticky-bar .pfs-sticky-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; }
+  html.pfs-v2 .pfs-sticky-bar .pfs-sticky-price { font-size: 19px; font-weight: 800; letter-spacing: -.02em; color: var(--v2-fg1); line-height: 1.1; }
+  html.pfs-v2 .pfs-sticky-bar .pfs-sticky-sub { font-size: 11px; color: var(--v2-fg4); }
+  html.pfs-v2 .pfs-sticky-bar .pfs-sticky-result { font-size: 12.5px; font-weight: 700; color: var(--v2-succ-text); text-align: right; line-height: 1.2; }
+  html.pfs-v2 .pfs-sticky-bar button { width: 100%; height: 44px; border: 0; border-radius: 999px; background: var(--v2-pri); color: #fff; font: 700 15.5px/1 inherit; cursor: pointer; }
+  html.pfs-v2 .pfs-sticky-bar button:disabled { background: var(--v2-fg5); }
+  html.pfs-v2 body { padding-bottom: 108px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.pfs-v2 label.component_option_radio_button_select { transition: none; }
+}

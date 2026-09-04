@@ -1,0 +1,5 @@
+/* Pass Design System — canonical global stylesheet.
+ * Consumers link this single file; it pulls in the token + type layer.
+ */
+@import url('./colors_and_type.css');
+@import url('./pass-revise-theme.css');

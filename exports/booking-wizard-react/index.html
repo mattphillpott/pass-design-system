@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Brand" name="Pass Booking Wizard — React/JSX export" -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pass — Exam Booking Wizard</title>
+<link rel="stylesheet" href="colors_and_type.css">
+<style>
+  html, body { margin: 0; background: #FAFAF9; font-family: 'Inter', system-ui, sans-serif; color: #101828; }
+  a { color: inherit; text-decoration: none; }
+  *, *:before, *:after { box-sizing: border-box; }
+
+  /* Step transitions */
+  @keyframes wizSlideInR {
+    from { opacity: 0; transform: translateX(28px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes wizSlideInL {
+    from { opacity: 0; transform: translateX(-28px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  .wiz-step-anim { will-change: transform, opacity; }
+
+  button { font-family: inherit; }
+  button:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(15,188,15,0.25); }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    .wiz-main-grid { grid-template-columns: 1fr !important; }
+  }
+  @media (max-width: 900px) {
+    .wiz-grid-2, .wiz-grid-3 { grid-template-columns: 1fr !important; }
+    .wiz-split { grid-template-columns: 1fr !important; }
+    .wiz-checkout-grid { grid-template-columns: 1fr !important; }
+    .wiz-step-label { display: none; }
+    .wiz-secure-pill, .wiz-phone-cta span:first-child + span { display: none; }
+  }
+  @media (max-width: 720px) {
+    .wiz-pageheader { flex-wrap: wrap; gap: 12px !important; padding: 12px 16px !important; }
+    .wiz-secure-pill { display: none; }
+  }
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="PFSIcon.jsx"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="wiz-shared.jsx"></script>
+<script type="text/babel" src="wiz-steps-a.jsx"></script>
+<script type="text/babel" src="wiz-steps-b.jsx"></script>
+<script type="text/babel" src="wiz-app.jsx"></script>
+
+<script type="text/babel">
+const { WizardPage } = window.WIZ_APP;
+
+// Tweakable variant defaults. The Tweaks panel writes back into this block on disk.
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "stepNav": "numbered",
+  "dateLayout": "split",
+  "density": "regular"
+}/*EDITMODE-END*/;
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  return (
+    <>
+      <WizardPage tweaks={{ stepNav: t.stepNav, dateLayout: t.dateLayout, density: t.density }} />
+
+      <TweaksPanel title="Wizard variants">
+        <TweakSection label="Step navigation"/>
+        <TweakRadio label="Style" value={t.stepNav}
+          options={[
+            { value: 'numbered', label: 'Numbered' },
+            { value: 'bar',      label: 'Progress' },
+            { value: 'chips',    label: 'Chips' },
+          ]}
+          onChange={v => setTweak('stepNav', v)} />
+
+        <TweakSection label="Date picker layout"/>
+        <TweakRadio label="Layout" value={t.dateLayout}
+          options={[
+            { value: 'list',    label: 'List' },
+            { value: 'heatmap', label: 'Heat-map' },
+            { value: 'split',   label: 'Split' },
+          ]}
+          onChange={v => setTweak('dateLayout', v)} />
+
+        <TweakSection label="Density"/>
+        <TweakRadio label="Spacing" value={t.density}
+          options={[
+            { value: 'compact', label: 'Compact' },
+            { value: 'regular', label: 'Regular' },
+          ]}
+          onChange={v => setTweak('density', v)} />
+      </TweaksPanel>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('app')).render(<App/>);
+</script>
+</body>
+</html>

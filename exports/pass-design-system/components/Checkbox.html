@@ -1,0 +1,51 @@
+<!-- Checkbox — accessible, no JS. -->
+
+<!-- ─── Default ─── -->
+<label class="inline-flex items-start gap-2.5 cursor-pointer select-none">
+  <input type="checkbox"
+    class="peer mt-0.5 w-4 h-4 rounded-sm border border-border-strong bg-bg-surface
+           text-primary-600 accent-primary-600 cursor-pointer
+           checked:bg-primary-600 checked:border-primary-600
+           focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-primary-600/25
+           disabled:opacity-50 disabled:cursor-not-allowed transition-colors"/>
+  <span class="text-sm text-fg-1">I agree to the <a href="#" class="text-primary-700 hover:underline">terms</a></span>
+</label>
+
+<!-- ─── With help text ─── -->
+<label class="flex items-start gap-2.5 cursor-pointer select-none">
+  <input type="checkbox" checked
+    class="mt-0.5 w-4 h-4 rounded-sm border border-border-strong bg-bg-surface accent-primary-600 cursor-pointer
+           focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-primary-600/25"/>
+  <span class="block">
+    <span class="block text-sm font-medium text-fg-1">Email me monthly progress reports</span>
+    <span class="block text-xs text-fg-4">Sent on the 1st of every month, Ofsted-compliant export attached.</span>
+  </span>
+</label>
+
+<!-- ─── Indeterminate (set via JS: input.indeterminate = true) ─── -->
+<label class="inline-flex items-center gap-2.5">
+  <input type="checkbox" ref="indeterminateRef"
+    class="w-4 h-4 rounded-sm border border-border-strong bg-bg-surface accent-primary-600
+           focus-visible:ring-[3px] focus-visible:ring-primary-600/25
+           indeterminate:bg-primary-600 indeterminate:border-primary-600"/>
+  <span class="text-sm text-fg-2">Select all (5 of 12)</span>
+</label>
+
+<!-- ─── Error ─── -->
+<label class="inline-flex items-start gap-2.5">
+  <input type="checkbox" aria-invalid="true"
+    class="mt-0.5 w-4 h-4 rounded-sm border border-danger-600 bg-bg-surface accent-danger-600
+           focus-visible:ring-[3px] focus-visible:ring-danger-600/25"/>
+  <span class="text-sm text-fg-1">You must accept the terms to continue.</span>
+</label>
+
+<!-- ─── Disabled ─── -->
+<label class="inline-flex items-center gap-2.5 cursor-not-allowed opacity-50">
+  <input type="checkbox" disabled class="w-4 h-4 rounded-sm border border-border-default bg-bg-raised"/>
+  <span class="text-sm text-fg-4">Locked option</span>
+</label>
+
+<!-- ─── Sizes ─── -->
+<input type="checkbox" class="w-3.5 h-3.5 rounded-sm border border-border-strong accent-primary-600"/> <!-- sm -->
+<input type="checkbox" class="w-4   h-4   rounded-sm border border-border-strong accent-primary-600"/> <!-- md -->
+<input type="checkbox" class="w-5   h-5   rounded-sm border border-border-strong accent-primary-600"/> <!-- lg -->

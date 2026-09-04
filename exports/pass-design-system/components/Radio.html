@@ -1,0 +1,62 @@
+<!-- Radio — accessible, grouped via name="…". -->
+
+<fieldset class="flex flex-col gap-3">
+  <legend class="text-sm font-medium text-fg-2 mb-1">Preferred delivery</legend>
+
+  <label class="inline-flex items-start gap-2.5 cursor-pointer">
+    <input type="radio" name="delivery" value="email" checked
+      class="mt-0.5 w-4 h-4 border border-border-strong bg-bg-surface accent-primary-600
+             focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-primary-600/25
+             disabled:opacity-50 disabled:cursor-not-allowed"/>
+    <span class="block">
+      <span class="block text-sm font-medium text-fg-1">Email</span>
+      <span class="block text-xs text-fg-4">Daily digest at 08:00</span>
+    </span>
+  </label>
+
+  <label class="inline-flex items-start gap-2.5 cursor-pointer">
+    <input type="radio" name="delivery" value="sms"
+      class="mt-0.5 w-4 h-4 border border-border-strong bg-bg-surface accent-primary-600
+             focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-primary-600/25"/>
+    <span class="block">
+      <span class="block text-sm font-medium text-fg-1">SMS</span>
+      <span class="block text-xs text-fg-4">For urgent assessment events</span>
+    </span>
+  </label>
+
+  <label class="inline-flex items-start gap-2.5 cursor-not-allowed opacity-50">
+    <input type="radio" name="delivery" value="post" disabled
+      class="mt-0.5 w-4 h-4 border border-border-default bg-bg-raised"/>
+    <span class="text-sm text-fg-4">Post — not available on your plan</span>
+  </label>
+</fieldset>
+
+<!-- ─── Radio cards (large hit area) ─── -->
+<fieldset class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+  <legend class="sr-only">Plan</legend>
+
+  <label class="relative flex flex-col gap-1 rounded-lg border border-border-default bg-bg-surface p-4 cursor-pointer
+                hover:border-border-strong
+                has-[input:checked]:border-primary-600 has-[input:checked]:bg-primary-50/40 has-[input:checked]:ring-[3px] has-[input:checked]:ring-primary-600/15
+                has-[input:focus-visible]:ring-[3px] has-[input:focus-visible]:ring-primary-600/25">
+    <input type="radio" name="plan" value="starter" class="sr-only"/>
+    <span class="text-sm font-semibold text-fg-1">Starter</span>
+    <span class="text-xs text-fg-4">Up to 50 learners</span>
+  </label>
+
+  <label class="relative flex flex-col gap-1 rounded-lg border border-border-default bg-bg-surface p-4 cursor-pointer
+                hover:border-border-strong
+                has-[input:checked]:border-primary-600 has-[input:checked]:bg-primary-50/40 has-[input:checked]:ring-[3px] has-[input:checked]:ring-primary-600/15">
+    <input type="radio" name="plan" value="growth" class="sr-only" checked/>
+    <span class="text-sm font-semibold text-fg-1">Growth</span>
+    <span class="text-xs text-fg-4">Up to 500 learners</span>
+  </label>
+
+  <label class="relative flex flex-col gap-1 rounded-lg border border-border-default bg-bg-surface p-4 cursor-pointer
+                hover:border-border-strong
+                has-[input:checked]:border-primary-600 has-[input:checked]:bg-primary-50/40">
+    <input type="radio" name="plan" value="enterprise" class="sr-only"/>
+    <span class="text-sm font-semibold text-fg-1">Enterprise</span>
+    <span class="text-xs text-fg-4">Unlimited</span>
+  </label>
+</fieldset>
